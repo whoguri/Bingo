@@ -7,9 +7,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.TextView
+import android.widget.Toast
 
-class Adapter(val context_: Context, val list: MutableList<Data>, val call: (Int) -> Unit) :
-    ArrayAdapter<Data>(context_, 0, list) {
+class ListAdapter(val context_: Context, val list: MutableList<Data>, val call :(Int)->Unit) : ArrayAdapter<Data>(context_, 0, list) {
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
         var listitemView = convertView
         if (listitemView == null) {
@@ -19,24 +19,19 @@ class Adapter(val context_: Context, val list: MutableList<Data>, val call: (Int
         val courseTV = listitemView!!.findViewById<TextView>(R.id.num)
         if (position == 12) {
             courseTV.text = "X"
-            listitemView.setOnClickListener {}
-            courseTV.setBackgroundColor(context_.getColor(R.color.black))
-        } else if (courseModel!!.isClicked) {
-            courseTV.text = ""
-            listitemView.setOnClickListener {}
-            courseTV.setBackgroundColor(context_.getColor(R.color.purple))
         } else {
-            courseTV.setBackgroundColor(context_.getColor(R.color.white))
-            if (courseModel.finalValue != -1) {
+            if (courseModel!!.finalValue != -1) {
                 courseTV.text = courseModel.finalValue.toString()
             }
-            listitemView.setOnClickListener {
-                if (courseModel.finalValue == -1) {
-                    call(position)
-                    notifyDataSetChanged()
-                }
-            }
         }
+        listitemView.setOnClickListener {
+            if (courseModel!!.finalValue == -1) {
+                call(position)
+                notifyDataSetChanged()
+            }
+//            Toast.makeText(context, courseModel?.number.toString(), Toast.LENGTH_SHORT).show()
+        }
+        courseTV.text = (position+1).toString()
 
         return listitemView
     }

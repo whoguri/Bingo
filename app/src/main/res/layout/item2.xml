@@ -15,14 +15,14 @@
         android:background="#fff"
         >
         <TextView
+            android:textColor="@color/black"
+            android:background="@color/white"
             android:minHeight="48dp"
             android:id="@+id/num"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center"
             android:textSize="18sp"
-            android:textColor="@color/black"
-            android:background="@color/white"
             android:text="" />
     </LinearLayout>
 </LinearLayout>
