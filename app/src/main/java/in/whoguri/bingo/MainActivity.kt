@@ -1,6 +1,8 @@
 package `in`.whoguri.bingo
 
+import android.content.Intent
 import android.os.Bundle
+import android.widget.Button
 import android.widget.GridView
 import androidx.appcompat.app.AppCompatActivity
 
@@ -13,7 +15,7 @@ class MainActivity : AppCompatActivity() {
             val data = list[it]
             data.isClicked = true
             list[it] = data
-            list[it] = Logic.calculate(list, data, it + 1, start)
+            list = Logic.cal(list, data, it + 1, start)
             start = true
             val temp = ArrayList<Int>()
             list.forEach {
@@ -39,5 +41,10 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         findViewById<GridView>(R.id.grid).adapter = adapter
         findViewById<GridView>(R.id.grid2).adapter = adapter2
+        findViewById<Button>(R.id.restart).setOnClickListener {
+            startActivity(Intent(this, MainActivity::class.java))
+            overridePendingTransition(0,0)
+            finishAffinity()
+        }
     }
 }

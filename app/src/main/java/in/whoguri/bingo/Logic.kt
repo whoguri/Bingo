@@ -29,8 +29,17 @@ object Logic {
         return allData
     }
 
-    fun calculate(list: ArrayList<Data>, data: Data, p: Int, start: Boolean): Data {
-        if (start) {
+    fun cal(list: ArrayList<Data>, data: Data, p: Int, start: Boolean): ArrayList<Data> {
+        var mList = list
+//        for (i in  1..25) {
+        val i =  2
+        mList[i-1] = calculate(list, list[i-1],p)
+//        }
+        return mList
+    }
+
+    fun calculate(list: ArrayList<Data>, data: Data, clicked: Int): Data {
+        if (data.isClicked) {
             var total = 0
 
             data.h.forEach {
@@ -41,9 +50,9 @@ object Logic {
                 if (size > 0) {
                     hn++
                 }
-                if (d.number == p) {
+                if (d.number == clicked) {
                     total += d.selfValue
-                } else if (d.finalValue == -1) {
+                } else if (d.finalValue == -1 ) {
                     total += (d.hideValue * hn)
                 } else {
                     total += d.finalValue

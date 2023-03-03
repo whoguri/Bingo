@@ -11,6 +11,7 @@ import android.widget.TextView
 class Adapter(val context_: Context, val list: MutableList<Data>, val call: (Int) -> Unit) :
     ArrayAdapter<Data>(context_, 0, list) {
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
+        convertView?.tag = position
         var listitemView = convertView
         if (listitemView == null) {
             listitemView = LayoutInflater.from(context_).inflate(R.layout.item, parent, false)

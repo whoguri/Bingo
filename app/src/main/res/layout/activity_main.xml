@@ -11,16 +11,27 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="27"
+        android:orientation="vertical"
+        android:gravity="center"
         android:background="#AC00BC">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Hello World!"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:text="Bingo!"
+            android:textColor="@color/white"
+            android:textSize="32sp"
+            />
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Restart"
+            android:textSize="12sp"
+            android:id="@+id/restart"
+            android:textColor="@color/black"
+            android:backgroundTint="@color/white"
+            />
+
     </LinearLayout>
 
     <LinearLayout
