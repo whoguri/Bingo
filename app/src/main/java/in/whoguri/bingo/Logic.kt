@@ -31,77 +31,76 @@ object Logic {
 
     fun cal(list: ArrayList<Data>, data: Data, p: Int, start: Boolean): ArrayList<Data> {
         var mList = list
-//        for (i in  1..25) {
-        val i =  2
-        mList[i-1] = calculate(list, list[i-1],p)
-//        }
+        for (i in 1..25) {
+            mList[i - 1] = calculate(list, list[i - 1], i)
+        }
         return mList
     }
 
     fun calculate(list: ArrayList<Data>, data: Data, clicked: Int): Data {
-        if (data.isClicked) {
-            var total = 0
+//        if (data.isClicked) {
+        var total = 0
 
-            data.h.forEach {
-                var hn = 1
+        data.h.forEach {
+            var hn = 1
+            val d = list.filter { item -> item.number == it }.first()
+            val all = getAll(d, list)
+            val size = all.filter { item -> item.finalValue > -1 || item.isClicked }.size
+            if (size > 0) {
+                hn++
+            }
+            if (d.isClicked || d.number == clicked) {
+                total += d.selfValue
+            } else if (d.finalValue == -1) {
+                total += (d.hideValue * hn)
+            } else {
+                total += d.finalValue
+            }
+            Log.e(">>>", total.toString())
+        }
+
+        data.v.forEach {
+            var vn = 1
+            val hd = data.h.filter { item -> item == it }.firstOrNull()
+            if (hd == null) {
                 val d = list.filter { item -> item.number == it }.first()
                 val all = getAll(d, list)
-                val size = all.filter { item -> item.finalValue > -1 }.size
+                val size = all.filter { item -> item.finalValue > -1 || item.isClicked }.size
                 if (size > 0) {
-                    hn++
+                    vn++
                 }
-                if (d.number == clicked) {
-                    total += d.selfValue
-                } else if (d.finalValue == -1 ) {
-                    total += (d.hideValue * hn)
+
+                if (d.finalValue == -1) {
+                    total = total + (d.hideValue * vn)
                 } else {
-                    total += d.finalValue
-                }
-                Log.e(">>>", total.toString())
-            }
-
-            data.v.forEach {
-                var vn = 1
-                val hd = data.h.filter { item -> item == it }.firstOrNull()
-                if (hd == null) {
-                    val d = list.filter { item -> item.number == it }.first()
-                    val all = getAll(d, list)
-                    val size = all.filter { item -> item.finalValue > -1 }.size
-                    if (size > 0) {
-                        vn++
-                    }
-
-                    if (d.finalValue == -1) {
-                        total = total + (d.hideValue * vn)
-                    } else {
-                        total = total + d.finalValue
-                    }
+                    total = total + d.finalValue
                 }
             }
-
-            data.d.forEach {
-                val hd = data.h.filter { item -> item == it }.firstOrNull()
-                val vd = data.v.filter { item -> item == it }.firstOrNull()
-                if (hd == null && vd == null) {
-                    val d = list.filter { item -> item.number == it }.first()
-                    var dn = 1
-                    val all = getAll(d, list)
-                    val size = all.filter { item -> item.finalValue > -1 }.size
-                    if (size > 0) {
-                        dn++
-                    }
-                    if (d.finalValue == -1) {
-                        total = total + (d.hideValue * dn)
-                    } else {
-                        total = total + d.finalValue
-                    }
-                }
-                Log.e(">>>", total.toString())
-            }
-            data.finalValue = total
-        } else {
-            data.finalValue = data.selfValue
         }
+
+        data.d.forEach {
+            val hd = data.h.filter { item -> item == it }.firstOrNull()
+            val vd = data.v.filter { item -> item == it }.firstOrNull()
+            if (hd == null && vd == null) {
+                val d = list.filter { item -> item.number == it }.first()
+                var dn = 1
+                val all = getAll(d, list)
+                val size = all.filter { item -> item.finalValue > -1 || item.isClicked }.size
+                if (size > 0) {
+                    dn++
+                }
+                if (d.finalValue == -1) {
+                    total = total + (d.hideValue * dn)
+                } else {
+                    total = total + d.finalValue
+                }
+            }
+            Log.e(">>>", total.toString())
+        }
+        data.finalValue = total
+//        } else {
+//            data.finalValue = data.selfValue
+//        }
         return data
     }
 
