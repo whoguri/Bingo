@@ -2,6 +2,7 @@ package `in`.whoguri.bingo
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
 import android.widget.GridView
 import androidx.appcompat.app.AppCompatActivity
@@ -12,10 +13,11 @@ class MainActivity : AppCompatActivity() {
     var start = false
     val adapter by lazy {
         Adapter(this, list) {
+            Log.e(">><<<<", it.toString())
             val data = list[it]
             data.isClicked = true
             list[it] = data
-            list = Logic.cal(list, data, it + 1, start)
+            list = Logic.cal(list)
             start = true
             val temp = ArrayList<Int>()
             list.forEach {

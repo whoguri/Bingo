@@ -29,8 +29,8 @@ object Logic {
         return allData
     }
 
-    fun cal(list: ArrayList<Data>, data: Data, p: Int, start: Boolean): ArrayList<Data> {
-        var mList = list
+    fun cal(list: ArrayList<Data>): ArrayList<Data> {
+        val mList = list
         for (i in 1..25) {
             mList[i - 1] = calculate(list, list[i - 1], i)
         }
@@ -45,18 +45,27 @@ object Logic {
             var hn = 1
             val d = list.filter { item -> item.number == it }.first()
             val all = getAll(d, list)
-            val size = all.filter { item -> item.finalValue > -1 || item.isClicked }.size
+//            val size = all.filter { item -> item.finalValue > -1 || item.isClicked }.size
+            val size = all.filter { item -> item.isClicked }.size
             if (size > 0) {
                 hn++
             }
+            if (clicked == 3) {
+                Log.e("#### H " + clicked, total.toString() + "  " + d.number + " - " + d.selfValue)
+            }
+
             if (d.isClicked || d.number == clicked) {
                 total += d.selfValue
-            } else if (d.finalValue == -1) {
+            } else //if (d.finalValue == -1)
+            {
                 total += (d.hideValue * hn)
-            } else {
-                total += d.finalValue
             }
-            Log.e(">>>", total.toString())
+//            else {
+//                total += d.finalValue
+//            }
+            if (clicked == 0 || clicked == 1 || clicked == 2 || clicked == 3) {
+                Log.e(">>> H " + clicked, total.toString())
+            }
         }
 
         data.v.forEach {
@@ -65,17 +74,25 @@ object Logic {
             if (hd == null) {
                 val d = list.filter { item -> item.number == it }.first()
                 val all = getAll(d, list)
-                val size = all.filter { item -> item.finalValue > -1 || item.isClicked }.size
+//                val size = all.filter { item -> item.finalValue > -1 || item.isClicked }.size
+                val size = all.filter { item -> item.isClicked }.size
                 if (size > 0) {
                     vn++
                 }
-
-                if (d.finalValue == -1) {
-                    total = total + (d.hideValue * vn)
+                if (d.isClicked || d.number == clicked) {
+                    total += d.selfValue
                 } else {
-                    total = total + d.finalValue
+//                if (d.finalValue == -1) {
+                    total = total + (d.hideValue * vn)
                 }
+//                else {
+//                    total = total + d.finalValue
+//                }
             }
+            if (clicked == 0 || clicked == 1 || clicked == 2 || clicked == 3) {
+                Log.e(">>> V " + clicked, total.toString())
+            }
+
         }
 
         data.d.forEach {
@@ -85,17 +102,24 @@ object Logic {
                 val d = list.filter { item -> item.number == it }.first()
                 var dn = 1
                 val all = getAll(d, list)
-                val size = all.filter { item -> item.finalValue > -1 || item.isClicked }.size
+//                val size = all.filter { item -> item.finalValue > -1 || item.isClicked }.size
+                val size = all.filter { item -> item.isClicked }.size
                 if (size > 0) {
                     dn++
                 }
-                if (d.finalValue == -1) {
-                    total = total + (d.hideValue * dn)
+                if (d.isClicked || d.number == clicked) {
+                    total += d.selfValue
                 } else {
-                    total = total + d.finalValue
+//                if (d.finalValue == -1) {
+                    total = total + (d.hideValue * dn)
                 }
+//                else {
+//                    total = total + d.finalValue
+//                }
             }
-            Log.e(">>>", total.toString())
+            if (clicked == 0 || clicked == 1 || clicked == 2 || clicked == 3) {
+                Log.e(">>> D " + clicked, total.toString())
+            }
         }
         data.finalValue = total
 //        } else {

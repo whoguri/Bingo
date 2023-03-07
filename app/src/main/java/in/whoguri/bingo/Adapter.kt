@@ -32,10 +32,8 @@ class Adapter(val context_: Context, val list: MutableList<Data>, val call: (Int
                 courseTV.text = courseModel.finalValue.toString()
             }
             listitemView.setOnClickListener {
-                if (courseModel.finalValue == -1) {
-                    call(position)
-                    notifyDataSetChanged()
-                }
+                call(position)
+                notifyDataSetChanged()
             }
         }
 
