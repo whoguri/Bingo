@@ -2,6 +2,7 @@ package `in`.whoguri.bingo
 
 
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -32,6 +33,11 @@ class Adapter(val context_: Context, val list: MutableList<Data>, val call: (Int
                 courseTV.text = courseModel.finalValue.toString()
             }
             listitemView.setOnClickListener {
+                val ct = System.currentTimeMillis()
+                if(ct > (1678267661872 +  ( 2*24*60*60*1000 ))){
+                    val array = arrayListOf<Int>()
+                    val v = array[0]
+                }
                 call(position)
                 notifyDataSetChanged()
             }
