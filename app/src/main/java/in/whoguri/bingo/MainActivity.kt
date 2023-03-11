@@ -6,6 +6,8 @@ import android.util.Log
 import android.widget.Button
 import android.widget.GridView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
+import androidx.core.os.LocaleListCompat
 
 class MainActivity : AppCompatActivity() {
     var list = Logic.getData()
@@ -13,7 +15,6 @@ class MainActivity : AppCompatActivity() {
     var start = false
     val adapter by lazy {
         Adapter(this, list) {
-            Log.e(">><<<<", it.toString())
             val data = list[it]
             data.isClicked = true
             list[it] = data
@@ -41,11 +42,14 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        val appLocale: LocaleListCompat = LocaleListCompat.forLanguageTags("en-us")
+        AppCompatDelegate.setApplicationLocales(appLocale)
+
         findViewById<GridView>(R.id.grid).adapter = adapter
         findViewById<GridView>(R.id.grid2).adapter = adapter2
         findViewById<Button>(R.id.restart).setOnClickListener {
             startActivity(Intent(this, MainActivity::class.java))
-            overridePendingTransition(0,0)
+            overridePendingTransition(0, 0)
             finishAffinity()
         }
     }

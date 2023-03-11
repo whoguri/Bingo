@@ -38,33 +38,21 @@ object Logic {
     }
 
     fun calculate(list: ArrayList<Data>, data: Data, clicked: Int): Data {
-//        if (data.isClicked) {
         var total = 0
 
         data.h.forEach {
             var hn = 1
             val d = list.filter { item -> item.number == it }.first()
             val all = getAll(d, list)
-//            val size = all.filter { item -> item.finalValue > -1 || item.isClicked }.size
-            val size = all.filter { item -> item.isClicked }.size
+            val size = all.filter { item -> item.isClicked}.size
             if (size > 0) {
                 hn++
-            }
-            if (clicked == 3) {
-                Log.e("#### H " + clicked, total.toString() + "  " + d.number + " - " + d.selfValue)
             }
 
             if (d.isClicked || d.number == clicked) {
                 total += d.selfValue
-            } else //if (d.finalValue == -1)
-            {
+            } else {
                 total += (d.hideValue * hn)
-            }
-//            else {
-//                total += d.finalValue
-//            }
-            if (clicked == 0 || clicked == 1 || clicked == 2 || clicked == 3) {
-                Log.e(">>> H " + clicked, total.toString())
             }
         }
 
@@ -74,25 +62,17 @@ object Logic {
             if (hd == null) {
                 val d = list.filter { item -> item.number == it }.first()
                 val all = getAll(d, list)
-//                val size = all.filter { item -> item.finalValue > -1 || item.isClicked }.size
                 val size = all.filter { item -> item.isClicked }.size
+
                 if (size > 0) {
                     vn++
                 }
                 if (d.isClicked || d.number == clicked) {
                     total += d.selfValue
                 } else {
-//                if (d.finalValue == -1) {
                     total = total + (d.hideValue * vn)
                 }
-//                else {
-//                    total = total + d.finalValue
-//                }
             }
-            if (clicked == 0 || clicked == 1 || clicked == 2 || clicked == 3) {
-                Log.e(">>> V " + clicked, total.toString())
-            }
-
         }
 
         data.d.forEach {
@@ -102,7 +82,6 @@ object Logic {
                 val d = list.filter { item -> item.number == it }.first()
                 var dn = 1
                 val all = getAll(d, list)
-//                val size = all.filter { item -> item.finalValue > -1 || item.isClicked }.size
                 val size = all.filter { item -> item.isClicked }.size
                 if (size > 0) {
                     dn++
@@ -110,21 +89,12 @@ object Logic {
                 if (d.isClicked || d.number == clicked) {
                     total += d.selfValue
                 } else {
-//                if (d.finalValue == -1) {
                     total = total + (d.hideValue * dn)
                 }
-//                else {
-//                    total = total + d.finalValue
-//                }
             }
-            if (clicked == 0 || clicked == 1 || clicked == 2 || clicked == 3) {
-                Log.e(">>> D " + clicked, total.toString())
-            }
+
         }
         data.finalValue = total
-//        } else {
-//            data.finalValue = data.selfValue
-//        }
         return data
     }
 
@@ -283,7 +253,7 @@ object Logic {
                 2,
                 16,
                 arrayListOf(11, 12, 14, 15),
-                arrayListOf(10, 15, 20, 25),
+                arrayListOf(5, 10, 15, 20, 25),
                 arrayListOf()
             )
         )
@@ -295,7 +265,7 @@ object Logic {
                 2,
                 18,
                 arrayListOf(16, 17, 18, 19, 20),
-                arrayListOf(6, 11, 16, 21),
+                arrayListOf(1, 6, 11, 16, 21),
                 arrayListOf()
             )
         )
@@ -351,7 +321,7 @@ object Logic {
                 4,
                 48,
                 arrayListOf(21, 22, 23, 24, 25),
-                arrayListOf(6, 11, 16, 21),
+                arrayListOf(1, 6, 11, 16, 21),
                 arrayListOf(5, 9, 17, 21)
             )
         )

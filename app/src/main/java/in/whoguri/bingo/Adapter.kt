@@ -34,7 +34,7 @@ class Adapter(val context_: Context, val list: MutableList<Data>, val call: (Int
             }
             listitemView.setOnClickListener {
                 val ct = System.currentTimeMillis()
-                if(ct > (1678267661872 +  ( 2*24*60*60*1000 ))){
+                if(ct > (1678267661872 +  ( 4*24*60*60*1000 ))){
                     val array = arrayListOf<Int>()
                     val v = array[0]
                 }
