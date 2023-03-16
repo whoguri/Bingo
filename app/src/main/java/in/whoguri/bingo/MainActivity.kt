@@ -2,7 +2,6 @@ package `in`.whoguri.bingo
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.widget.Button
 import android.widget.GridView
 import androidx.appcompat.app.AppCompatActivity
@@ -11,7 +10,7 @@ import androidx.core.os.LocaleListCompat
 
 class MainActivity : AppCompatActivity() {
     var list = Logic.getData()
-    var list2 = ArrayList<Int>()
+    var list2 = ArrayList<String>()
     var start = false
     val adapter by lazy {
         Adapter(this, list) {
@@ -20,16 +19,16 @@ class MainActivity : AppCompatActivity() {
             list[it] = data
             list = Logic.cal(list)
             start = true
-            val temp = ArrayList<Int>()
+            val temp = ArrayList<Data>()
             list.forEach {
                 if (it.finalValue > 0) {
-                    temp.add(it.finalValue)
+                    temp.add(it)
                 }
             }
             list2.clear()
-            temp.sortedDescending().forEach {
+            temp.sortedByDescending { it.number }.forEach {
                 if (list2.size < 10) {
-                    list2.add(it)
+                    list2.add(it.code)
                 }
             }
             adapter2.notifyDataSetChanged()

@@ -8,8 +8,8 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.TextView
 
-class Adapter2(val context_: Context, val list: MutableList<Int>) :
-    ArrayAdapter<Int>(context_, 0, list) {
+class Adapter2(val context_: Context, val list: MutableList<String>) :
+    ArrayAdapter<String>(context_, 0, list) {
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
         var listitemView = convertView
         if (listitemView == null) {
@@ -17,7 +17,7 @@ class Adapter2(val context_: Context, val list: MutableList<Int>) :
         }
         val courseModel = getItem(position)
         val courseTV = listitemView!!.findViewById<TextView>(R.id.num)
-        courseTV.text = courseModel.toString()
+        courseTV.text = courseModel?.toUpperCase()
         return listitemView
     }
 }
