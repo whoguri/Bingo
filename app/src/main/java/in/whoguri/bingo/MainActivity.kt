@@ -21,7 +21,7 @@ class MainActivity : AppCompatActivity() {
             start = true
             val temp = ArrayList<Data>()
             list.forEach {
-                if (it.finalValue > 0) {
+                if (it.finalValue > 0 && !it.isClicked) {
                     temp.add(it)
                 }
             }
