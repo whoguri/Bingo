@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".MainActivity"
-    android:padding="4dp"
+    android:padding="2dp"
     >
 
     <LinearLayout
@@ -15,16 +15,14 @@
         android:background="#fff"
         >
         <TextView
-            android:minHeight="48dp"
             android:id="@+id/num"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:gravity="center"
-            android:padding="4dp"
             android:textColor="@color/black"
             android:background="@color/white"
             android:text=""
-            android:autoSizeTextType="uniform"
+            android:textSize="36sp"
             />
     </LinearLayout>
 </LinearLayout>

@@ -26,7 +26,7 @@ class MainActivity : AppCompatActivity() {
                 }
             }
             list2.clear()
-            temp.sortedByDescending { it.number }.forEach {
+            temp.sortedByDescending { it.finalValue }.forEach {
                 if (list2.size < 10) {
                     list2.add(it.code)
                 }
