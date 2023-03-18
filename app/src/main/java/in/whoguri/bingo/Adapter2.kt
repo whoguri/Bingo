@@ -13,7 +13,7 @@ class Adapter2(val context_: Context, val list: MutableList<String>) :
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
         var listitemView = convertView
         if (listitemView == null) {
-            listitemView = LayoutInflater.from(context_).inflate(R.layout.item2, parent, false)
+            listitemView = LayoutInflater.from(context_).inflate(R.layout.item, parent, false)
         }
         val courseModel = getItem(position)
         val courseTV = listitemView!!.findViewById<TextView>(R.id.num)

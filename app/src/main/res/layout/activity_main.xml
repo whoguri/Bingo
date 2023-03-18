@@ -58,7 +58,7 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:text="B"
-                android:textSize="32sp" />
+                android:textSize="36sp" />
 
             <TextView
                 android:layout_width="0dp"
@@ -66,7 +66,7 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:text="I"
-                android:textSize="32sp" />
+                android:textSize="36sp" />
 
             <TextView
                 android:layout_width="0dp"
@@ -74,7 +74,7 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:text="N"
-                android:textSize="32sp" />
+                android:textSize="36sp" />
 
             <TextView
                 android:layout_width="0dp"
@@ -82,7 +82,7 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:text="G"
-                android:textSize="32sp" />
+                android:textSize="36sp" />
 
             <TextView
                 android:layout_width="0dp"
@@ -90,7 +90,7 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:text="O"
-                android:textSize="32sp" />
+                android:textSize="36sp" />
         </LinearLayout>
 
         <GridView
@@ -105,8 +105,9 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="150dp"
+        android:layout_height="200dp"
         android:padding="4dp"
+        android:gravity="center"
         android:background="#FCDAFF">
 
         <GridView
@@ -115,7 +116,7 @@
             android:layout_height="match_parent"
             android:layoutDirection="ltr"
             android:numColumns="5"
-            tools:listitem="@layout/item2" />
+            tools:listitem="@layout/item" />
 
     </LinearLayout>
 </LinearLayout>
