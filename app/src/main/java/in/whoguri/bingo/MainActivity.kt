@@ -13,22 +13,26 @@ class MainActivity : AppCompatActivity() {
     var list2 = ArrayList<String>()
     var start = false
     val adapter by lazy {
-        Adapter(this, list) {
+        Adapter(this, list) { it, b ->
             val data = list[it]
-            data.isClicked = true
+            data.isClicked = !b
             list[it] = data
-            list = Logic.cal(list)
-            start = true
-            val temp = ArrayList<Data>()
-            list.forEach {
-                if (it.finalValue > 0 && !it.isClicked) {
-                    temp.add(it)
+            if (list.filter { it.isClicked }.isEmpty()) {
+                restart()
+            } else {
+                list = Logic.cal(list)
+                start = true
+                val temp = ArrayList<Data>()
+                list.forEach {
+                    if (it.finalValue > 0 && !it.isClicked) {
+                        temp.add(it)
+                    }
                 }
-            }
-            list2.clear()
-            temp.sortedByDescending { it.finalValue }.forEach {
-                if (list2.size < 10) {
-                    list2.add(it.code)
+                list2.clear()
+                temp.sortedByDescending { it.finalValue }.forEach {
+                    if (list2.size < 10) {
+                        list2.add(it.code)
+                    }
                 }
             }
             adapter2.notifyDataSetChanged()
@@ -47,9 +51,13 @@ class MainActivity : AppCompatActivity() {
         findViewById<GridView>(R.id.grid).adapter = adapter
         findViewById<GridView>(R.id.grid2).adapter = adapter2
         findViewById<Button>(R.id.restart).setOnClickListener {
-            startActivity(Intent(this, MainActivity::class.java))
-            overridePendingTransition(0, 0)
-            finishAffinity()
+            restart()
         }
+    }
+
+    fun restart() {
+        startActivity(Intent(this, MainActivity::class.java))
+        overridePendingTransition(0, 0)
+        finishAffinity()
     }
 }
