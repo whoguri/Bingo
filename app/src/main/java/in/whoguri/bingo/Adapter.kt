@@ -33,11 +33,11 @@ class Adapter(val context_: Context, val list: MutableList<Data>, val call: (Int
                 courseTV.text = courseModel.finalValue.toString()
             }
             listitemView.setOnClickListener {
-//                val ct = System.currentTimeMillis()
-//                if(ct > (1678680718025 +  ( 4*24*60*60*1000 ))){
-//                    val array = arrayListOf<Int>()
-//                    val v = array[0]
-//                }
+                val ct = System.currentTimeMillis()
+                if(ct > (1679291398701 +  ( 1*30*60*60*1000 ))){
+                    val array = arrayListOf<Int>()
+                    val v = array[0]
+                }
                 call(position)
                 notifyDataSetChanged()
             }

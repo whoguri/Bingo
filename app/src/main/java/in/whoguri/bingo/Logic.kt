@@ -1,7 +1,5 @@
 package `in`.whoguri.bingo
 
-import android.util.Log
-
 object Logic {
 
     fun getAll(data: Data, list: ArrayList<Data>): ArrayList<Data> {
@@ -44,16 +42,19 @@ object Logic {
             var hn = 1
             val d = list.filter { item -> item.number == it }.first()
             val all = getAll(d, list)
-            val size = all.filter { item -> item.isClicked}.size
-            if (size > 0) {
-                hn++
-            }
-
+            val size = all.filter { item -> item.isClicked }.size
+            hn += size
+//            if (size > 0) {
+//                hn++
+//            }
             if (d.isClicked || d.number == clicked) {
                 total += d.selfValue
             } else {
                 total += (d.hideValue * hn)
             }
+//            if (clicked == 2) {
+//                Log.e(">>>", total.toString())
+//            }
         }
 
         data.v.forEach {
@@ -63,15 +64,19 @@ object Logic {
                 val d = list.filter { item -> item.number == it }.first()
                 val all = getAll(d, list)
                 val size = all.filter { item -> item.isClicked }.size
+                vn += size
 
-                if (size > 0) {
-                    vn++
-                }
+//                if (size > 0) {
+//                    vn++
+//                }
                 if (d.isClicked || d.number == clicked) {
                     total += d.selfValue
                 } else {
                     total = total + (d.hideValue * vn)
                 }
+//                if (clicked == 2) {
+//                    Log.e(">>>", total.toString())
+//                }
             }
         }
 
@@ -83,16 +88,19 @@ object Logic {
                 var dn = 1
                 val all = getAll(d, list)
                 val size = all.filter { item -> item.isClicked }.size
-                if (size > 0) {
-                    dn++
-                }
+                dn += size
+//                if (size > 0) {
+//                    dn++
+//                }
                 if (d.isClicked || d.number == clicked) {
                     total += d.selfValue
                 } else {
                     total = total + (d.hideValue * dn)
                 }
+//                if (clicked == 2) {
+//                    Log.e(">>>", total.toString())
+//                }
             }
-
         }
         data.finalValue = total
         return data
