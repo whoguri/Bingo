@@ -15,7 +15,7 @@
         android:background="#fff"
         >
         <TextView
-            android:minHeight="92dp"
+            android:minHeight="102dp"
             android:id="@+id/num"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
