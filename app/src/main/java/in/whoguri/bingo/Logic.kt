@@ -27,7 +27,32 @@ object Logic {
         return allData
     }
 
-    fun cal(list: ArrayList<Data>): ArrayList<Data> {
+    fun calAverage(list: ArrayList<Data>): ArrayList<String> {
+        val lines = createLines()
+        val result = arrayListOf<Pair<String, Int>>()
+        lines.forEach {
+            var temp = 0
+            val tempArray = arrayListOf<Int>()
+            it.second.forEach {
+                val data = list.find { e -> e.number == it }
+                if (data != null && data.finalValue != -1 && !data.isClicked) {
+                    temp += data.finalValue
+                    tempArray.add(data.finalValue)
+                }
+            }
+            if (tempArray.size > 0) {
+                temp /= tempArray.size
+            }
+            result.add(Pair(it.first, temp))
+        }
+        val result2 = arrayListOf<String>()
+        result.sortedByDescending { it.second }.forEach {
+            result2.add(it.first)
+        }
+        return result2
+    }
+
+    fun calResult(list: ArrayList<Data>): ArrayList<Data> {
         val mList = list
         for (i in 1..25) {
             mList[i - 1] = calculate(list, list[i - 1], i)
@@ -377,6 +402,27 @@ object Logic {
                 arrayListOf(1, 7, 19, 25)
             )
         )
+        return list
+    }
+
+    fun createLines(): ArrayList<Pair<String, ArrayList<Int>>> {
+        val list = arrayListOf<Pair<String, ArrayList<Int>>>()
+        list.add(Pair("1", arrayListOf(1, 2, 3, 4, 5)))
+        list.add(Pair("2", arrayListOf(6, 7, 8, 9, 10)))
+        list.add(Pair("3", arrayListOf(11, 12, 14, 15)))
+        list.add(Pair("4", arrayListOf(16, 17, 18, 19, 20)))
+        list.add(Pair("5", arrayListOf(21, 22, 23, 24, 25)))
+
+        list.add(Pair("B", arrayListOf(1, 6, 11, 16, 21)))
+        list.add(Pair("I", arrayListOf(2, 7, 12, 17, 22)))
+        list.add(Pair("N", arrayListOf(3, 8, 18, 23)))
+        list.add(Pair("G", arrayListOf(4, 9, 14, 19, 24)))
+        list.add(Pair("O", arrayListOf(5, 10, 15, 20, 25)))
+
+        list.add(Pair("B1", arrayListOf(1, 7, 19, 25)))
+        list.add(Pair("O1", arrayListOf(5, 9, 17, 21)))
+
+        list.add(Pair("X", arrayListOf(1, 5, 21, 25)))
         return list
     }
 

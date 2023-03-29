@@ -2,14 +2,13 @@ package `in`.whoguri.bingo
 
 
 import android.content.Context
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.TextView
 
-class Adapter(val context_: Context, val list: MutableList<Data>, val call: (Int,Boolean) -> Unit) :
+class GridAdapter(val context_: Context, val list: MutableList<Data>, val call: (Int, Boolean) -> Unit) :
     ArrayAdapter<Data>(context_, 0, list) {
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
         convertView?.tag = position

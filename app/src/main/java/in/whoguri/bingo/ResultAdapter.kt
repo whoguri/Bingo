@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.TextView
 
-class Adapter2(val context_: Context, val list: MutableList<String>) :
+class ResultAdapter(val context_: Context, val list: MutableList<String>) :
     ArrayAdapter<String>(context_, 0, list) {
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
         var listitemView = convertView
