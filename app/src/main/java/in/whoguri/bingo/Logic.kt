@@ -1,5 +1,7 @@
 package `in`.whoguri.bingo
 
+import android.util.Log
+
 object Logic {
 
     fun getAll(data: Data, list: ArrayList<Data>): ArrayList<Data> {
@@ -52,6 +54,31 @@ object Logic {
         return result2
     }
 
+    fun calAverage2(list: ArrayList<Data>): ArrayList<String> {
+        val lines = createLines()
+        val result = arrayListOf<Pair<String, Double>>()
+        lines.forEach {
+            var temp = 0.0
+            val tempArray = arrayListOf<Double>()
+            it.second.forEach {
+                val data = list.find { e -> e.number == it }
+                if (data != null && data.finalValue2 != -1.0 && !data.isClicked) {
+                    temp += data.finalValue2
+                    tempArray.add(data.finalValue2)
+                }
+            }
+            if (tempArray.size > 0) {
+                temp /= tempArray.size
+            }
+            result.add(Pair(it.first, temp))
+        }
+        val result2 = arrayListOf<String>()
+        result.sortedByDescending { it.second }.forEach {
+            result2.add(it.first)
+        }
+        return result2
+    }
+
     fun calResult(list: ArrayList<Data>): ArrayList<Data> {
         val mList = list
         for (i in 1..25) {
@@ -62,7 +89,8 @@ object Logic {
 
     fun calculate(list: ArrayList<Data>, data: Data, clicked: Int): Data {
         var total = 0
-
+        var total2 = 0
+        var count = 0
         data.h.forEach {
             var hn = 1
             val d = list.filter { item -> item.number == it }.first()
@@ -80,6 +108,18 @@ object Logic {
 //            if (clicked == 2) {
 //                Log.e(">>>", total.toString())
 //            }
+            if (!d.isClicked) {
+                if (it == clicked) {
+                    total2 += d.selfValue
+                } else {
+                    total2 += (d.hideValue * hn)
+                }
+                count++
+
+                if (clicked == 4 || clicked == 21) {
+                    Log.e(">>", clicked.toString()+" (" +d.code+ ") >> " + total2 + " : " + count)
+                }
+            }
         }
 
         data.v.forEach {
@@ -97,11 +137,24 @@ object Logic {
                 if (d.isClicked || d.number == clicked) {
                     total += d.selfValue
                 } else {
-                    total = total + (d.hideValue * vn)
+                    total += (d.hideValue * vn)
                 }
 //                if (clicked == 2) {
 //                    Log.e(">>>", total.toString())
 //                }
+
+                if (!d.isClicked) {
+                    if (d.number == clicked) {
+                        total2 += d.selfValue
+                    } else {
+                        total2 += (d.hideValue * vn)
+                    }
+                    count++
+
+                    if (clicked == 4 || clicked == 21) {
+                        Log.e(">>", clicked.toString()+" (" +d.code+ ") >> " + total2 + " : " + count)
+                    }
+                }
             }
         }
 
@@ -125,9 +178,24 @@ object Logic {
 //                if (clicked == 2) {
 //                    Log.e(">>>", total.toString())
 //                }
+                if (!d.isClicked) {
+                    if (d.number == clicked) {
+                        total2 += d.selfValue
+                    } else {
+                        total2 += (d.hideValue * dn)
+                    }
+                    count++
+                    if (clicked == 4 || clicked == 21) {
+                        Log.e(">>", clicked.toString()+" (" +d.code+ ") >> " + total2 + " : " + count)
+                    }
+                }
             }
         }
         data.finalValue = total
+        Log.e(">>", total2.toString() +" : "+ count)
+        if (count > 0) {
+            data.finalValue2 = (total2).toDouble() / count
+        }
         return data
     }
 

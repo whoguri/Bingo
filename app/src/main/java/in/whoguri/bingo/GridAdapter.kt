@@ -8,7 +8,12 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.TextView
 
-class GridAdapter(val context_: Context, val list: MutableList<Data>, val call: (Int, Boolean) -> Unit) :
+class GridAdapter(
+    val context_: Context,
+    val type: Int,
+    val list: MutableList<Data>,
+    val call: (Int, Boolean) -> Unit
+) :
     ArrayAdapter<Data>(context_, 0, list) {
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
         convertView?.tag = position
@@ -25,7 +30,7 @@ class GridAdapter(val context_: Context, val list: MutableList<Data>, val call: 
 //                val array = arrayListOf<Int>()
 //                val v = array[0]
 //            }
-            call(position,courseModel!!.isClicked)
+            call(position, courseModel!!.isClicked)
             notifyDataSetChanged()
         }
 
@@ -38,11 +43,16 @@ class GridAdapter(val context_: Context, val list: MutableList<Data>, val call: 
             courseTV.setBackgroundColor(context_.getColor(R.color.purple))
         } else {
             courseTV.setBackgroundColor(context_.getColor(R.color.white))
-            if (courseModel.finalValue != -1) {
-                courseTV.text = courseModel.finalValue.toString()
+            if (type == 2) {
+                if (courseModel.finalValue2 != -1.0) {
+                    courseTV.text = courseModel.finalValue2.toString()
+                }
+            } else {
+                if (courseModel.finalValue != -1) {
+                    courseTV.text = courseModel.finalValue.toString()
+                }
             }
         }
-
         return listitemView
     }
 }

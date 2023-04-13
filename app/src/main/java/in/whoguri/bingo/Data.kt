@@ -9,5 +9,6 @@ class Data(
     var v: ArrayList<Int>,
     var d: ArrayList<Int>,
     var finalValue: Int = -1,
+    var finalValue2: Double = -1.0,
     var isClicked: Boolean = false,
 )
