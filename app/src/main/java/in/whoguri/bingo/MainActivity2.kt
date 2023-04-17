@@ -2,6 +2,8 @@ package `in`.whoguri.bingo
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import android.widget.Button
 import android.widget.GridView
@@ -10,7 +12,6 @@ import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.os.LocaleListCompat
 
 class MainActivity2 : AppCompatActivity() {
-    var start = false
     val adapter by lazy {
         GridAdapter(this, 2, AppData.list) { it, b ->
             val data = AppData.list[it]
@@ -21,7 +22,6 @@ class MainActivity2 : AppCompatActivity() {
                 return@GridAdapter
             } else {
                 AppData.list = Logic.calResult(AppData.list)
-                start = true
                 val temp = ArrayList<Data>()
                 AppData.list.forEach {
                     if (it.finalValue2 > 0 && !it.isClicked) {
@@ -85,8 +85,18 @@ class MainActivity2 : AppCompatActivity() {
 
     fun restart() {
         AppData.reset()
-        startActivity(Intent(this, MainActivity::class.java))
+        startActivity(Intent(this, MainActivity2::class.java))
         overridePendingTransition(0, 0)
         finishAffinity()
+    }
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        menuInflater.inflate(R.menu.menu, menu)
+        val item: MenuItem = menu.findItem(R.id.button_item)
+        item.setOnMenuItemClickListener { it ->
+            startActivity(Intent(this, MainActivity::class.java))
+            overridePendingTransition(0, 0)
+            return@setOnMenuItemClickListener true
+        }
+        return true
     }
 }

@@ -1,7 +1,5 @@
 package `in`.whoguri.bingo
 
-import android.util.Log
-
 object Logic {
 
     fun getAll(data: Data, list: ArrayList<Data>): ArrayList<Data> {
@@ -97,17 +95,11 @@ object Logic {
             val all = getAll(d, list)
             val size = all.filter { item -> item.isClicked }.size
             hn += size
-//            if (size > 0) {
-//                hn++
-//            }
             if (d.isClicked || d.number == clicked) {
                 total += d.selfValue
             } else {
                 total += (d.hideValue * hn)
             }
-//            if (clicked == 2) {
-//                Log.e(">>>", total.toString())
-//            }
             if (!d.isClicked) {
                 if (it == clicked) {
                     total2 += d.selfValue
@@ -115,10 +107,6 @@ object Logic {
                     total2 += (d.hideValue * hn)
                 }
                 count++
-
-                if (clicked == 4 || clicked == 21) {
-                    Log.e(">>", clicked.toString()+" (" +d.code+ ") >> " + total2 + " : " + count)
-                }
             }
         }
 
@@ -131,17 +119,11 @@ object Logic {
                 val size = all.filter { item -> item.isClicked }.size
                 vn += size
 
-//                if (size > 0) {
-//                    vn++
-//                }
                 if (d.isClicked || d.number == clicked) {
                     total += d.selfValue
                 } else {
                     total += (d.hideValue * vn)
                 }
-//                if (clicked == 2) {
-//                    Log.e(">>>", total.toString())
-//                }
 
                 if (!d.isClicked) {
                     if (d.number == clicked) {
@@ -151,9 +133,6 @@ object Logic {
                     }
                     count++
 
-                    if (clicked == 4 || clicked == 21) {
-                        Log.e(">>", clicked.toString()+" (" +d.code+ ") >> " + total2 + " : " + count)
-                    }
                 }
             }
         }
@@ -167,17 +146,11 @@ object Logic {
                 val all = getAll(d, list)
                 val size = all.filter { item -> item.isClicked }.size
                 dn += size
-//                if (size > 0) {
-//                    dn++
-//                }
                 if (d.isClicked || d.number == clicked) {
                     total += d.selfValue
                 } else {
                     total = total + (d.hideValue * dn)
                 }
-//                if (clicked == 2) {
-//                    Log.e(">>>", total.toString())
-//                }
                 if (!d.isClicked) {
                     if (d.number == clicked) {
                         total2 += d.selfValue
@@ -185,16 +158,12 @@ object Logic {
                         total2 += (d.hideValue * dn)
                     }
                     count++
-                    if (clicked == 4 || clicked == 21) {
-                        Log.e(">>", clicked.toString()+" (" +d.code+ ") >> " + total2 + " : " + count)
-                    }
                 }
             }
         }
         data.finalValue = total
-        Log.e(">>", total2.toString() +" : "+ count)
         if (count > 0) {
-            data.finalValue2 = (total2).toDouble() / count
+            data.finalValue2 = ((total2).toDouble() / count).roundOffDecimal()
         }
         return data
     }
