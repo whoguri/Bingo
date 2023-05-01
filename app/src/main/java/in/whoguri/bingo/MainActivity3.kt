@@ -33,7 +33,7 @@ class MainActivity3 : AppCompatActivity() {
                 AppData.list2.clear()
                 AppData.list3.clear()
                 averageAdapter.clear()
-                temp.sortedByDescending { it.finalValue2 }.forEach {
+                temp.sortedByDescending { it.finalValue3 }.forEach {
                     if (AppData.list2.size < 10) {
                         AppData.list2.add(it.code)
                     }
@@ -116,19 +116,19 @@ class MainActivity3 : AppCompatActivity() {
 
         val temp = ArrayList<Data>()
         AppData.list.forEach {
-            if (it.finalValue > 0 && !it.isClicked) {
+            if (it.finalValue3 > 0 && !it.isClicked) {
                 temp.add(it)
             }
         }
         AppData.list2.clear()
         AppData.list3.clear()
         averageAdapter.clear()
-        temp.sortedByDescending { it.finalValue }.forEach {
+        temp.sortedByDescending { it.finalValue3 }.forEach {
             if (AppData.list2.size < 10) {
                 AppData.list2.add(it.code)
             }
         }
-        AppData.list3 = Logic.calAverage(AppData.list)
+        AppData.list3 = Logic.calAverage3(AppData.list)
         averageAdapter.addAll(AppData.list3)
     }
 }
