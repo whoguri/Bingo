@@ -22,6 +22,7 @@ class MainActivity2 : AppCompatActivity() {
                 return@GridAdapter
             } else {
                 AppData.list = Logic.calResult(AppData.list)
+                AppData.list = Logic.calResult3(AppData.list)
                 val temp = ArrayList<Data>()
                 AppData.list.forEach {
                     if (it.finalValue2 > 0 && !it.isClicked) {
@@ -89,14 +90,24 @@ class MainActivity2 : AppCompatActivity() {
         overridePendingTransition(0, 0)
         finishAffinity()
     }
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        menuInflater.inflate(R.menu.menu, menu)
-        val item: MenuItem = menu.findItem(R.id.button_item)
-        item.setOnMenuItemClickListener { it ->
-            startActivity(Intent(this, MainActivity::class.java))
-            overridePendingTransition(0, 0)
-            return@setOnMenuItemClickListener true
+    override fun onResume() {
+        super.onResume()
+
+        val temp = ArrayList<Data>()
+        AppData.list.forEach {
+            if (it.finalValue2 > 0 && !it.isClicked) {
+                temp.add(it)
+            }
         }
-        return true
+        AppData.list2.clear()
+        AppData.list3.clear()
+        averageAdapter.clear()
+        temp.sortedByDescending { it.finalValue2 }.forEach {
+            if (AppData.list2.size < 10) {
+                AppData.list2.add(it.code)
+            }
+        }
+        AppData.list3 = Logic.calAverage2(AppData.list)
+        averageAdapter.addAll(AppData.list3)
     }
 }

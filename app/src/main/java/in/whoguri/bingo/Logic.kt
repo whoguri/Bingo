@@ -1,5 +1,7 @@
 package `in`.whoguri.bingo
 
+import android.util.Log
+
 object Logic {
 
     fun getAll(data: Data, list: ArrayList<Data>): ArrayList<Data> {
@@ -63,6 +65,31 @@ object Logic {
                 if (data != null && data.finalValue2 != -1.0 && !data.isClicked) {
                     temp += data.finalValue2
                     tempArray.add(data.finalValue2)
+                }
+            }
+            if (tempArray.size > 0) {
+                temp /= tempArray.size
+            }
+            result.add(Pair(it.first, temp))
+        }
+        val result2 = arrayListOf<String>()
+        result.sortedByDescending { it.second }.forEach {
+            result2.add(it.first)
+        }
+        return result2
+    }
+
+    fun calAverage3(list: ArrayList<Data>): ArrayList<String> {
+        val lines = createLines()
+        val result = arrayListOf<Pair<String, Double>>()
+        lines.forEach {
+            var temp = 0.0
+            val tempArray = arrayListOf<Double>()
+            it.second.forEach {
+                val data = list.find { e -> e.number == it }
+                if (data != null && data.finalValue3 != -1.0 && !data.isClicked) {
+                    temp += data.finalValue3
+                    tempArray.add(data.finalValue3)
                 }
             }
             if (tempArray.size > 0) {
@@ -163,8 +190,97 @@ object Logic {
         }
         data.finalValue = total
         if (count > 0) {
-            data.finalValue2 = ((total2).toDouble() / count).roundOffDecimal()
+            data.finalValue2 = ((total2).toDouble() / count).roundOffDecimal3()
         }
+        return data
+    }
+
+    fun calResult3(list: ArrayList<Data>): ArrayList<Data> {
+        val mList = list
+        for (i in 1..25) {
+            mList[i - 1] = calculate3(list, list[i - 1], i)
+        }
+        return mList
+    }
+
+    fun calculate3(list: ArrayList<Data>, data: Data, clicked: Int): Data {
+        var total = 0.0
+        var init = 0.0
+
+        val sel = list.filter { item -> item.number == clicked }.first()
+        val allSel = getAll(sel, list)
+
+        var n = 0
+        val sizeSel = allSel.filter { item -> !item.isClicked }.size
+        n += sizeSel
+        total += sel.selfValue.toDouble() / n
+        init = total
+        if (clicked == 4)
+            Log.e(" 1 >>>>> " + sel.number, " " + total + " , " + sel.selfValue + " : " + n)
+
+
+        data.h.forEach {
+            val d = list.filter { item -> item.number == it }.first()
+            val all = getAll(d, list)
+
+            if (d.number == clicked) {
+            }else if (d.isClicked) {
+                total += init
+            } else {
+                var hn = 1.0
+                val s = all.size
+                val size = all.filter { item -> item.isClicked }.size
+                hn += size
+                total += (init * (hn / s)).roundOffDecimal2()
+                if (clicked == 4)
+                    Log.e(" 2 >>>>> " + d.number, " " + (init * (hn / s)) + " , " + hn + " " + s+" >> "+(hn/s))
+            }
+        }
+
+        data.v.forEach {
+            val hd = data.h.filter { item -> item == it }.firstOrNull()
+            if (hd == null) {
+                val d = list.filter { item -> item.number == it }.first()
+                val all = getAll(d, list)
+
+                if (d.number == clicked) {
+                }else if (d.isClicked) {
+                    total += init
+                } else {
+                    var vn = 1.0
+                    val s = all.size
+                    val size = all.filter { item -> item.isClicked }.size
+                    vn += size
+                    total += (init * (vn / s)).roundOffDecimal2()
+                    if (clicked == 4)
+                        Log.e(" 2 >>>>> " + d.number, " " + (init * (vn / s)) + " , " + vn + " " + s+" >> "+(vn/s))
+
+                }
+            }
+        }
+
+        data.d.forEach {
+            val hd = data.h.filter { item -> item == it }.firstOrNull()
+            val vd = data.v.filter { item -> item == it }.firstOrNull()
+            if (hd == null && vd == null) {
+                val d = list.filter { item -> item.number == it }.first()
+                val all = getAll(d, list)
+                if (d.number == clicked) {
+                }else if (d.isClicked) {
+                    total += init
+                } else {
+                    var dn = 1.0
+                    val s = all.size
+                    val size = all.filter { item -> item.isClicked }.size
+                    dn += size
+                    total += (init * (dn / s)).roundOffDecimal2()
+                    if (clicked == 4)
+                        Log.e(" 2 >>>>> " + d.number, " " + (init * (dn / s)) + " , " + dn + " " + s+" >> "+(dn/s))
+
+                }
+            }
+        }
+        data.finalValue3 = total.roundOffDecimal2()
         return data
     }
 
