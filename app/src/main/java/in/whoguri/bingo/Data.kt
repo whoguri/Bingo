@@ -11,5 +11,6 @@ class Data(
     var finalValue: Int = -1,
     var finalValue2: Double = -1.0,
     var finalValue3: Double = -1.0,
+    var finalValue4: Double = -1.0,
     var isClicked: Boolean = false,
 )

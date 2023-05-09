@@ -103,6 +103,30 @@ object Logic {
         }
         return result2
     }
+    fun calAverage4(list: ArrayList<Data>): ArrayList<String> {
+        val lines = createLines()
+        val result = arrayListOf<Pair<String, Double>>()
+        lines.forEach {
+            var temp = 0.0
+            val tempArray = arrayListOf<Double>()
+            it.second.forEach {
+                val data = list.find { e -> e.number == it }
+                if (data != null && data.finalValue4 != -1.0 && !data.isClicked) {
+                    temp += data.finalValue4
+                    tempArray.add(data.finalValue4)
+                }
+            }
+            if (tempArray.size > 0) {
+                temp /= tempArray.size
+            }
+            result.add(Pair(it.first, temp))
+        }
+        val result2 = arrayListOf<String>()
+        result.sortedByDescending { it.second }.forEach {
+            result2.add(it.first)
+        }
+        return result2
+    }
 
     fun calResult(list: ArrayList<Data>): ArrayList<Data> {
         val mList = list
@@ -116,6 +140,9 @@ object Logic {
         var total = 0
         var total2 = 0
         var count = 0
+
+        var total4 = 0
+
         data.h.forEach {
             var hn = 1
             val d = list.filter { item -> item.number == it }.first()
@@ -133,6 +160,10 @@ object Logic {
                 } else {
                     total2 += (d.hideValue * hn)
                 }
+                if(clicked==4){
+                    Log.e("####", d.hideValue.toString() +" : "+ hn+" = "+ total4)
+                }
+                total4 += (d.hideValue * hn)
                 count++
             }
         }
@@ -158,6 +189,10 @@ object Logic {
                     } else {
                         total2 += (d.hideValue * vn)
                     }
+                    if(clicked==4){
+                        Log.e("####", d.hideValue.toString() +" : "+ vn+" = "+ total4)
+                    }
+                    total4 += (d.hideValue * vn)
                     count++
 
                 }
@@ -184,14 +219,26 @@ object Logic {
                     } else {
                         total2 += (d.hideValue * dn)
                     }
+                    if(clicked==4){
+                        Log.e("####", d.hideValue.toString() +" : "+ dn+" = "+ total4)
+                    }
+                    total4 += (d.hideValue * dn)
                     count++
                 }
+
             }
         }
         data.finalValue = total
         if (count > 0) {
             data.finalValue2 = ((total2).toDouble() / count).roundOffDecimal3()
+            Log.e(">>>", ""+total4+" : "+count)
+            data.finalValue4 = ((total4).toDouble() / count).roundOffDecimal3()
         }
+
+//        if (count4 > 0) {
+//            data.finalValue4 = ((total4).toDouble() / count4).roundOffDecimal3()
+//        }
+
         return data
     }
 

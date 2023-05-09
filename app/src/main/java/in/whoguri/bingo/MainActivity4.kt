@@ -2,16 +2,19 @@ package `in`.whoguri.bingo
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import android.widget.Button
 import android.widget.GridView
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.os.LocaleListCompat
 
-class MainActivity2 : AppCompatActivity() {
+class MainActivity4 : AppCompatActivity() {
     val adapter by lazy {
-        GridAdapter(this, 2, AppData.dataList) { it, b ->
+        GridAdapter(this, 4, AppData.dataList) { it, b ->
             val data = AppData.dataList[it]
             data.isClicked = !b
             AppData.dataList[it] = data
@@ -23,19 +26,19 @@ class MainActivity2 : AppCompatActivity() {
                 AppData.dataList = Logic.calResult3(AppData.dataList)
                 val temp = ArrayList<Data>()
                 AppData.dataList.forEach {
-                    if (it.finalValue2 > 0 && !it.isClicked) {
+                    if (it.finalValue4 > 0 && !it.isClicked) {
                         temp.add(it)
                     }
                 }
                 AppData.resultList.clear()
                 AppData.averageList.clear()
                 averageAdapter.clear()
-                temp.sortedByDescending { it.finalValue2 }.forEach {
+                temp.sortedByDescending { it.finalValue4 }.forEach {
                     if (AppData.resultList.size < 10) {
                         AppData.resultList.add(it.code)
                     }
                 }
-                AppData.averageList = Logic.calAverage2(AppData.dataList)
+                AppData.averageList = Logic.calAverage4(AppData.dataList)
                 resultAdapter.notifyDataSetChanged()
                 averageAdapter.addAll(AppData.averageList)
 //                adapter3.notifyDataSetChanged()
@@ -52,6 +55,8 @@ class MainActivity2 : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        findViewById<TextView>(R.id.title_).text = "Bingo! 4"
+
         val appLocale: LocaleListCompat = LocaleListCompat.forLanguageTags("en-us")
         AppCompatDelegate.setApplicationLocales(appLocale)
 //actionBar.setDisplayHomeAsUpEnabled()
@@ -88,24 +93,48 @@ class MainActivity2 : AppCompatActivity() {
         overridePendingTransition(0, 0)
         finishAffinity()
     }
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        menuInflater.inflate(R.menu.menu, menu)
+        val item1: MenuItem = menu.findItem(R.id.button_item1)
+        item1.setOnMenuItemClickListener { it ->
+            startActivity(Intent(this, MainActivity::class.java))
+            overridePendingTransition(0, 0)
+            return@setOnMenuItemClickListener true
+        }
+        val item2: MenuItem = menu.findItem(R.id.button_item2)
+        item2.setOnMenuItemClickListener { it ->
+            startActivity(Intent(this, MainActivity2::class.java))
+            overridePendingTransition(0, 0)
+            return@setOnMenuItemClickListener true
+        }
+        val item3: MenuItem = menu.findItem(R.id.button_item3)
+        item3.setOnMenuItemClickListener { it ->
+            startActivity(Intent(this, MainActivity3::class.java))
+            overridePendingTransition(0, 0)
+            return@setOnMenuItemClickListener true
+        }
+        return true
+    }
+
     override fun onResume() {
         super.onResume()
 
         val temp = ArrayList<Data>()
         AppData.dataList.forEach {
-            if (it.finalValue2 > 0 && !it.isClicked) {
+            if (it.finalValue4 > 0 && !it.isClicked) {
                 temp.add(it)
             }
         }
         AppData.resultList.clear()
         AppData.averageList.clear()
         averageAdapter.clear()
-        temp.sortedByDescending { it.finalValue2 }.forEach {
+        temp.sortedByDescending { it.finalValue4 }.forEach {
             if (AppData.resultList.size < 10) {
                 AppData.resultList.add(it.code)
             }
         }
-        AppData.averageList = Logic.calAverage2(AppData.dataList)
+        AppData.averageList = Logic.calAverage4(AppData.dataList)
         averageAdapter.addAll(AppData.averageList)
     }
 }

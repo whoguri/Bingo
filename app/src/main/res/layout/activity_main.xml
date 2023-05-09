@@ -22,7 +22,7 @@
             android:layout_marginVertical="0dp"
             android:autoSizeMaxTextSize="80dp"
             android:autoSizeTextType="uniform"
-            android:text="Bingo!"
+            android:text="Bingo! 1"
             android:textAlignment="center"
             android:textColor="@color/white" />
 

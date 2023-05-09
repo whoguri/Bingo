@@ -13,42 +13,42 @@ import androidx.core.os.LocaleListCompat
 
 class MainActivity : AppCompatActivity() {
     val adapter by lazy {
-        GridAdapter(this, 1, AppData.list) { it, b ->
-            val data = AppData.list[it]
+        GridAdapter(this, 1, AppData.dataList) { it, b ->
+            val data = AppData.dataList[it]
             data.isClicked = !b
-            AppData.list[it] = data
-            if (AppData.list.filter { it.isClicked }.isEmpty()) {
+            AppData.dataList[it] = data
+            if (AppData.dataList.filter { it.isClicked }.isEmpty()) {
                 restart()
                 return@GridAdapter
             } else {
-                AppData.list = Logic.calResult(AppData.list)
-                AppData.list = Logic.calResult3(AppData.list)
+                AppData.dataList = Logic.calResult(AppData.dataList)
+                AppData.dataList = Logic.calResult3(AppData.dataList)
                 val temp = ArrayList<Data>()
-                AppData.list.forEach {
+                AppData.dataList.forEach {
                     if (it.finalValue > 0 && !it.isClicked) {
                         temp.add(it)
                     }
                 }
-                AppData.list2.clear()
-                AppData.list3.clear()
+                AppData.resultList.clear()
+                AppData.averageList.clear()
                 averageAdapter.clear()
                 temp.sortedByDescending { it.finalValue }.forEach {
-                    if (AppData.list2.size < 10) {
-                        AppData.list2.add(it.code)
+                    if (AppData.resultList.size < 10) {
+                        AppData.resultList.add(it.code)
                     }
                 }
-                AppData.list3 = Logic.calAverage(AppData.list)
+                AppData.averageList = Logic.calAverage(AppData.dataList)
                 resultAdapter.notifyDataSetChanged()
-                averageAdapter.addAll(AppData.list3)
+                averageAdapter.addAll(AppData.averageList)
 //                adapter3.notifyDataSetChanged()
             }
         }
     }
     val resultAdapter by lazy {
-        ResultAdapter(this, AppData.list2)
+        ResultAdapter(this, AppData.resultList)
     }
     val averageAdapter by lazy {
-        ResultAdapter(this, AppData.list3)
+        ResultAdapter(this, AppData.averageList)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -89,27 +89,27 @@ class MainActivity : AppCompatActivity() {
 
     fun restart() {
         AppData.reset()
-        startActivity(Intent(this, MainActivity2::class.java))
+        startActivity(Intent(this, MainActivity4::class.java))
         overridePendingTransition(0, 0)
         finishAffinity()
     }
     override fun onResume() {
         super.onResume()
         val temp = ArrayList<Data>()
-        AppData.list.forEach {
+        AppData.dataList.forEach {
             if (it.finalValue > 0 && !it.isClicked) {
                 temp.add(it)
             }
         }
-        AppData.list2.clear()
-        AppData.list3.clear()
+        AppData.resultList.clear()
+        AppData.averageList.clear()
         averageAdapter.clear()
         temp.sortedByDescending { it.finalValue }.forEach {
-            if (AppData.list2.size < 10) {
-                AppData.list2.add(it.code)
+            if (AppData.resultList.size < 10) {
+                AppData.resultList.add(it.code)
             }
         }
-        AppData.list3 = Logic.calAverage(AppData.list)
-        averageAdapter.addAll(AppData.list3)
+        AppData.averageList = Logic.calAverage(AppData.dataList)
+        averageAdapter.addAll(AppData.averageList)
     }
 }
