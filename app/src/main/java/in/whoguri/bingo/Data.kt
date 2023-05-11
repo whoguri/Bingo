@@ -3,7 +3,7 @@ package `in`.whoguri.bingo
 class Data(
     var number: Int,
     var code: String,
-    var hideValue: Int,
+    var bingos: Int,
     var selfValue: Int,
     var h: ArrayList<Int>,
     var v: ArrayList<Int>,

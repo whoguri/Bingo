@@ -152,18 +152,18 @@ object Logic {
             if (d.isClicked || d.number == clicked) {
                 total += d.selfValue
             } else {
-                total += (d.hideValue * hn)
+                total += (d.bingos * hn)
             }
             if (!d.isClicked) {
                 if (it == clicked) {
                     total2 += d.selfValue
                 } else {
-                    total2 += (d.hideValue * hn)
+                    total2 += (d.bingos * hn)
                 }
                 if(clicked==4){
-                    Log.e("####", d.hideValue.toString() +" : "+ hn+" = "+ total4)
+                    Log.e("####", d.bingos.toString() +" : "+ hn+" = "+ total4)
                 }
-                total4 += (d.hideValue * hn)
+                total4 += (d.bingos * hn)
                 count++
             }
         }
@@ -180,19 +180,19 @@ object Logic {
                 if (d.isClicked || d.number == clicked) {
                     total += d.selfValue
                 } else {
-                    total += (d.hideValue * vn)
+                    total += (d.bingos * vn)
                 }
 
                 if (!d.isClicked) {
                     if (d.number == clicked) {
                         total2 += d.selfValue
                     } else {
-                        total2 += (d.hideValue * vn)
+                        total2 += (d.bingos * vn)
                     }
                     if(clicked==4){
-                        Log.e("####", d.hideValue.toString() +" : "+ vn+" = "+ total4)
+                        Log.e("####", d.bingos.toString() +" : "+ vn+" = "+ total4)
                     }
-                    total4 += (d.hideValue * vn)
+                    total4 += (d.bingos * vn)
                     count++
 
                 }
@@ -211,18 +211,18 @@ object Logic {
                 if (d.isClicked || d.number == clicked) {
                     total += d.selfValue
                 } else {
-                    total = total + (d.hideValue * dn)
+                    total = total + (d.bingos * dn)
                 }
                 if (!d.isClicked) {
                     if (d.number == clicked) {
                         total2 += d.selfValue
                     } else {
-                        total2 += (d.hideValue * dn)
+                        total2 += (d.bingos * dn)
                     }
                     if(clicked==4){
-                        Log.e("####", d.hideValue.toString() +" : "+ dn+" = "+ total4)
+                        Log.e("####", d.bingos.toString() +" : "+ dn+" = "+ total4)
                     }
-                    total4 += (d.hideValue * dn)
+                    total4 += (d.bingos * dn)
                     count++
                 }
 
@@ -232,7 +232,7 @@ object Logic {
         if (count > 0) {
             data.finalValue2 = ((total2).toDouble() / count).roundOffDecimal3()
             Log.e(">>>", ""+total4+" : "+count)
-            data.finalValue4 = ((total4).toDouble() / count).roundOffDecimal3()
+            data.finalValue4 = ((total4).toDouble() / count).roundOffDecimal3() * data.bingos
         }
 
 //        if (count4 > 0) {
