@@ -232,7 +232,7 @@ object Logic {
         if (count > 0) {
             data.finalValue2 = ((total2).toDouble() / count).roundOffDecimal3()
             Log.e(">>>", ""+total4+" : "+count)
-            data.finalValue4 = ((total4).toDouble() / count).roundOffDecimal3() * data.bingos
+            data.finalValue4 = (((total4).toDouble() / count).roundOffDecimal3() * data.bingos).roundOffDecimal2()
         }
 
 //        if (count4 > 0) {
