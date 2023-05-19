@@ -103,6 +103,7 @@ object Logic {
         }
         return result2
     }
+
     fun calAverage4(list: ArrayList<Data>): ArrayList<String> {
         val lines = createLines()
         val result = arrayListOf<Pair<String, Double>>()
@@ -160,8 +161,8 @@ object Logic {
                 } else {
                     total2 += (d.bingos * hn)
                 }
-                if(clicked==4){
-                    Log.e("####", d.bingos.toString() +" : "+ hn+" = "+ total4)
+                if (clicked == 4) {
+//                    Log.e("####", d.bingos.toString() +" : "+ hn+" = "+ total4)
                 }
                 total4 += (d.bingos * hn)
                 count++
@@ -189,8 +190,8 @@ object Logic {
                     } else {
                         total2 += (d.bingos * vn)
                     }
-                    if(clicked==4){
-                        Log.e("####", d.bingos.toString() +" : "+ vn+" = "+ total4)
+                    if (clicked == 4) {
+//                        Log.e("####", d.bingos.toString() +" : "+ vn+" = "+ total4)
                     }
                     total4 += (d.bingos * vn)
                     count++
@@ -219,8 +220,8 @@ object Logic {
                     } else {
                         total2 += (d.bingos * dn)
                     }
-                    if(clicked==4){
-                        Log.e("####", d.bingos.toString() +" : "+ dn+" = "+ total4)
+                    if (clicked == 4) {
+//                        Log.e("####", d.bingos.toString() +" : "+ dn+" = "+ total4)
                     }
                     total4 += (d.bingos * dn)
                     count++
@@ -231,13 +232,10 @@ object Logic {
         data.finalValue = total
         if (count > 0) {
             data.finalValue2 = ((total2).toDouble() / count).roundOffDecimal3()
-            Log.e(">>>", ""+total4+" : "+count)
-            data.finalValue4 = (((total4).toDouble() / count).roundOffDecimal3() * data.bingos).roundOffDecimal2()
+//            Log.e(">>>", ""+total4+" : "+count)
+            data.finalValue4 =
+                (((total4).toDouble() / count).roundOffDecimal3() * data.bingos).roundOffDecimal2()
         }
-
-//        if (count4 > 0) {
-//            data.finalValue4 = ((total4).toDouble() / count4).roundOffDecimal3()
-//        }
 
         return data
     }
@@ -252,6 +250,29 @@ object Logic {
 
     fun calculate3(list: ArrayList<Data>, data: Data, clicked: Int): Data {
         var total = 0.0
+        val sel = list.filter { item -> item.number == clicked }.first()
+        val allSel = getAll(sel, list)
+
+         allSel.filter { item -> !item.isClicked }.forEach {
+            val allSel = getAll(it, list)
+             val sizeSel : Double = allSel.filter { item -> !item.isClicked }.size.toDouble()
+             total += (sizeSel/it.bingos).roundOffDecimal2()
+        }
+        data.finalValue3 = (total/data.bingos).roundOffDecimal2()
+
+        return data
+    }
+
+    fun calResult3dep(list: ArrayList<Data>): ArrayList<Data> {
+        val mList = list
+        for (i in 1..25) {
+            mList[i - 1] = calculate3dep(list, list[i - 1], i)
+        }
+        return mList
+    }
+
+    fun calculate3dep(list: ArrayList<Data>, data: Data, clicked: Int): Data {
+        var total = 0.0
         var init = 0.0
 
         val sel = list.filter { item -> item.number == clicked }.first()
@@ -262,8 +283,8 @@ object Logic {
         n += sizeSel
         total += sel.selfValue.toDouble() / n
         init = total
-        if (clicked == 4)
-            Log.e(" 1 >>>>> " + sel.number, " " + total + " , " + sel.selfValue + " : " + n)
+//        if (clicked == 4)
+//            Log.e(" 1 >>>>> " + sel.number, " " + total + " , " + sel.selfValue + " : " + n)
 
 
         data.h.forEach {
@@ -271,7 +292,7 @@ object Logic {
             val all = getAll(d, list)
 
             if (d.number == clicked) {
-            }else if (d.isClicked) {
+            } else if (d.isClicked) {
                 total += init
             } else {
                 var hn = 1.0
@@ -279,8 +300,8 @@ object Logic {
                 val size = all.filter { item -> item.isClicked }.size
                 hn += size
                 total += (init * (hn / s)).roundOffDecimal2()
-                if (clicked == 4)
-                    Log.e(" 2 >>>>> " + d.number, " " + (init * (hn / s)) + " , " + hn + " " + s+" >> "+(hn/s))
+//                if (clicked == 4)
+//                    Log.e(" 2 >>>>> " + d.number, " " + (init * (hn / s)) + " , " + hn + " " + s+" >> "+(hn/s))
             }
         }
 
@@ -291,7 +312,7 @@ object Logic {
                 val all = getAll(d, list)
 
                 if (d.number == clicked) {
-                }else if (d.isClicked) {
+                } else if (d.isClicked) {
                     total += init
                 } else {
                     var vn = 1.0
@@ -299,8 +320,8 @@ object Logic {
                     val size = all.filter { item -> item.isClicked }.size
                     vn += size
                     total += (init * (vn / s)).roundOffDecimal2()
-                    if (clicked == 4)
-                        Log.e(" 2 >>>>> " + d.number, " " + (init * (vn / s)) + " , " + vn + " " + s+" >> "+(vn/s))
+//                    if (clicked == 4)
+//                        Log.e(" 2 >>>>> " + d.number, " " + (init * (vn / s)) + " , " + vn + " " + s+" >> "+(vn/s))
 
                 }
             }
@@ -313,7 +334,7 @@ object Logic {
                 val d = list.filter { item -> item.number == it }.first()
                 val all = getAll(d, list)
                 if (d.number == clicked) {
-                }else if (d.isClicked) {
+                } else if (d.isClicked) {
                     total += init
                 } else {
                     var dn = 1.0
@@ -321,8 +342,8 @@ object Logic {
                     val size = all.filter { item -> item.isClicked }.size
                     dn += size
                     total += (init * (dn / s)).roundOffDecimal2()
-                    if (clicked == 4)
-                        Log.e(" 2 >>>>> " + d.number, " " + (init * (dn / s)) + " , " + dn + " " + s+" >> "+(dn/s))
+//                    if (clicked == 4)
+//                        Log.e(" 2 >>>>> " + d.number, " " + (init * (dn / s)) + " , " + dn + " " + s+" >> "+(dn/s))
 
                 }
             }

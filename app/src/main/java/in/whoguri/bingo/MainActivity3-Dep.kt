@@ -10,7 +10,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.os.LocaleListCompat
 
-class MainActivity3 : AppCompatActivity() {
+class `MainActivity3-Dep` : AppCompatActivity() {
     val adapter by lazy {
         GridAdapter(this, 3, AppData.dataList) { it, b ->
             val data = AppData.dataList[it]
@@ -31,7 +31,7 @@ class MainActivity3 : AppCompatActivity() {
                 AppData.resultList.clear()
                 AppData.averageList.clear()
                 averageAdapter.clear()
-                temp.sortedBy { it.finalValue3 }.forEach {
+                temp.sortedByDescending { it.finalValue3 }.forEach {
                     if (AppData.resultList.size < 10) {
                         AppData.resultList.add(it.code)
                     }
@@ -104,7 +104,7 @@ class MainActivity3 : AppCompatActivity() {
         AppData.resultList.clear()
         AppData.averageList.clear()
         averageAdapter.clear()
-        temp.sortedBy { it.finalValue3 }.forEach {
+        temp.sortedByDescending { it.finalValue3 }.forEach {
             if (AppData.resultList.size < 10) {
                 AppData.resultList.add(it.code)
             }
