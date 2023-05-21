@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Button
 import android.widget.GridView
+import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
@@ -64,7 +65,7 @@ class `MainActivity3-Dep` : AppCompatActivity() {
         findViewById<GridView>(R.id.avrageGrid).adapter = averageAdapter
         planA()
 
-        findViewById<Button>(R.id.restart).setOnClickListener {
+        findViewById<LinearLayout>(R.id.restart).setOnClickListener {
             restart()
         }
         findViewById<Button>(R.id.btn1).setOnClickListener {
@@ -87,7 +88,7 @@ class `MainActivity3-Dep` : AppCompatActivity() {
 
     fun restart() {
         AppData.reset()
-        startActivity(Intent(this, MainActivity4::class.java))
+        startActivity(Intent(this, MainActivity3::class.java))
         overridePendingTransition(0, 0)
         finishAffinity()
     }

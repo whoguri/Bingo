@@ -7,6 +7,7 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.Button
 import android.widget.GridView
+import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
@@ -66,7 +67,7 @@ class MainActivity4 : AppCompatActivity() {
         findViewById<GridView>(R.id.avrageGrid).adapter = averageAdapter
         planA()
 
-        findViewById<Button>(R.id.restart).setOnClickListener {
+        findViewById<LinearLayout>(R.id.restart).setOnClickListener {
             restart()
         }
         findViewById<Button>(R.id.btn1).setOnClickListener {
@@ -89,32 +90,9 @@ class MainActivity4 : AppCompatActivity() {
 
     fun restart() {
         AppData.reset()
-        startActivity(Intent(this, MainActivity4::class.java))
+        startActivity(Intent(this, MainActivity3::class.java))
         overridePendingTransition(0, 0)
         finishAffinity()
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        menuInflater.inflate(R.menu.menu, menu)
-        val item1: MenuItem = menu.findItem(R.id.button_item1)
-        item1.setOnMenuItemClickListener { it ->
-            startActivity(Intent(this, MainActivity::class.java))
-            overridePendingTransition(0, 0)
-            return@setOnMenuItemClickListener true
-        }
-        val item2: MenuItem = menu.findItem(R.id.button_item2)
-        item2.setOnMenuItemClickListener { it ->
-            startActivity(Intent(this, MainActivity2::class.java))
-            overridePendingTransition(0, 0)
-            return@setOnMenuItemClickListener true
-        }
-        val item3: MenuItem = menu.findItem(R.id.button_item3)
-        item3.setOnMenuItemClickListener { it ->
-            startActivity(Intent(this, MainActivity3::class.java))
-            overridePendingTransition(0, 0)
-            return@setOnMenuItemClickListener true
-        }
-        return true
     }
 
     override fun onResume() {
