@@ -16,24 +16,31 @@
             android:exported="true">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MainActivity3" />
+                android:value=".MainActivity5" />
         </activity>
         <activity
             android:name=".MainActivity2"
             android:exported="true">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MainActivity3" />
+                android:value=".MainActivity5" />
         </activity>
         <activity
             android:name=".MainActivity4"
             android:exported="true">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MainActivity3" />
+                android:value=".MainActivity5" />
         </activity>
         <activity
             android:name=".MainActivity3"
+            android:exported="true">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainActivity5" />
+        </activity>
+        <activity
+            android:name=".MainActivity5"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

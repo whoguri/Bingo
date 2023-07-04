@@ -22,6 +22,8 @@ class MainActivity2 : AppCompatActivity() {
             } else {
                 AppData.dataList = Logic.calResult(AppData.dataList)
                 AppData.dataList = Logic.calResult3(AppData.dataList)
+                AppData.dataList = Logic.calResult5(AppData.dataList)
+
                 val temp = ArrayList<Data>()
                 AppData.dataList.forEach {
                     if (it.finalValue2 > 0 && !it.isClicked) {

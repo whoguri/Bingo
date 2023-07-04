@@ -3,12 +3,16 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
+        android:id="@+id/button_item1"
+        android:title="Cal 1"
+        app:showAsAction="always" />
+    <item
         android:id="@+id/button_item2"
         android:title="Cal 2"
         app:showAsAction="always" />
     <item
-        android:id="@+id/button_item1"
-        android:title="Cal 1"
+        android:id="@+id/button_item3"
+        android:title="Cal 3"
         app:showAsAction="always" />
     <item
         android:id="@+id/button_item4"

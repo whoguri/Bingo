@@ -29,6 +29,18 @@ object Logic {
         return allData
     }
 
+    fun getSel(all: ArrayList<Int>, list: ArrayList<Data>): ArrayList<Data> {
+        val allData = arrayListOf<Data>()
+
+        list.forEach {
+            val has = all.filter { i -> i == it.number }.isNotEmpty()
+            if (has) {
+                allData.add(it)
+            }
+        }
+        return allData
+    }
+
     fun calAverage(list: ArrayList<Data>): ArrayList<String> {
         val lines = createLines()
         val result = arrayListOf<Pair<String, Int>>()
@@ -229,6 +241,7 @@ object Logic {
 
             }
         }
+
         data.finalValue = total
         if (count > 0) {
             data.finalValue2 = ((total2).toDouble() / count).roundOffDecimal3()
@@ -253,12 +266,106 @@ object Logic {
         val sel = list.filter { item -> item.number == clicked }.first()
         val allSel = getAll(sel, list)
 
-         allSel.filter { item -> !item.isClicked }.forEach {
+        allSel.filter { item -> !item.isClicked }.forEach {
             val allSel = getAll(it, list)
-             val sizeSel : Double = allSel.filter { item -> !item.isClicked }.size.toDouble()
-             total += (sizeSel/it.bingos).roundOffDecimal2()
+            val sizeSel: Double = allSel.filter { item -> !item.isClicked }.size.toDouble()
+            total += (sizeSel / it.bingos).roundOffDecimal2()
         }
-        data.finalValue3 = (total/data.bingos).roundOffDecimal2()
+        data.finalValue3 = (total / data.bingos).roundOffDecimal2()
+
+        return data
+    }
+
+    fun calResult5(list: ArrayList<Data>): ArrayList<Data> {
+        val mList = list
+        for (i in 1..25) {
+            mList[i - 1] = calculateHidden5(list, list[i - 1], i)
+        }
+        for (i in 1..25) {
+            mList[i - 1] = calculate5(list, list[i - 1], i)
+        }
+        return mList
+    }
+
+    fun calculateHidden5(list: ArrayList<Data>, data: Data, clicked: Int): Data {
+        val h: Double = (1.0 / getSel(data.h, list).filter { item -> !item.isClicked }.size).roundOffDecimal3()
+        val v: Double = (1.0 / getSel(data.v, list).filter { item -> !item.isClicked }.size).roundOffDecimal3()
+        val d: Double = (1.0 / getSel(data.d, list).filter { item -> !item.isClicked }.size).roundOffDecimal3()
+        var c = 0.0
+        if (clicked == 1 || clicked == 5 || clicked == 21 || clicked == 25) {
+            c = (1.0 / getSel(arrayListOf(1, 5, 21, 25), list).filter { item -> !item.isClicked }.size).roundOffDecimal3()
+        }
+        data.hidden = h + v + d + c
+        data.subHiddenH = h
+        data.subHiddenV = v
+        data.subHiddenD = d
+        data.subHiddenC = c
+        return data
+    }
+
+    fun calculate5(list: ArrayList<Data>, data: Data, clicked: Int): Data {
+        var total = 0.0
+        var subTotal = 0.0
+        var count = 0
+
+        data.h.forEach {
+            val d = list.filter { item -> item.number == it }.first()
+            if (!d.isClicked &&  d.number != clicked) {
+                subTotal += d.hidden
+                count++
+            }
+        }
+        if (count != 0)
+            total += data.subHiddenH * (subTotal / count).roundOffDecimal3()
+        if (clicked == 23)
+            Log.e(">>>", "" + total + " : " + subTotal + " : " + count+" : " + (subTotal / count).roundOffDecimal3()+ " : " + data.subHiddenH)
+
+        subTotal = 0.0
+        count = 0
+
+        data.v.forEach {
+            val d = list.filter { item -> item.number == it }.first()
+            if (!d.isClicked && d.number != clicked) {
+                subTotal += d.hidden
+                count++
+            }
+        }
+        if (count != 0)
+            total += data.subHiddenV * (subTotal / count).roundOffDecimal3()
+
+        if (clicked == 23)
+            Log.e(">>>", "" + total + " : " + subTotal + " : " + count + " : " + data.subHiddenV)
+
+        subTotal = 0.0
+        count = 0
+
+        data.d.forEach {
+            val d = list.filter { item -> item.number == it }.first()
+            if (!d.isClicked && d.number != clicked) {
+                subTotal += d.hidden
+                count++
+            }
+        }
+        if (count != 0)
+            total += data.subHiddenD * (subTotal / count).roundOffDecimal3()
+
+        subTotal = 0.0
+        count = 0
+
+        arrayListOf(1, 5, 21, 25).forEach {
+            val d = list.filter { item -> item.number == it }.first()
+            if (!d.isClicked && d.number != clicked) {
+                subTotal += d.hidden
+                count++
+            }
+        }
+        if (count != 0)
+            total += data.subHiddenC * (subTotal / count).roundOffDecimal3()
+
+        subTotal = 0.0
+        count = 0
+
+        data.finalValue5 = total.roundOffDecimal3()
 
         return data
     }
