@@ -1,7 +1,5 @@
 package `in`.whoguri.bingo
 
-import android.util.Log
-
 object Logic {
 
     fun getAll(data: Data, list: ArrayList<Data>): ArrayList<Data> {
@@ -310,15 +308,13 @@ object Logic {
 
         data.h.forEach {
             val d = list.filter { item -> item.number == it }.first()
-            if (!d.isClicked &&  d.number != clicked) {
+            if (!d.isClicked && d.number != clicked) {
                 subTotal += d.hidden
                 count++
             }
         }
         if (count != 0)
             total += data.subHiddenH * (subTotal / count).roundOffDecimal3()
-        if (clicked == 23)
-            Log.e(">>>", "" + total + " : " + subTotal + " : " + count+" : " + (subTotal / count).roundOffDecimal3()+ " : " + data.subHiddenH)
 
         subTotal = 0.0
         count = 0
@@ -332,38 +328,42 @@ object Logic {
         }
         if (count != 0)
             total += data.subHiddenV * (subTotal / count).roundOffDecimal3()
-
-        if (clicked == 23)
-            Log.e(">>>", "" + total + " : " + subTotal + " : " + count + " : " + data.subHiddenV)
+        else
+            total += 1
 
         subTotal = 0.0
         count = 0
 
-        data.d.forEach {
-            val d = list.filter { item -> item.number == it }.first()
-            if (!d.isClicked && d.number != clicked) {
-                subTotal += d.hidden
-                count++
+        if (data.d.size > 0) {
+            data.d.forEach {
+                val d = list.filter { item -> item.number == it }.first()
+                if (!d.isClicked && d.number != clicked) {
+                    subTotal += d.hidden
+                    count++
+                }
             }
+            if (count != 0)
+                total += data.subHiddenD * (subTotal / count).roundOffDecimal3()
+//            else
+//                total += 1
+            subTotal = 0.0
+            count = 0
         }
-        if (count != 0)
-            total += data.subHiddenD * (subTotal / count).roundOffDecimal3()
 
-        subTotal = 0.0
-        count = 0
-
-        arrayListOf(1, 5, 21, 25).forEach {
-            val d = list.filter { item -> item.number == it }.first()
-            if (!d.isClicked && d.number != clicked) {
-                subTotal += d.hidden
-                count++
+        if (clicked == 1 || clicked == 5 || clicked == 21 || clicked == 25) {
+            arrayListOf(1, 5, 21, 25).forEach {
+                val d = list.filter { item -> item.number == it }.first()
+                if (!d.isClicked && d.number != clicked) {
+                    subTotal += d.hidden
+                    count++
+                }
             }
-        }
-        if (count != 0)
-            total += data.subHiddenC * (subTotal / count).roundOffDecimal3()
+            if (count != 0)
+                total += data.subHiddenC * (subTotal / count).roundOffDecimal3()
 
-        subTotal = 0.0
-        count = 0
+            subTotal = 0.0
+            count = 0
+        }
 
         data.finalValue5 = total.roundOffDecimal3()
 
