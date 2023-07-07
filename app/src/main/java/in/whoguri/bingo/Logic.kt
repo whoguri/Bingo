@@ -315,6 +315,8 @@ object Logic {
         }
         if (count != 0)
             total += data.subHiddenH * (subTotal / count).roundOffDecimal3()
+        else
+            total += 1
 
         subTotal = 0.0
         count = 0
@@ -327,7 +329,7 @@ object Logic {
             }
         }
         if (count != 0)
-            total += data.subHiddenV * (subTotal / count).roundOffDecimal3()
+            total += (data.subHiddenV * (subTotal / count)).roundOffDecimal3()
         else
             total += 1
 
@@ -344,8 +346,9 @@ object Logic {
             }
             if (count != 0)
                 total += data.subHiddenD * (subTotal / count).roundOffDecimal3()
-//            else
-//                total += 1
+            else
+                total += 1
+
             subTotal = 0.0
             count = 0
         }
@@ -360,6 +363,8 @@ object Logic {
             }
             if (count != 0)
                 total += data.subHiddenC * (subTotal / count).roundOffDecimal3()
+            else
+                total += 1
 
             subTotal = 0.0
             count = 0
