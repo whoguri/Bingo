@@ -36,11 +36,11 @@ class MainActivity5 : AppCompatActivity() {
                 AppData.averageList.clear()
                 averageAdapter.clear()
                 temp.sortedByDescending { it.finalValue5 }.forEach {
-                    if (AppData.resultList.size < 10) {
+                    if (AppData.resultList.size < 10 && it.number != 13) {
                         AppData.resultList.add(it.code)
                     }
                 }
-                AppData.averageList = Logic.calAverage4(AppData.dataList)
+                AppData.averageList = Logic.calAverage5(AppData.dataList)
                 resultAdapter.notifyDataSetChanged()
                 averageAdapter.addAll(AppData.averageList)
 //                adapter3.notifyDataSetChanged()
@@ -109,11 +109,11 @@ class MainActivity5 : AppCompatActivity() {
         AppData.averageList.clear()
         averageAdapter.clear()
         temp.sortedByDescending { it.finalValue5 }.forEach {
-            if (AppData.resultList.size < 10) {
+            if (AppData.resultList.size < 10 && it.number != 13) {
                 AppData.resultList.add(it.code)
             }
         }
-        AppData.averageList = Logic.calAverage4(AppData.dataList)
+        AppData.averageList = Logic.calAverage5(AppData.dataList)
         averageAdapter.addAll(AppData.averageList)
     }
 

@@ -2,8 +2,6 @@ package `in`.whoguri.bingo
 
 import android.content.Intent
 import android.os.Bundle
-import android.view.Menu
-import android.view.MenuItem
 import android.view.View
 import android.widget.Button
 import android.widget.GridView
@@ -36,7 +34,7 @@ class MainActivity4 : AppCompatActivity() {
                 AppData.averageList.clear()
                 averageAdapter.clear()
                 temp.sortedByDescending { it.finalValue4 }.forEach {
-                    if (AppData.resultList.size < 10) {
+                    if (AppData.resultList.size < 10 && it.number != 13) {
                         AppData.resultList.add(it.code)
                     }
                 }
@@ -109,7 +107,7 @@ class MainActivity4 : AppCompatActivity() {
         AppData.averageList.clear()
         averageAdapter.clear()
         temp.sortedByDescending { it.finalValue4 }.forEach {
-            if (AppData.resultList.size < 10) {
+            if (AppData.resultList.size < 10 && it.number != 13) {
                 AppData.resultList.add(it.code)
             }
         }

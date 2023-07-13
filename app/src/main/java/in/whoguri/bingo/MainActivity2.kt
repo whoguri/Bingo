@@ -34,7 +34,7 @@ class MainActivity2 : AppCompatActivity() {
                 AppData.averageList.clear()
                 averageAdapter.clear()
                 temp.sortedByDescending { it.finalValue2 }.forEach {
-                    if (AppData.resultList.size < 10) {
+                    if (AppData.resultList.size < 10 && it.number != 13) {
                         AppData.resultList.add(it.code)
                     }
                 }
@@ -91,6 +91,7 @@ class MainActivity2 : AppCompatActivity() {
         overridePendingTransition(0, 0)
         finishAffinity()
     }
+
     override fun onResume() {
         super.onResume()
 
@@ -104,7 +105,7 @@ class MainActivity2 : AppCompatActivity() {
         AppData.averageList.clear()
         averageAdapter.clear()
         temp.sortedByDescending { it.finalValue2 }.forEach {
-            if (AppData.resultList.size < 10) {
+            if (AppData.resultList.size < 10 && it.number != 13) {
                 AppData.resultList.add(it.code)
             }
         }

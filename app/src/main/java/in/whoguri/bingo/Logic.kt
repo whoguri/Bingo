@@ -139,6 +139,31 @@ object Logic {
         return result2
     }
 
+    fun calAverage5(list: ArrayList<Data>): ArrayList<String> {
+        val lines = createLines()
+        val result = arrayListOf<Pair<String, Double>>()
+        lines.forEach {
+            var temp = 0.0
+            val tempArray = arrayListOf<Double>()
+            it.second.forEach {
+                val data = list.find { e -> e.number == it }
+                if (data != null && data.finalValue5 != -1.0 && !data.isClicked) {
+                    temp += data.finalValue5
+                    tempArray.add(data.finalValue5)
+                }
+            }
+            if (tempArray.size > 0) {
+                temp /= tempArray.size
+            }
+            result.add(Pair(it.first, temp))
+        }
+        val result2 = arrayListOf<String>()
+        result.sortedByDescending { it.second }.forEach {
+            result2.add(it.first)
+        }
+        return result2
+    }
+
     fun calResult(list: ArrayList<Data>): ArrayList<Data> {
         val mList = list
         for (i in 1..25) {

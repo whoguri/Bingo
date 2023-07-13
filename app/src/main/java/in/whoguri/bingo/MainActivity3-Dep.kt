@@ -35,7 +35,7 @@ class `MainActivity3-Dep` : AppCompatActivity() {
                 AppData.averageList.clear()
                 averageAdapter.clear()
                 temp.sortedByDescending { it.finalValue3 }.forEach {
-                    if (AppData.resultList.size < 10) {
+                    if (AppData.resultList.size < 10&& it.number != 13) {
                         AppData.resultList.add(it.code)
                     }
                 }
@@ -108,7 +108,7 @@ class `MainActivity3-Dep` : AppCompatActivity() {
         AppData.averageList.clear()
         averageAdapter.clear()
         temp.sortedByDescending { it.finalValue3 }.forEach {
-            if (AppData.resultList.size < 10) {
+            if (AppData.resultList.size < 10&& it.number != 13) {
                 AppData.resultList.add(it.code)
             }
         }
