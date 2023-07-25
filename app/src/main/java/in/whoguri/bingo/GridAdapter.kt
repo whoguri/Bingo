@@ -21,7 +21,7 @@ class GridAdapter(
         if (listitemView == null) {
             listitemView = LayoutInflater.from(context_).inflate(R.layout.item, parent, false)
         }
-        val courseModel = getItem(position)
+        val data = getItem(position)
         val courseTV = listitemView!!.findViewById<TextView>(R.id.num)
 
         listitemView.setOnClickListener {
@@ -30,7 +30,7 @@ class GridAdapter(
 //                val array = arrayListOf<Int>()
 //                val v = array[0]
 //            }
-            call(position, courseModel!!.isClicked)
+            call(position, data!!.isClicked)
             notifyDataSetChanged()
         }
 
@@ -38,30 +38,30 @@ class GridAdapter(
             courseTV.text = "X"
             listitemView.setOnClickListener {}
             courseTV.setBackgroundColor(context_.getColor(R.color.black))
-        } else if (courseModel!!.isClicked) {
+        } else if (data!!.isClicked) {
             courseTV.text = ""
             courseTV.setBackgroundColor(context_.getColor(R.color.purple))
         } else {
             courseTV.setBackgroundColor(context_.getColor(R.color.white))
             if (type == 5) {
-                if (courseModel.finalValue5 != -1.0) {
-                    courseTV.text = courseModel.finalValue5.toString()
+                if (data.finalValue5 != -1.0) {
+                    courseTV.text = data.finalValue5.toString() + ":"+data.hidden
                 }
             }else if (type == 4) {
-                if (courseModel.finalValue4 != -1.0) {
-                    courseTV.text = courseModel.finalValue4.toString()
+                if (data.finalValue4 != -1.0) {
+                    courseTV.text = data.finalValue4.toString()
                 }
             }else if (type == 3) {
-                if (courseModel.finalValue3 != -1.0) {
-                    courseTV.text = courseModel.finalValue3.toString()
+                if (data.finalValue3 != -1.0) {
+                    courseTV.text = data.finalValue3.toString()
                 }
             }else if (type == 2) {
-                if (courseModel.finalValue2 != -1.0) {
-                    courseTV.text = courseModel.finalValue2.toString()
+                if (data.finalValue2 != -1.0) {
+                    courseTV.text = data.finalValue2.toString()
                 }
             } else {
-                if (courseModel.finalValue != -1) {
-                    courseTV.text = courseModel.finalValue.toString()
+                if (data.finalValue != -1) {
+                    courseTV.text = data.finalValue.toString()
                 }
             }
         }

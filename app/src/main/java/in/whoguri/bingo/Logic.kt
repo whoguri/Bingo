@@ -1,5 +1,7 @@
 package `in`.whoguri.bingo
 
+import android.util.Log
+
 object Logic {
 
     fun getAll(data: Data, list: ArrayList<Data>): ArrayList<Data> {
@@ -305,7 +307,9 @@ object Logic {
             mList[i - 1] = calculateHidden5(list, list[i - 1], i)
         }
         for (i in 1..25) {
-            mList[i - 1] = calculate5(list, list[i - 1], i)
+            val data = list[i - 1]
+            if (!data.isClicked)
+                mList[i - 1] = calculate5(list, data, i)
         }
         return mList
     }
@@ -327,6 +331,106 @@ object Logic {
     }
 
     fun calculate5(list: ArrayList<Data>, data: Data, clicked: Int): Data {
+        var total = 0.0
+        var subTotal = 0.0
+        var count = 0
+
+        data.h.forEach {
+            val d = list.filter { item -> item.number == it }.first()
+            if (!d.isClicked) {//&& d.number != clicked) {
+                subTotal += d.hidden
+                count++
+            }
+        }
+        if (count != 1)
+            total += (data.subHiddenH * (subTotal / count).roundOffDecimal3()).roundOffDecimal3()
+        else
+            total = (total + 1).roundOffDecimal3()
+        subTotal = 0.0
+        count = 0
+
+        data.v.forEach {
+            val d = list.filter { item -> item.number == it }.first()
+            if (!d.isClicked) { //&& d.number != clicked) {
+                subTotal += d.hidden
+                count++
+            }
+        }
+        if (count != 1)
+            total += (data.subHiddenV * (subTotal / count).roundOffDecimal3()).roundOffDecimal3()
+        else
+            total = (total + 1).roundOffDecimal3()
+
+        subTotal = 0.0
+        count = 0
+
+        if (data.d.size > 0) {
+            data.d.forEach {
+                val d = list.filter { item -> item.number == it }.first()
+                if (!d.isClicked) { // && d.number != clicked) {
+                    subTotal += d.hidden
+                    count++
+                }
+            }
+            if (count != 1)
+                total += (data.subHiddenD * (subTotal / count).roundOffDecimal3()).roundOffDecimal3()
+            else
+                total = (total + 1).roundOffDecimal3()
+
+            subTotal = 0.0
+            count = 0
+        }
+
+        if (clicked == 1 || clicked == 5 || clicked == 21 || clicked == 25) {
+            arrayListOf(1, 5, 21, 25).forEach {
+                val d = list.filter { item -> item.number == it }.first()
+                if (!d.isClicked) { // && d.number != clicked) {
+                    subTotal += d.hidden.roundOffDecimal2()
+                    count++
+                }
+            }
+
+            if (count != 1)
+                total += (subTotal / count).roundOffDecimal3()
+            else
+                total = (total + 1).roundOffDecimal3()
+
+            subTotal = 0.0
+            count = 0
+        }
+
+        data.finalValue5 = total.roundOffDecimal3()
+        return data
+    }
+
+    fun calResult5_dep(list: ArrayList<Data>): ArrayList<Data> {
+        val mList = list
+        for (i in 1..25) {
+            mList[i - 1] = calculateHidden5_dep(list, list[i - 1], i)
+        }
+        for (i in 1..25) {
+            mList[i - 1] = calculate5(list, list[i - 1], i)
+        }
+        return mList
+    }
+
+    fun calculateHidden5_dep(list: ArrayList<Data>, data: Data, clicked: Int): Data {
+        val h: Double = (1.0 / getSel(data.h, list).filter { item -> !item.isClicked }.size).roundOffDecimal3()
+        val v: Double = (1.0 / getSel(data.v, list).filter { item -> !item.isClicked }.size).roundOffDecimal3()
+        val d: Double = (1.0 / getSel(data.d, list).filter { item -> !item.isClicked }.size).roundOffDecimal3()
+        var c = 0.0
+        if (clicked == 1 || clicked == 5 || clicked == 21 || clicked == 25) {
+            c = (1.0 / getSel(arrayListOf(1, 5, 21, 25), list).filter { item -> !item.isClicked }.size).roundOffDecimal3()
+        }
+        data.hidden = h + v + d + c
+        data.subHiddenH = h
+        data.subHiddenV = v
+        data.subHiddenD = d
+        data.subHiddenC = c
+        return data
+    }
+
+    fun calculate5_dep(list: ArrayList<Data>, data: Data, clicked: Int): Data {
         var total = 0.0
         var subTotal = 0.0
         var count = 0
