@@ -23,7 +23,7 @@
             android:textColor="@color/black"
             android:background="@color/white"
             android:text=""
-            android:textSize="16sp"
+            android:textSize="36sp"
             />
     </LinearLayout>
 </LinearLayout>
