@@ -11,6 +11,7 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.core.content.ContextCompat
 import androidx.core.os.LocaleListCompat
 
 class MainActivity5 : AppCompatActivity() {
@@ -23,27 +24,7 @@ class MainActivity5 : AppCompatActivity() {
                 restart()
                 return@GridAdapter
             } else {
-                AppData.dataList = Logic.calResult5(AppData.dataList)
-                AppData.dataList = Logic.calResult(AppData.dataList)
-                AppData.dataList = Logic.calResult3(AppData.dataList)
-                val temp = ArrayList<Data>()
-                AppData.dataList.forEach {
-                    if (it.finalValue5 > 0 && !it.isClicked) {
-                        temp.add(it)
-                    }
-                }
-                AppData.resultList.clear()
-                AppData.averageList.clear()
-                averageAdapter.clear()
-                temp.sortedByDescending { it.finalValue5 }.forEach {
-                    if (AppData.resultList.size < 10 && it.number != 13) {
-                        AppData.resultList.add(it.code)
-                    }
-                }
-                AppData.averageList = Logic.calAverage5(AppData.dataList)
-                resultAdapter.notifyDataSetChanged()
-                averageAdapter.addAll(AppData.averageList)
-//                adapter3.notifyDataSetChanged()
+                recal()
             }
         }
     }
@@ -53,6 +34,7 @@ class MainActivity5 : AppCompatActivity() {
     val averageAdapter by lazy {
         ResultAdapter(this, AppData.averageList)
     }
+    var variant = 1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -68,7 +50,7 @@ class MainActivity5 : AppCompatActivity() {
         findViewById<GridView>(R.id.avrageGrid).adapter = averageAdapter
         planA()
 
-        findViewById<LinearLayout>(R.id.restart).setOnClickListener {
+        findViewById<TextView>(R.id.restart).setOnClickListener {
             restart()
         }
         findViewById<Button>(R.id.btn1).setOnClickListener {
@@ -76,6 +58,25 @@ class MainActivity5 : AppCompatActivity() {
         }
         findViewById<Button>(R.id.btn2).setOnClickListener {
             planB()
+        }
+
+        val v1 :TextView= findViewById<TextView>(R.id.v1)
+        val v2 :TextView= findViewById<TextView>(R.id.v2)
+        v1.visibility = View.VISIBLE
+        v2.visibility = View.VISIBLE
+        v1.setOnClickListener {
+            v1.setTextAppearance( R.style.text1);
+            v2.setTextAppearance( R.style.text2);
+            variant = 1
+            recal()
+            adapter.notify_()
+        }
+        v2.setOnClickListener {
+            v1.setTextAppearance( R.style.text2);
+            v2.setTextAppearance( R.style.text1);
+            variant = 2
+            recal()
+            adapter.notify_()
         }
     }
 
@@ -87,6 +88,31 @@ class MainActivity5 : AppCompatActivity() {
     private fun planB() {
         findViewById<GridView>(R.id.sortGrid).visibility = View.GONE
         findViewById<GridView>(R.id.avrageGrid).visibility = View.VISIBLE
+    }
+
+    private fun recal() {
+        AppData.dataList = Logic.calResult5(AppData.dataList, variant)
+        AppData.dataList = Logic.calResult(AppData.dataList)
+        AppData.dataList = Logic.calResult3(AppData.dataList)
+        val temp = ArrayList<Data>()
+        AppData.dataList.forEach {
+            if (it.finalValue5 > 0 && !it.isClicked) {
+                temp.add(it)
+            }
+        }
+        AppData.resultList.clear()
+        AppData.averageList.clear()
+        averageAdapter.clear()
+        temp.sortedByDescending { it.finalValue5 }.forEach {
+            if (AppData.resultList.size < 10 && it.number != 13) {
+                AppData.resultList.add(it.code)
+            }
+        }
+        AppData.averageList = Logic.calAverage5(AppData.dataList)
+        resultAdapter.notifyDataSetChanged()
+        averageAdapter.addAll(AppData.averageList)
+//                adapter3.notifyDataSetChanged()
+
     }
 
     fun restart() {

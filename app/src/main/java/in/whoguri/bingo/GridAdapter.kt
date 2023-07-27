@@ -15,11 +15,14 @@ class GridAdapter(
     val call: (Int, Boolean) -> Unit
 ) :
     ArrayAdapter<Data>(context_, 0, list) {
+    public fun notify_(){
+        notifyDataSetChanged()
+    }
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
         convertView?.tag = position
         var listitemView = convertView
         if (listitemView == null) {
-            listitemView = LayoutInflater.from(context_).inflate(R.layout.item, parent, false)
+            listitemView = LayoutInflater.from(context_).inflate(R.layout.item_, parent, false)
         }
         val data = getItem(position)
         val courseTV = listitemView!!.findViewById<TextView>(R.id.num)

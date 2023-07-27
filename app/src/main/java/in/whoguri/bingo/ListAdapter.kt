@@ -7,13 +7,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.TextView
-import android.widget.Toast
 
 class ListAdapter(val context_: Context, val list: MutableList<Data>, val call :(Int)->Unit) : ArrayAdapter<Data>(context_, 0, list) {
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
         var listitemView = convertView
         if (listitemView == null) {
-            listitemView = LayoutInflater.from(context_).inflate(R.layout.item, parent, false)
+            listitemView = LayoutInflater.from(context_).inflate(R.layout.item_, parent, false)
         }
         val courseModel = getItem(position)
         val courseTV = listitemView!!.findViewById<TextView>(R.id.num)

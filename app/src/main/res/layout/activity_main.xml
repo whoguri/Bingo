@@ -3,21 +3,20 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layoutDirection="ltr"
-    android:gravity="center_horizontal"
-    android:orientation="vertical"
     android:background="@color/purple_500"
+    android:gravity="center_horizontal"
+    android:layoutDirection="ltr"
+    android:orientation="vertical"
     tools:context=".MainActivity">
 
     <LinearLayout
-        android:id="@+id/restart"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="12dp"
-        android:padding="8dp"
         android:background="@drawable/btn"
         android:gravity="center"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:padding="8dp">
 
         <TextView
             android:id="@+id/title_"
@@ -28,16 +27,49 @@
             android:text="Bingo! 1"
             android:textAlignment="center"
             android:textColor="@color/purple_500"
-            android:textSize="50dp" />
+            android:textSize="48dp" />
 
-        <TextView
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="0dp"
-            android:backgroundTint="@color/white"
-            android:text="Restart"
-            android:textColor="@color/black"
-            android:textSize="18sp" />
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/restart"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="8dp"
+                android:backgroundTint="@color/white"
+                android:text="Restart"
+                android:textColor="@color/black"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/v1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="8dp"
+                android:backgroundTint="@color/white"
+                android:text="v1"
+                android:textColor="@color/purple_500"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:visibility="gone"
+                />
+
+            <TextView
+                android:id="@+id/v2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="8dp"
+                android:backgroundTint="@color/white"
+                android:text="v2"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                android:visibility="gone" />
+
+        </LinearLayout>
 
     </LinearLayout>
 
@@ -106,15 +138,15 @@
             android:layout_height="match_parent"
             android:layoutDirection="ltr"
             android:numColumns="5"
-            tools:listitem="@layout/item" />
+            tools:listitem="@layout/item_" />
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/white"
         android:gravity="center"
         android:minHeight="12dp"
-        android:background="@color/white"
         android:orientation="horizontal"
         android:textAlignment="center">
 
@@ -135,8 +167,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:gravity="center"
-            >
+            android:gravity="center">
 
             <Button
                 android:id="@+id/btn2"
@@ -161,7 +192,7 @@
             android:layoutDirection="ltr"
             android:numColumns="5"
             android:visibility="gone"
-            tools:listitem="@layout/item" />
+            tools:listitem="@layout/item_" />
 
         <GridView
             android:id="@+id/avrageGrid"
@@ -170,7 +201,7 @@
             android:layoutDirection="ltr"
             android:numColumns="7"
             android:visibility="gone"
-            tools:listitem="@layout/item" />
+            tools:listitem="@layout/item_" />
 
     </LinearLayout>
 </LinearLayout>
