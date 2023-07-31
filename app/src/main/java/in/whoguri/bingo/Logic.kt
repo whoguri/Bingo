@@ -302,7 +302,6 @@ object Logic {
     }
 
     fun calResult5(list: ArrayList<Data>, variant: Int = 1): ArrayList<Data> {
-        Log.e(">>>><<<<",variant.toString())
         val mList = list
         for (i in 1..25) {
             mList[i - 1] = calculateHidden5(list, list[i - 1], i)
@@ -356,14 +355,19 @@ object Logic {
 
         data.h.forEach {
             val d = list.filter { item -> item.number == it }.first()
-            if (!d.isClicked) {//&& d.number != clicked) {
-                if (!isD && d.number != clicked) {
+            if (!d.isClicked) {
+                if (!isD) {
+                    if (d.number != clicked) {
+                        subTotal += d.hidden
+                        count++
+                    }
                 } else {
                     subTotal += d.hidden
                     count++
                 }
             }
         }
+
         if (count != q)
             total += (data.subHiddenH * (subTotal / count).roundOffDecimal3()).roundOffDecimal3()
         else
@@ -373,8 +377,12 @@ object Logic {
 
         data.v.forEach {
             val d = list.filter { item -> item.number == it }.first()
-            if (!d.isClicked) { //&& d.number != clicked) {
-                if (!isD && d.number != clicked) {
+            if (!d.isClicked) {
+                if (!isD) {
+                    if (d.number != clicked) {
+                        subTotal += d.hidden
+                        count++
+                    }
                 } else {
                     subTotal += d.hidden
                     count++
@@ -392,8 +400,12 @@ object Logic {
         if (data.d.size > 0) {
             data.d.forEach {
                 val d = list.filter { item -> item.number == it }.first()
-                if (!d.isClicked) { // && d.number != clicked) {
-                    if (!isD && d.number != clicked) {
+                if (!d.isClicked) {
+                    if (!isD) {
+                        if (d.number != clicked) {
+                            subTotal += d.hidden
+                            count++
+                        }
                     } else {
                         subTotal += d.hidden
                         count++
@@ -412,10 +424,14 @@ object Logic {
         if (clicked == 1 || clicked == 5 || clicked == 21 || clicked == 25) {
             arrayListOf(1, 5, 21, 25).forEach {
                 val d = list.filter { item -> item.number == it }.first()
-                if (!d.isClicked) { // && d.number != clicked) {
-                    if (!isD && d.number != clicked) {
+                if (!d.isClicked) {
+                    if (!isD) {
+                        if (d.number != clicked) {
+                            subTotal += d.hidden
+                            count++
+                        }
                     } else {
-                        subTotal += d.hidden.roundOffDecimal2()
+                        subTotal += d.hidden
                         count++
                     }
                 }
@@ -429,8 +445,6 @@ object Logic {
             subTotal = 0.0
             count = 0
         }
-if(clicked==2)
-        Log.e(">>>>><<<<dd",total.toString())
         data.finalValue5 = total.roundOffDecimal3()
         return data
     }
@@ -556,9 +570,6 @@ if(clicked==2)
         n += sizeSel
         total += sel.selfValue.toDouble() / n
         init = total
-//        if (clicked == 4)
-//            Log.e(" 1 >>>>> " + sel.number, " " + total + " , " + sel.selfValue + " : " + n)
-
 
         data.h.forEach {
             val d = list.filter { item -> item.number == it }.first()
@@ -573,8 +584,6 @@ if(clicked==2)
                 val size = all.filter { item -> item.isClicked }.size
                 hn += size
                 total += (init * (hn / s)).roundOffDecimal2()
-//                if (clicked == 4)
-//                    Log.e(" 2 >>>>> " + d.number, " " + (init * (hn / s)) + " , " + hn + " " + s+" >> "+(hn/s))
             }
         }
 
