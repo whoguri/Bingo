@@ -69,7 +69,7 @@ class MainActivity : AppCompatActivity() {
         findViewById<GridView>(R.id.avrageGrid).adapter = averageAdapter
         planA()
 
-        findViewById<LinearLayout>(R.id.restart).setOnClickListener {
+        findViewById<TextView>(R.id.restart).setOnClickListener {
             restart()
         }
         findViewById<Button>(R.id.btn1).setOnClickListener {

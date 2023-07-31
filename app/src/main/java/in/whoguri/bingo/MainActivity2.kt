@@ -6,6 +6,7 @@ import android.view.View
 import android.widget.Button
 import android.widget.GridView
 import android.widget.LinearLayout
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.os.LocaleListCompat
@@ -64,7 +65,7 @@ class MainActivity2 : AppCompatActivity() {
         findViewById<GridView>(R.id.avrageGrid).adapter = averageAdapter
         planA()
 
-        findViewById<LinearLayout>(R.id.restart).setOnClickListener {
+        findViewById<TextView>(R.id.restart).setOnClickListener {
             restart()
         }
         findViewById<Button>(R.id.btn1).setOnClickListener {
