@@ -58,7 +58,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         findViewById<GridView>(R.id.grid).adapter = adapter
-        findViewById<TextView>(R.id.title_).text = "Bingo! 2"
+        findViewById<TextView>(R.id.title_).text = "Bingo! 3"
 
         val appLocale: LocaleListCompat = LocaleListCompat.forLanguageTags("en-us")
         AppCompatDelegate.setApplicationLocales(appLocale)

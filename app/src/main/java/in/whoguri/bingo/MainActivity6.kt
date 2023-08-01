@@ -14,7 +14,7 @@ import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.content.ContextCompat
 import androidx.core.os.LocaleListCompat
 
-class MainActivity5 : AppCompatActivity() {
+class MainActivity6 : AppCompatActivity() {
     val adapter by lazy {
         GridAdapter(this, 5, AppData.dataList) { it, b ->
             val data = AppData.dataList[it]
@@ -34,11 +34,12 @@ class MainActivity5 : AppCompatActivity() {
     val averageAdapter by lazy {
         ResultAdapter(this, AppData.averageList)
     }
+//    var variant = 1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        findViewById<TextView>(R.id.title_).text = "Bingo! 1"
+        findViewById<TextView>(R.id.title_).text = "Bingo! 2"
 
         val appLocale: LocaleListCompat = LocaleListCompat.forLanguageTags("en-us")
         AppCompatDelegate.setApplicationLocales(appLocale)
@@ -58,6 +59,7 @@ class MainActivity5 : AppCompatActivity() {
         findViewById<Button>(R.id.btn2).setOnClickListener {
             planB()
         }
+
     }
 
     private fun planA() {
@@ -71,7 +73,7 @@ class MainActivity5 : AppCompatActivity() {
     }
 
     private fun recal() {
-        AppData.dataList = Logic.calResult5(AppData.dataList, 1)
+        AppData.dataList = Logic.calResult5(AppData.dataList, 2)
         AppData.dataList = Logic.calResult(AppData.dataList)
         AppData.dataList = Logic.calResult3(AppData.dataList)
         val temp = ArrayList<Data>()
@@ -97,7 +99,7 @@ class MainActivity5 : AppCompatActivity() {
 
     fun restart() {
         AppData.reset()
-        startActivity(Intent(this, MainActivity5::class.java))
+        startActivity(Intent(this, MainActivity6::class.java))
         overridePendingTransition(0, 0)
         finishAffinity()
     }
@@ -121,23 +123,6 @@ class MainActivity5 : AppCompatActivity() {
         }
         AppData.averageList = Logic.calAverage5(AppData.dataList)
         averageAdapter.addAll(AppData.averageList)
-    }
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        menuInflater.inflate(R.menu.menu, menu)
-        val item2: MenuItem = menu.findItem(R.id.button_item2)
-        item2.setOnMenuItemClickListener { it ->
-            startActivity(Intent(this, MainActivity6::class.java))
-            overridePendingTransition(0, 0)
-            return@setOnMenuItemClickListener true
-        }
-        val item3: MenuItem = menu.findItem(R.id.button_item3)
-        item3.setOnMenuItemClickListener { it ->
-            startActivity(Intent(this, MainActivity::class.java))
-            overridePendingTransition(0, 0)
-            return@setOnMenuItemClickListener true
-        }
-
-        return true
     }
 
 }

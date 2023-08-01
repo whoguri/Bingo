@@ -117,32 +117,4 @@ class MainActivity5_dep : AppCompatActivity() {
         averageAdapter.addAll(AppData.averageList)
     }
 
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        menuInflater.inflate(R.menu.menu, menu)
-        val item1: MenuItem = menu.findItem(R.id.button_item1)
-        item1.setOnMenuItemClickListener { it ->
-            startActivity(Intent(this, MainActivity::class.java))
-            overridePendingTransition(0, 0)
-            return@setOnMenuItemClickListener true
-        }
-        val item2: MenuItem = menu.findItem(R.id.button_item2)
-        item2.setOnMenuItemClickListener { it ->
-            startActivity(Intent(this, MainActivity2::class.java))
-            overridePendingTransition(0, 0)
-            return@setOnMenuItemClickListener true
-        }
-        val item3: MenuItem = menu.findItem(R.id.button_item3)
-        item3.setOnMenuItemClickListener { it ->
-            startActivity(Intent(this, MainActivity3::class.java))
-            overridePendingTransition(0, 0)
-            return@setOnMenuItemClickListener true
-        }
-        val item4: MenuItem = menu.findItem(R.id.button_item4)
-        item4.setOnMenuItemClickListener { it ->
-            startActivity(Intent(this, MainActivity4::class.java))
-            overridePendingTransition(0, 0)
-            return@setOnMenuItemClickListener true
-        }
-        return true
-    }
 }
