@@ -1,7 +1,5 @@
 package `in`.whoguri.bingo
 
-import android.util.Log
-
 object Logic {
 
     fun getAll(data: Data, list: ArrayList<Data>): ArrayList<Data> {
@@ -321,7 +319,7 @@ object Logic {
                 if (variant == 1) {
                     isD = data.d.size > 0
                 }
-                mList[i - 1] = calculate5(list, data, i, isD)
+                mList[i - 1] = calculate5(list, data, i, isD, variant)
             }
         }
         return mList
@@ -343,7 +341,7 @@ object Logic {
         return data
     }
 
-    fun calculate5(list: ArrayList<Data>, data: Data, clicked: Int, isD: Boolean): Data {
+    fun calculate5(list: ArrayList<Data>, data: Data, clicked: Int, isD: Boolean, variant: Int): Data {
         var total = 0.0
         var subTotal = 0.0
         var count = 0
@@ -445,7 +443,10 @@ object Logic {
             subTotal = 0.0
             count = 0
         }
-        data.finalValue5 = total.roundOffDecimal3()
+        if (variant == 1)
+            data.finalValue5 = total.roundOffDecimal3()
+        else
+            data.finalValue6 = total.roundOffDecimal3()
         return data
     }
 

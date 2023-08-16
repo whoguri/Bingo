@@ -23,8 +23,9 @@ class MainActivity : AppCompatActivity() {
                 return@GridAdapter
             } else {
                 AppData.dataList = Logic.calResult(AppData.dataList)
-                AppData.dataList = Logic.calResult3(AppData.dataList)
-                AppData.dataList = Logic.calResult5(AppData.dataList)
+//                AppData.dataList = Logic.calResult3(AppData.dataList)
+                AppData.dataList = Logic.calResult5(AppData.dataList,1)
+                AppData.dataList = Logic.calResult5(AppData.dataList,2)
 
                 val temp = ArrayList<Data>()
                 AppData.dataList.forEach {
@@ -69,7 +70,7 @@ class MainActivity : AppCompatActivity() {
         findViewById<GridView>(R.id.avrageGrid).adapter = averageAdapter
         planA()
 
-        findViewById<TextView>(R.id.restart).setOnClickListener {
+        findViewById<LinearLayout>(R.id.restart).setOnClickListener {
             restart()
         }
         findViewById<Button>(R.id.btn1).setOnClickListener {

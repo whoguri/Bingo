@@ -16,7 +16,7 @@ import androidx.core.os.LocaleListCompat
 
 class MainActivity6 : AppCompatActivity() {
     val adapter by lazy {
-        GridAdapter(this, 5, AppData.dataList) { it, b ->
+        GridAdapter(this, 6, AppData.dataList) { it, b ->
             val data = AppData.dataList[it]
             data.isClicked = !b
             AppData.dataList[it] = data
@@ -50,7 +50,7 @@ class MainActivity6 : AppCompatActivity() {
         findViewById<GridView>(R.id.avrageGrid).adapter = averageAdapter
         planA()
 
-        findViewById<TextView>(R.id.restart).setOnClickListener {
+        findViewById<LinearLayout>(R.id.restart).setOnClickListener {
             restart()
         }
         findViewById<Button>(R.id.btn1).setOnClickListener {
@@ -74,18 +74,19 @@ class MainActivity6 : AppCompatActivity() {
 
     private fun recal() {
         AppData.dataList = Logic.calResult5(AppData.dataList, 2)
+        AppData.dataList = Logic.calResult5(AppData.dataList, 1)
         AppData.dataList = Logic.calResult(AppData.dataList)
-        AppData.dataList = Logic.calResult3(AppData.dataList)
+//        AppData.dataList = Logic.calResult3(AppData.dataList)
         val temp = ArrayList<Data>()
         AppData.dataList.forEach {
-            if (it.finalValue5 > 0 && !it.isClicked) {
+            if (it.finalValue6 > 0 && !it.isClicked) {
                 temp.add(it)
             }
         }
         AppData.resultList.clear()
         AppData.averageList.clear()
         averageAdapter.clear()
-        temp.sortedByDescending { it.finalValue5 }.forEach {
+        temp.sortedByDescending { it.finalValue6 }.forEach {
             if (AppData.resultList.size < 10 && it.number != 13) {
                 AppData.resultList.add(it.code)
             }
@@ -109,14 +110,14 @@ class MainActivity6 : AppCompatActivity() {
 
         val temp = ArrayList<Data>()
         AppData.dataList.forEach {
-            if (it.finalValue5 > 0 && !it.isClicked) {
+            if (it.finalValue6 > 0 && !it.isClicked) {
                 temp.add(it)
             }
         }
         AppData.resultList.clear()
         AppData.averageList.clear()
         averageAdapter.clear()
-        temp.sortedByDescending { it.finalValue5 }.forEach {
+        temp.sortedByDescending { it.finalValue6 }.forEach {
             if (AppData.resultList.size < 10 && it.number != 13) {
                 AppData.resultList.add(it.code)
             }

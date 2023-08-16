@@ -13,6 +13,7 @@ class Data(
     var finalValue3: Double = -1.0,
     var finalValue4: Double = -1.0,
     var finalValue5: Double = -1.0,
+    var finalValue6: Double = -1.0,
     var isClicked: Boolean = false,
     var subHiddenH: Double = 0.0,
     var subHiddenV: Double = 0.0,

@@ -49,7 +49,7 @@ class MainActivity5 : AppCompatActivity() {
         findViewById<GridView>(R.id.avrageGrid).adapter = averageAdapter
         planA()
 
-        findViewById<TextView>(R.id.restart).setOnClickListener {
+        findViewById<LinearLayout>(R.id.restart).setOnClickListener {
             restart()
         }
         findViewById<Button>(R.id.btn1).setOnClickListener {
@@ -72,8 +72,9 @@ class MainActivity5 : AppCompatActivity() {
 
     private fun recal() {
         AppData.dataList = Logic.calResult5(AppData.dataList, 1)
+        AppData.dataList = Logic.calResult5(AppData.dataList, 2)
         AppData.dataList = Logic.calResult(AppData.dataList)
-        AppData.dataList = Logic.calResult3(AppData.dataList)
+//        AppData.dataList = Logic.calResult3(AppData.dataList)
         val temp = ArrayList<Data>()
         AppData.dataList.forEach {
             if (it.finalValue5 > 0 && !it.isClicked) {
