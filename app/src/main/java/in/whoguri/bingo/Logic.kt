@@ -317,7 +317,7 @@ object Logic {
             val data = list[i - 1]
             if (!data.isClicked) {
                 if (variant == 1) {
-                    isD = data.d.size > 0
+//                    isD = data.d.size > 0
                 }
                 mList[i - 1] = calculate5(list, data, i, isD, variant)
             }
