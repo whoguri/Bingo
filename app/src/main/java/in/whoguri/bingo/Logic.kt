@@ -1,5 +1,7 @@
 package `in`.whoguri.bingo
 
+import android.util.Log
+
 object Logic {
 
     fun getAll(data: Data, list: ArrayList<Data>): ArrayList<Data> {
@@ -435,9 +437,12 @@ object Logic {
                 }
             }
 
-            if (count != q)
-                total += (subTotal / count).roundOffDecimal3()
-            else
+            if (count != q) {
+                if (variant == 1)
+                    total += (data.subHiddenC * (subTotal / count).roundOffDecimal3()).roundOffDecimal3()
+                else
+                    total += (subTotal / count).roundOffDecimal3()
+            } else
                 total = (total + 1).roundOffDecimal3()
 
             subTotal = 0.0
