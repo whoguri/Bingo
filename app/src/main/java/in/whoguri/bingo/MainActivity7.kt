@@ -11,10 +11,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.os.LocaleListCompat
 
-
-class MainActivity : AppCompatActivity() {
+class MainActivity7 : AppCompatActivity() {
     val adapter by lazy {
-        GridAdapter(this, 1, AppData.dataList) { it, b ->
+        GridAdapter(this, 7, AppData.dataList) { it, b ->
             val data = AppData.dataList[it]
             data.isClicked = !b
             AppData.dataList[it] = data
@@ -22,30 +21,7 @@ class MainActivity : AppCompatActivity() {
                 restart()
                 return@GridAdapter
             } else {
-                AppData.dataList = Logic.calResult(AppData.dataList)
-//                AppData.dataList = Logic.calResult3(AppData.dataList)
-                AppData.dataList = Logic.calResult5(AppData.dataList,1)
-                AppData.dataList = Logic.calResult5(AppData.dataList,2)
-                AppData.dataList = Logic.calResult7(AppData.dataList)
-
-                val temp = ArrayList<Data>()
-                AppData.dataList.forEach {
-                    if (it.finalValue > 0 && !it.isClicked) {
-                        temp.add(it)
-                    }
-                }
-                AppData.resultList.clear()
-                AppData.averageList.clear()
-                averageAdapter.clear()
-                temp.sortedByDescending { it.finalValue }.forEach {
-                    if (AppData.resultList.size < 10 && it.number != 13) {
-                        AppData.resultList.add(it.code)
-                    }
-                }
-                AppData.averageList = Logic.calAverage(AppData.dataList)
-                resultAdapter.notifyDataSetChanged()
-                averageAdapter.addAll(AppData.averageList)
-//                adapter3.notifyDataSetChanged()
+                recal()
             }
         }
     }
@@ -55,16 +31,16 @@ class MainActivity : AppCompatActivity() {
     val averageAdapter by lazy {
         ResultAdapter(this, AppData.averageList)
     }
+//    var variant = 1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        findViewById<GridView>(R.id.grid).adapter = adapter
-        findViewById<TextView>(R.id.title_).text = "Bingo! 3"
+        findViewById<TextView>(R.id.title_).text = "Bingo! new final"
 
         val appLocale: LocaleListCompat = LocaleListCompat.forLanguageTags("en-us")
         AppCompatDelegate.setApplicationLocales(appLocale)
-
+//actionBar.setDisplayHomeAsUpEnabled()
         averageAdapter.setNotifyOnChange(true)
         findViewById<GridView>(R.id.grid).adapter = adapter
         findViewById<GridView>(R.id.sortGrid).adapter = resultAdapter
@@ -80,6 +56,7 @@ class MainActivity : AppCompatActivity() {
         findViewById<Button>(R.id.btn2).setOnClickListener {
             planB()
         }
+
     }
 
     private fun planA() {
@@ -92,30 +69,59 @@ class MainActivity : AppCompatActivity() {
         findViewById<GridView>(R.id.avrageGrid).visibility = View.VISIBLE
     }
 
-    fun restart() {
-        AppData.reset()
-        startActivity(Intent(this, MainActivity3::class.java))
-        overridePendingTransition(0, 0)
-        finishAffinity()
-    }
-
-    override fun onResume() {
-        super.onResume()
+    private fun recal() {
+        AppData.dataList = Logic.calResult5(AppData.dataList, 2)
+        AppData.dataList = Logic.calResult5(AppData.dataList, 1)
+        AppData.dataList = Logic.calResult(AppData.dataList)
+        AppData.dataList = Logic.calResult7(AppData.dataList)
+//        AppData.dataList = Logic.calResult3(AppData.dataList)
         val temp = ArrayList<Data>()
         AppData.dataList.forEach {
-            if (it.finalValue > 0 && !it.isClicked) {
+            if (it.finalValue7 > 0 && !it.isClicked) {
                 temp.add(it)
             }
         }
         AppData.resultList.clear()
         AppData.averageList.clear()
         averageAdapter.clear()
-        temp.sortedByDescending { it.finalValue }.forEach {
+        temp.sortedByDescending { it.finalValue7 }.forEach {
             if (AppData.resultList.size < 10 && it.number != 13) {
                 AppData.resultList.add(it.code)
             }
         }
-        AppData.averageList = Logic.calAverage(AppData.dataList)
+        AppData.averageList = Logic.calAverage5(AppData.dataList)
+        resultAdapter.notifyDataSetChanged()
+        averageAdapter.addAll(AppData.averageList)
+//                adapter3.notifyDataSetChanged()
+
+    }
+
+    fun restart() {
+        AppData.reset()
+        startActivity(Intent(this, MainActivity7::class.java))
+        overridePendingTransition(0, 0)
+        finishAffinity()
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        val temp = ArrayList<Data>()
+        AppData.dataList.forEach {
+            if (it.finalValue7 > 0 && !it.isClicked) {
+                temp.add(it)
+            }
+        }
+        AppData.resultList.clear()
+        AppData.averageList.clear()
+        averageAdapter.clear()
+        temp.sortedByDescending { it.finalValue7 }.forEach {
+            if (AppData.resultList.size < 10 && it.number != 13) {
+                AppData.resultList.add(it.code)
+            }
+        }
+        AppData.averageList = Logic.calAverage5(AppData.dataList)
         averageAdapter.addAll(AppData.averageList)
     }
+
 }

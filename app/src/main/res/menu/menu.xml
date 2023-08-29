@@ -14,8 +14,8 @@
         android:id="@+id/button_item3"
         android:title="Cal 3"
         app:showAsAction="always" />
-<!--    <item-->
-<!--        android:id="@+id/button_item4"-->
-<!--        android:title="Cal 4"-->
-<!--        app:showAsAction="always" />-->
+    <item
+        android:id="@+id/button_item7"
+        android:title="Cal new"
+        app:showAsAction="always" />
 </menu>

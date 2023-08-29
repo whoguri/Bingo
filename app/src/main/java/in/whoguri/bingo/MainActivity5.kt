@@ -74,6 +74,7 @@ class MainActivity5 : AppCompatActivity() {
         AppData.dataList = Logic.calResult5(AppData.dataList, 1)
         AppData.dataList = Logic.calResult5(AppData.dataList, 2)
         AppData.dataList = Logic.calResult(AppData.dataList)
+        AppData.dataList = Logic.calResult7(AppData.dataList)
 //        AppData.dataList = Logic.calResult3(AppData.dataList)
         val temp = ArrayList<Data>()
         AppData.dataList.forEach {
@@ -134,6 +135,13 @@ class MainActivity5 : AppCompatActivity() {
         val item3: MenuItem = menu.findItem(R.id.button_item3)
         item3.setOnMenuItemClickListener { it ->
             startActivity(Intent(this, MainActivity::class.java))
+            overridePendingTransition(0, 0)
+            return@setOnMenuItemClickListener true
+        }
+
+        val item7: MenuItem = menu.findItem(R.id.button_item7)
+        item7.setOnMenuItemClickListener { it ->
+            startActivity(Intent(this, MainActivity7::class.java))
             overridePendingTransition(0, 0)
             return@setOnMenuItemClickListener true
         }

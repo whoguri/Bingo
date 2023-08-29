@@ -1,7 +1,5 @@
 package `in`.whoguri.bingo
 
-import android.util.Log
-
 object Logic {
 
     fun getAll(data: Data, list: ArrayList<Data>): ArrayList<Data> {
@@ -452,6 +450,97 @@ object Logic {
             data.finalValue5 = total.roundOffDecimal3()
         else
             data.finalValue6 = total.roundOffDecimal3()
+        return data
+    }
+
+    fun calResult7(list: ArrayList<Data>): ArrayList<Data> {
+        val mList = list
+        for (i in 1..25) {
+            mList[i - 1] = calculateAvrg7(list, list[i - 1], i)
+        }
+        for (i in 1..25) {
+            mList[i - 1] = calculate7(list, list[i - 1], i)
+        }
+        return mList
+    }
+
+    fun calculateAvrg7(list: ArrayList<Data>, data: Data, clicked: Int): Data {
+        val h: Int = getSel(data.h, list).filter { item -> !item.isClicked }.size
+        val v: Int = getSel(data.v, list).filter { item -> !item.isClicked }.size - 1
+        var d: Int = 0
+
+        if (data.d.size > 0)
+            d = getSel(data.d, list).filter { item -> !item.isClicked }.size - 1
+        var c = 0
+        if (clicked == 1 || clicked == 5 || clicked == 21 || clicked == 25) {
+            c = getSel(arrayListOf(1, 5, 21, 25), list).filter { item -> !item.isClicked }.size - 1
+        }
+        data.avrage = (data.finalValue5 / (h + v + d + c)).roundOffDecimal3()
+        return data
+    }
+
+    fun calculate7(list: ArrayList<Data>, data: Data, clicked: Int): Data {
+        var total = 0.0
+        var count = 0
+
+        data.h.forEach {
+            val d = list.filter { item -> item.number == it }.first()
+            if (!d.isClicked) {
+                count++
+            }
+        }
+
+        if (count == 1)
+            total += 1
+        else if (count != 0)
+            total = ((1.0 / count) * data.avrage).roundOffDecimal3()
+
+        count = 0
+
+        data.v.forEach {
+            val d = list.filter { item -> item.number == it }.first()
+            if (!d.isClicked) {
+                count++
+            }
+        }
+        if (count == 1)
+            total += 1
+        else if (count != 0)
+            total = ((1.0 / count) * data.avrage).roundOffDecimal3()
+
+        count = 0
+
+        if (data.d.size > 0) {
+            data.d.forEach {
+                val d = list.filter { item -> item.number == it }.first()
+                if (!d.isClicked) {
+                    count++
+                }
+            }
+            if (count == 1)
+                total += 1
+            else if (count != 0)
+                total = ((1.0 / count) * data.avrage).roundOffDecimal3()
+
+            count = 0
+        }
+
+        if (clicked == 1 || clicked == 5 || clicked == 21 || clicked == 25) {
+            arrayListOf(1, 5, 21, 25).forEach {
+                val d = list.filter { item -> item.number == it }.first()
+                if (!d.isClicked) {
+                    count++
+                }
+            }
+
+            if (count == 1)
+                total += 1
+            else if (count != 0)
+                total = ((1.0 / count) * data.avrage).roundOffDecimal3()
+
+            count = 0
+        }
+        data.finalValue7 = total.roundOffDecimal3()
         return data
     }
 

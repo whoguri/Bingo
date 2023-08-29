@@ -47,6 +47,13 @@
                 android:value=".MainActivity5" />
         </activity>
         <activity
+            android:name=".MainActivity7"
+            android:exported="true">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainActivity5" />
+        </activity>
+        <activity
             android:name=".MainActivity5"
             android:exported="true">
             <intent-filter>

@@ -15,9 +15,10 @@ class GridAdapter(
     val call: (Int, Boolean) -> Unit
 ) :
     ArrayAdapter<Data>(context_, 0, list) {
-    public fun notify_(){
+    fun notify_() {
         notifyDataSetChanged()
     }
+
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
         convertView?.tag = position
         var listitemView = convertView
@@ -46,23 +47,27 @@ class GridAdapter(
             courseTV.setBackgroundColor(context_.getColor(R.color.purple))
         } else {
             courseTV.setBackgroundColor(context_.getColor(R.color.white))
-            if (type == 6) {
+            if (type == 7) {
+                if (data.finalValue7 != -1.0) {
+                    courseTV.text = data.finalValue7.toString()
+                }
+            } else if (type == 6) {
                 if (data.finalValue6 != -1.0) {
                     courseTV.text = data.finalValue6.toString()
                 }
-            }else if (type == 5) {
+            } else if (type == 5) {
                 if (data.finalValue5 != -1.0) {
                     courseTV.text = data.finalValue5.toString()
                 }
-            }else if (type == 4) {
+            } else if (type == 4) {
                 if (data.finalValue4 != -1.0) {
                     courseTV.text = data.finalValue4.toString()
                 }
-            }else if (type == 3) {
+            } else if (type == 3) {
                 if (data.finalValue3 != -1.0) {
                     courseTV.text = data.finalValue3.toString()
                 }
-            }else if (type == 2) {
+            } else if (type == 2) {
                 if (data.finalValue2 != -1.0) {
                     courseTV.text = data.finalValue2.toString()
                 }
