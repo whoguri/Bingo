@@ -10,42 +10,57 @@
     tools:context=".MainActivity">
 
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="12dp"
-        android:background="@drawable/btn"
         android:gravity="center"
-        android:id="@+id/restart"
-        android:orientation="vertical"
-        android:padding="8dp">
-
-        <TextView
-            android:id="@+id/title_"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="24dp"
-            android:layout_marginVertical="0dp"
-            android:text="Bingo! 1"
-            android:textAlignment="center"
-            android:textColor="@color/purple_500"
-            android:textSize="48dp" />
+        android:orientation="vertical">
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:id="@+id/restart"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_margin="12dp"
+            android:background="@drawable/btn"
             android:gravity="center"
-            android:orientation="horizontal">
+            android:orientation="vertical"
+            android:padding="8dp">
 
             <TextView
+                android:id="@+id/title_"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="8dp"
-                android:backgroundTint="@color/white"
-                android:text="Restart"
-                android:textColor="@color/black"
-                android:textSize="18sp" />
-        </LinearLayout>
+                android:layout_marginHorizontal="24dp"
+                android:layout_marginVertical="0dp"
+                android:text="Bingo! 1"
+                android:textAlignment="center"
+                android:textColor="@color/purple_500"
+                android:textSize="48dp" />
 
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="8dp"
+                    android:backgroundTint="@color/white"
+                    android:text="Restart"
+                    android:textColor="@color/black"
+                    android:textSize="18sp" />
+            </LinearLayout>
+        </LinearLayout>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Reset D"
+            android:textSize="24dp"
+            android:id="@+id/resetD"
+            android:paddingHorizontal="12dp"
+            android:visibility="gone"
+            />
     </LinearLayout>
 
     <LinearLayout

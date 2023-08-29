@@ -46,7 +46,12 @@ class MainActivity7 : AppCompatActivity() {
         findViewById<GridView>(R.id.sortGrid).adapter = resultAdapter
         findViewById<GridView>(R.id.avrageGrid).adapter = averageAdapter
         planA()
-
+        findViewById<Button>(R.id.resetD).visibility = View.VISIBLE
+        findViewById<Button>(R.id.resetD).setOnClickListener {
+            Logic.resetD()
+            recal()
+            adapter.notify_()
+        }
         findViewById<LinearLayout>(R.id.restart).setOnClickListener {
             restart()
         }

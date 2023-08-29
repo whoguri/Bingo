@@ -1003,6 +1003,16 @@ object Logic {
         return list
     }
 
+    fun resetD() {
+        val list = AppData.dataList
+        val newList = getData()
+        for (i in 1..25) {
+            if (arrayListOf(1, 7, 19, 25, 5, 9, 17, 21).contains(i))
+                list[i - 1] = newList[i - 1]
+        }
+        AppData.dataList = list
+    }
+
     fun createLines(): ArrayList<Pair<String, ArrayList<Int>>> {
         val list = arrayListOf<Pair<String, ArrayList<Int>>>()
         list.add(Pair("1", arrayListOf(1, 2, 3, 4, 5)))
