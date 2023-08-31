@@ -13,7 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:orientation="vertical">
+        android:orientation="horizontal">
 
         <LinearLayout
             android:id="@+id/restart"
@@ -52,15 +52,28 @@
                     android:textSize="18sp" />
             </LinearLayout>
         </LinearLayout>
-        <Button
+
+        <LinearLayout
+            android:id="@+id/resetD"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Reset D"
-            android:textSize="24dp"
-            android:id="@+id/resetD"
+            android:background="@drawable/btn"
+            android:backgroundTint="@color/white"
             android:paddingHorizontal="12dp"
+            android:paddingVertical="12dp"
             android:visibility="gone"
-            />
+            >
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="12dp"
+                android:layout_marginVertical="0dp"
+                android:text="Reset D"
+                android:textAlignment="center"
+                android:textColor="@color/purple_500"
+                android:textSize="20dp"
+                />
+        </LinearLayout>
     </LinearLayout>
 
     <LinearLayout

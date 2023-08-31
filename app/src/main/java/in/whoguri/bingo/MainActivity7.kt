@@ -36,7 +36,7 @@ class MainActivity7 : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        findViewById<TextView>(R.id.title_).text = "Bingo! new final"
+        findViewById<TextView>(R.id.title_).text = "Bingo! 4"
 
         val appLocale: LocaleListCompat = LocaleListCompat.forLanguageTags("en-us")
         AppCompatDelegate.setApplicationLocales(appLocale)
@@ -46,9 +46,9 @@ class MainActivity7 : AppCompatActivity() {
         findViewById<GridView>(R.id.sortGrid).adapter = resultAdapter
         findViewById<GridView>(R.id.avrageGrid).adapter = averageAdapter
         planA()
-        findViewById<Button>(R.id.resetD).visibility = View.VISIBLE
-        findViewById<Button>(R.id.resetD).setOnClickListener {
-            Logic.resetD()
+        findViewById<LinearLayout>(R.id.resetD).visibility = View.VISIBLE
+        findViewById<LinearLayout>(R.id.resetD).setOnClickListener {
+            Logic.clickDs()
             recal()
             adapter.notify_()
         }
