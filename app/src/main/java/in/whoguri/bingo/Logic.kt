@@ -1,7 +1,10 @@
 package `in`.whoguri.bingo
 
+import android.util.Log
+
 object Logic {
 
+    val CORNERS = arrayListOf(1, 5, 21, 25)
     fun getAll(data: Data, list: ArrayList<Data>): ArrayList<Data> {
         val all = arrayListOf<Int>()
         val allData = arrayListOf<Data>()
@@ -330,8 +333,8 @@ object Logic {
         val v: Double = (1.0 / getSel(data.v, list).filter { item -> !item.isClicked }.size).roundOffDecimal3()
         val d: Double = (1.0 / getSel(data.d, list).filter { item -> !item.isClicked }.size).roundOffDecimal3()
         var c = 0.0
-        if (clicked == 1 || clicked == 5 || clicked == 21 || clicked == 25) {
-            c = (1.0 / getSel(arrayListOf(1, 5, 21, 25), list).filter { item -> !item.isClicked }.size).roundOffDecimal3()
+        if (CORNERS.contains(clicked)) {
+            c = (1.0 / getSel(CORNERS, list).filter { item -> !item.isClicked }.size).roundOffDecimal3()
         }
         data.hidden = h + v + d + c
         data.subHiddenH = h
@@ -419,8 +422,8 @@ object Logic {
             count = 0
         }
 
-        if (clicked == 1 || clicked == 5 || clicked == 21 || clicked == 25) {
-            arrayListOf(1, 5, 21, 25).forEach {
+        if (CORNERS.contains(clicked)) {
+            CORNERS.forEach {
                 val d = list.filter { item -> item.number == it }.first()
                 if (!d.isClicked) {
                     if (!isD) {
@@ -472,8 +475,8 @@ object Logic {
         if (data.d.size > 0)
             d = getSel(data.d, list).filter { item -> !item.isClicked }.size - 1
         var c = 0
-        if (clicked == 1 || clicked == 5 || clicked == 21 || clicked == 25) {
-            c = getSel(arrayListOf(1, 5, 21, 25), list).filter { item -> !item.isClicked }.size - 1
+        if (CORNERS.contains(clicked)) {
+            c = getSel(CORNERS, list).filter { item -> !item.isClicked }.size - 1
         }
         data.avrage = (data.finalValue5 / (h + v + d + c)).roundOffDecimal3()
         return data
@@ -483,63 +486,66 @@ object Logic {
         var total = 0.0
         var count = 0
 
-        data.h.forEach {
-            val d = list.filter { item -> item.number == it }.first()
-            if (!d.isClicked) {
-                count++
-            }
-        }
+        count = getSel(data.h, list).filter { !it.isClicked }.size
 
         if (count == 1)
             total += 1
-        else if (count != 0)
-            total = ((1.0 / count) * data.avrage).roundOffDecimal3()
-
-        count = 0
-
-        data.v.forEach {
-            val d = list.filter { item -> item.number == it }.first()
-            if (!d.isClicked) {
-                count++
+        else if (count != 0) {
+            data.h.forEach {
+                val d = list.firstOrNull { item -> item.number == it && !item.isClicked && item.number != clicked }
+                if (d != null)
+                    total = total + ((1.0 / count) * d.avrage).roundOffDecimal3()
             }
         }
+        if (clicked == 20)
+            Log.e("Total", total.toString())
+        count = getSel(data.v, list).filter { !it.isClicked }.size
+
         if (count == 1)
             total += 1
-        else if (count != 0)
-            total = ((1.0 / count) * data.avrage).roundOffDecimal3()
+        else if (count != 0) {
+            data.v.forEach {
+                val d = list.firstOrNull { item -> item.number == it && !item.isClicked && item.number != clicked }
+                if (d != null)
+                    total = total + ((1.0 / count) * d.avrage).roundOffDecimal3()
+            }
+        }
 
-        count = 0
+        if (clicked == 20)
+            Log.e("Total", total.toString())
 
         if (data.d.size > 0) {
-            data.d.forEach {
-                val d = list.filter { item -> item.number == it }.first()
-                if (!d.isClicked) {
-                    count++
-                }
-            }
-            if (count == 1)
-                total += 1
-            else if (count != 0)
-                total = ((1.0 / count) * data.avrage).roundOffDecimal3()
-
-            count = 0
-        }
-
-        if (clicked == 1 || clicked == 5 || clicked == 21 || clicked == 25) {
-            arrayListOf(1, 5, 21, 25).forEach {
-                val d = list.filter { item -> item.number == it }.first()
-                if (!d.isClicked) {
-                    count++
-                }
-            }
+            count = getSel(data.d, list).filter { !it.isClicked }.size
 
             if (count == 1)
                 total += 1
-            else if (count != 0)
-                total = ((1.0 / count) * data.avrage).roundOffDecimal3()
-
-            count = 0
+            else if (count != 0) {
+                data.d.forEach {
+                    val d = list.firstOrNull { item -> item.number == it && !item.isClicked && item.number != clicked }
+                    if (d != null)
+                        total = total + ((1.0 / count) * d.avrage).roundOffDecimal3()
+                }
+            }
         }
+        if (clicked == 20)
+            Log.e("Total", total.toString())
+
+        if (CORNERS.contains(clicked)) {
+            count = getSel(CORNERS, list).filter { !it.isClicked }.size
+
+            if (count == 1)
+                total += 1
+            else if (count != 0) {
+                CORNERS.forEach {
+                    val d = list.firstOrNull { item -> item.number == it && !item.isClicked && item.number != clicked }
+                    if (d != null)
+                        total = total + ((1.0 / count) * d.avrage).roundOffDecimal3()
+                }
+            }
+        }
+        if (clicked == 20)
+            Log.e("Total", total.toString())
+
         data.finalValue7 = total.roundOffDecimal3()
         return data
     }
@@ -560,8 +566,8 @@ object Logic {
         val v: Double = (1.0 / getSel(data.v, list).filter { item -> !item.isClicked }.size).roundOffDecimal3()
         val d: Double = (1.0 / getSel(data.d, list).filter { item -> !item.isClicked }.size).roundOffDecimal3()
         var c = 0.0
-        if (clicked == 1 || clicked == 5 || clicked == 21 || clicked == 25) {
-            c = (1.0 / getSel(arrayListOf(1, 5, 21, 25), list).filter { item -> !item.isClicked }.size).roundOffDecimal3()
+        if (CORNERS.contains(clicked)) {
+            c = (1.0 / getSel(CORNERS, list).filter { item -> !item.isClicked }.size).roundOffDecimal3()
         }
         data.hidden = h + v + d + c
         data.subHiddenH = h
@@ -623,8 +629,8 @@ object Logic {
             count = 0
         }
 
-        if (clicked == 1 || clicked == 5 || clicked == 21 || clicked == 25) {
-            arrayListOf(1, 5, 21, 25).forEach {
+        if (CORNERS.contains(clicked)) {
+            CORNERS.forEach {
                 val d = list.filter { item -> item.number == it }.first()
                 if (!d.isClicked && d.number != clicked) {
                     subTotal += d.hidden
@@ -1008,8 +1014,8 @@ object Logic {
         val newList = getData()
         for (i in 1..25) {
             if (arrayListOf(1, 7, 19, 25, 5, 9, 17, 21).contains(i)) {
-             val item = newList[i - 1]
-                item.isClicked =  true
+                val item = newList[i - 1]
+                item.isClicked = true
                 list[i - 1] = item
             }
         }
@@ -1033,7 +1039,7 @@ object Logic {
         list.add(Pair("B1", arrayListOf(1, 7, 19, 25)))
         list.add(Pair("O1", arrayListOf(5, 9, 17, 21)))
 
-        list.add(Pair("X", arrayListOf(1, 5, 21, 25)))
+        list.add(Pair("X", CORNERS))
         return list
     }
 
