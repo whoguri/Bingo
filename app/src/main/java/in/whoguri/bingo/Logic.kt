@@ -476,7 +476,7 @@ object Logic {
             d = getSel(data.d, list).filter { item -> !item.isClicked }.size - 1
         var c = 0
         if (CORNERS.contains(clicked)) {
-            c = getSel(CORNERS, list).filter { item -> !item.isClicked }.size - 1
+//            c = getSel(CORNERS, list).filter { item -> !item.isClicked }.size - 1
         }
         data.avrage = (data.finalValue5 / (h + v + d + c)).roundOffDecimal3()
         return data
@@ -497,8 +497,6 @@ object Logic {
                     total = total + ((1.0 / count) * d.avrage).roundOffDecimal3()
             }
         }
-        if (clicked == 20)
-            Log.e("Total", total.toString())
         count = getSel(data.v, list).filter { !it.isClicked }.size
 
         if (count == 1)
@@ -510,9 +508,6 @@ object Logic {
                     total = total + ((1.0 / count) * d.avrage).roundOffDecimal3()
             }
         }
-
-        if (clicked == 20)
-            Log.e("Total", total.toString())
 
         if (data.d.size > 0) {
             count = getSel(data.d, list).filter { !it.isClicked }.size
@@ -527,8 +522,6 @@ object Logic {
                 }
             }
         }
-        if (clicked == 20)
-            Log.e("Total", total.toString())
 
         if (CORNERS.contains(clicked)) {
             count = getSel(CORNERS, list).filter { !it.isClicked }.size
@@ -543,8 +536,6 @@ object Logic {
                 }
             }
         }
-        if (clicked == 20)
-            Log.e("Total", total.toString())
 
         data.finalValue7 = total.roundOffDecimal3()
         return data
