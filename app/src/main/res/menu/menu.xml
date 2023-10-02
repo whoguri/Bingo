@@ -18,4 +18,10 @@
         android:id="@+id/button_item7"
         android:title="Cal new"
         app:showAsAction="always" />
+    <item
+        android:id="@+id/button_item8"
+        android:title="Cal 8"
+        app:showAsAction="always" />
+
 </menu>
+

@@ -27,6 +27,7 @@ class MainActivity : AppCompatActivity() {
                 AppData.dataList = Logic.calResult5(AppData.dataList,1)
                 AppData.dataList = Logic.calResult5(AppData.dataList,2)
                 AppData.dataList = Logic.calResult7(AppData.dataList)
+                AppData.dataList = Logic.calResult8(AppData.dataList)
 
                 val temp = ArrayList<Data>()
                 AppData.dataList.forEach {

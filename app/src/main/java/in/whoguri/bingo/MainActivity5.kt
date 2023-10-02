@@ -11,7 +11,6 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
-import androidx.core.content.ContextCompat
 import androidx.core.os.LocaleListCompat
 
 class MainActivity5 : AppCompatActivity() {
@@ -75,6 +74,8 @@ class MainActivity5 : AppCompatActivity() {
         AppData.dataList = Logic.calResult5(AppData.dataList, 2)
         AppData.dataList = Logic.calResult(AppData.dataList)
         AppData.dataList = Logic.calResult7(AppData.dataList)
+        AppData.dataList = Logic.calResult8(AppData.dataList)
+
 //        AppData.dataList = Logic.calResult3(AppData.dataList)
         val temp = ArrayList<Data>()
         AppData.dataList.forEach {
@@ -124,6 +125,7 @@ class MainActivity5 : AppCompatActivity() {
         AppData.averageList = Logic.calAverage5(AppData.dataList)
         averageAdapter.addAll(AppData.averageList)
     }
+
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.menu, menu)
         val item2: MenuItem = menu.findItem(R.id.button_item2)
@@ -142,6 +144,12 @@ class MainActivity5 : AppCompatActivity() {
         val item7: MenuItem = menu.findItem(R.id.button_item7)
         item7.setOnMenuItemClickListener { it ->
             startActivity(Intent(this, MainActivity7::class.java))
+            overridePendingTransition(0, 0)
+            return@setOnMenuItemClickListener true
+        }
+        val item8: MenuItem = menu.findItem(R.id.button_item8)
+        item8.setOnMenuItemClickListener { it ->
+            startActivity(Intent(this, MainActivity8::class.java))
             overridePendingTransition(0, 0)
             return@setOnMenuItemClickListener true
         }

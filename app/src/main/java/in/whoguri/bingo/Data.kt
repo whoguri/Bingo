@@ -15,12 +15,14 @@ class Data(
     var finalValue5: Double = -1.0,
     var finalValue6: Double = -1.0,
     var finalValue7: Double = -1.0,
+    var finalValue8: Double = -1.0,
     var isClicked: Boolean = false,
     var subHiddenH: Double = 0.0,
     var subHiddenV: Double = 0.0,
     var subHiddenD: Double = 0.0,
     var subHiddenC: Double = 0.0,
     var hidden: Double = 0.0,
+    var hiddenPerc: Double = 0.0,
     var avrage: Double = 0.0,
 
     )

@@ -1,12 +1,15 @@
 package `in`.whoguri.bingo
 
 import android.util.Log
-import java.text.DecimalFormat
+import java.math.RoundingMode
 
 fun Double.roundOffDecimal3(): Double {
     try {
-        val df = DecimalFormat("#.###")
-        return df.format(this).toDouble()
+        val roundedUp = this.toBigDecimal().setScale(3, RoundingMode.UP).toDouble()
+        return roundedUp
+
+//        val df = DecimalFormat("#.###")
+//        return df.format(this).toDouble()
     } catch (e: Exception) {
         return 0.0
     }
@@ -14,8 +17,10 @@ fun Double.roundOffDecimal3(): Double {
 
 fun Double.roundOffDecimal2(): Double {
     try {
-        val df = DecimalFormat("#.##")
-        return df.format(this).toDouble()
+        val roundedUp = this.toBigDecimal().setScale(2, RoundingMode.UP).toDouble()
+        return roundedUp
+//        val df = DecimalFormat("#.##")
+//        return df.format(this).toDouble()
     } catch (e: Exception) {
         Log.e(">>>>", this.toString())
         return 0.0

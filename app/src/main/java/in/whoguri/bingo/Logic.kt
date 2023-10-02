@@ -5,7 +5,7 @@ import android.util.Log
 object Logic {
 
     val CORNERS = arrayListOf(1, 5, 21, 25)
-    fun getAll(data: Data, list: ArrayList<Data>): ArrayList<Data> {
+    fun getAll(data: Data, list: ArrayList<Data>, corner: Boolean = false): ArrayList<Data> {
         val all = arrayListOf<Int>()
         val allData = arrayListOf<Data>()
         data.h.forEach {
@@ -21,6 +21,17 @@ object Logic {
                 all.add(it)
             }
         }
+        if (corner) {
+            if (CORNERS.contains(data.number)) {
+                CORNERS.forEach {
+                    if (all.filter { item -> item == it }.isEmpty()) {
+                        if (!all.contains(it))
+                            all.add(it)
+                    }
+                }
+            }
+        }
+
         list.forEach {
             val has = all.filter { i -> i == it.number }.isNotEmpty()
             if (has) {
@@ -167,6 +178,31 @@ object Logic {
         return result2
     }
 
+    fun calAverage8(list: ArrayList<Data>): ArrayList<String> {
+        val lines = createLines()
+        val result = arrayListOf<Pair<String, Double>>()
+        lines.forEach {
+            var temp = 0.0
+            val tempArray = arrayListOf<Double>()
+            it.second.forEach {
+                val data = list.find { e -> e.number == it }
+                if (data != null && data.finalValue8 != -1.0 && !data.isClicked) {
+                    temp += data.finalValue8
+                    tempArray.add(data.finalValue8)
+                }
+            }
+            if (tempArray.size > 0) {
+                temp /= tempArray.size
+            }
+            result.add(Pair(it.first, temp))
+        }
+        val result2 = arrayListOf<String>()
+        result.sortedByDescending { it.second }.forEach {
+            result2.add(it.first)
+        }
+        return result2
+    }
+
     fun calResult(list: ArrayList<Data>): ArrayList<Data> {
         val mList = list
         for (i in 1..25) {
@@ -199,9 +235,7 @@ object Logic {
                 } else {
                     total2 += (d.bingos * hn)
                 }
-                if (clicked == 4) {
-//                    Log.e("####", d.bingos.toString() +" : "+ hn+" = "+ total4)
-                }
+
                 total4 += (d.bingos * hn)
                 count++
             }
@@ -228,9 +262,7 @@ object Logic {
                     } else {
                         total2 += (d.bingos * vn)
                     }
-                    if (clicked == 4) {
-//                        Log.e("####", d.bingos.toString() +" : "+ vn+" = "+ total4)
-                    }
+
                     total4 += (d.bingos * vn)
                     count++
 
@@ -258,9 +290,7 @@ object Logic {
                     } else {
                         total2 += (d.bingos * dn)
                     }
-                    if (clicked == 4) {
-//                        Log.e("####", d.bingos.toString() +" : "+ dn+" = "+ total4)
-                    }
+
                     total4 += (d.bingos * dn)
                     count++
                 }
@@ -271,7 +301,6 @@ object Logic {
         data.finalValue = total
         if (count > 0) {
             data.finalValue2 = ((total2).toDouble() / count).roundOffDecimal3()
-//            Log.e(">>>", ""+total4+" : "+count)
             data.finalValue4 =
                 (((total4).toDouble() / count).roundOffDecimal3() * data.bingos).roundOffDecimal2()
         }
@@ -541,6 +570,72 @@ object Logic {
         return data
     }
 
+
+    fun calResult8(list: ArrayList<Data>): ArrayList<Data> {
+        val mList = list
+        for (i in 1..25) {
+            mList[i - 1] = calculateHidden8(list, list[i - 1], i)
+        }
+        for (i in 1..25) {
+            mList[i - 1] = calculate8(list, list[i - 1], i)
+        }
+        return mList
+    }
+
+    fun calculateHidden8(list: ArrayList<Data>, data: Data, clicked: Int): Data {
+        if(data.isClicked)
+            return data
+        var count = 2
+        var h: Double = (getSel(data.h, list).filter { item -> item.isClicked }.size + 1).toDouble()
+        if (data.h.size == 4) {
+            h += 1
+        }
+        h = (h * 0.2).roundOffDecimal2()
+
+        var v: Double = (getSel(data.v, list).filter { item -> item.isClicked }.size + 1).toDouble()
+        if (data.v.size == 4) {
+            v += 1
+        }
+        v = (v * 0.2).roundOffDecimal2()
+
+        var d: Double = 0.0
+        if (data.d.size > 0) {
+            count += 1
+            d = (getSel(data.d, list).filter { item -> item.isClicked }.size + 2).toDouble()
+            d = (d * 0.2).roundOffDecimal2()
+        }
+        var c = 0.0
+        if (CORNERS.contains(clicked)) {
+            count += 1
+            c = (getSel(CORNERS, list).filter { item -> item.isClicked }.size + 2).toDouble()
+            c = (c * 0.2).roundOffDecimal2()
+        }
+
+        data.hidden = h + v + d + c
+        data.hiddenPerc = ((data.hidden / count) * 100)
+        return data
+    }
+
+    fun calculate8(list: ArrayList<Data>, data: Data, clicked: Int): Data {
+        var total = 0.0
+        var bingos = 2
+        var sum = 0.0
+        if (data.d.size > 0) bingos += 1
+        if (CORNERS.contains(clicked)) bingos += 1
+
+        val all = getAll(data, list, true).filter { it.number != clicked && !it.isClicked }
+
+        all.forEach {
+            sum += it.hidden
+        }
+        all.forEach {
+            val percent = ((it.hidden / sum) * 100).roundOffDecimal2()
+            total += ((percent * it.hiddenPerc) / 100).roundOffDecimal2()
+        }
+        data.finalValue8 = ((total.roundOffDecimal2() * bingos) / 100).roundOffDecimal2()
+        return data
+    }
+
     fun calResult5_dep(list: ArrayList<Data>): ArrayList<Data> {
         val mList = list
         for (i in 1..25) {
@@ -694,8 +789,6 @@ object Logic {
                     val size = all.filter { item -> item.isClicked }.size
                     vn += size
                     total += (init * (vn / s)).roundOffDecimal2()
-//                    if (clicked == 4)
-//                        Log.e(" 2 >>>>> " + d.number, " " + (init * (vn / s)) + " , " + vn + " " + s+" >> "+(vn/s))
 
                 }
             }
@@ -716,9 +809,6 @@ object Logic {
                     val size = all.filter { item -> item.isClicked }.size
                     dn += size
                     total += (init * (dn / s)).roundOffDecimal2()
-//                    if (clicked == 4)
-//                        Log.e(" 2 >>>>> " + d.number, " " + (init * (dn / s)) + " , " + dn + " " + s+" >> "+(dn/s))
-
                 }
             }
         }
