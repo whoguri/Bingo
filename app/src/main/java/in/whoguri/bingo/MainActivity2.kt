@@ -6,7 +6,6 @@ import android.view.View
 import android.widget.Button
 import android.widget.GridView
 import android.widget.LinearLayout
-import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.os.LocaleListCompat
@@ -21,28 +20,7 @@ class MainActivity2 : AppCompatActivity() {
                 restart()
                 return@GridAdapter
             } else {
-                AppData.dataList = Logic.calResult(AppData.dataList)
-                AppData.dataList = Logic.calResult3(AppData.dataList)
-                AppData.dataList = Logic.calResult5(AppData.dataList)
-
-                val temp = ArrayList<Data>()
-                AppData.dataList.forEach {
-                    if (it.finalValue2 > 0 && !it.isClicked) {
-                        temp.add(it)
-                    }
-                }
-                AppData.resultList.clear()
-                AppData.averageList.clear()
-                averageAdapter.clear()
-                temp.sortedByDescending { it.finalValue2 }.forEach {
-                    if (AppData.resultList.size < 10 && it.number != 13) {
-                        AppData.resultList.add(it.code)
-                    }
-                }
-                AppData.averageList = Logic.calAverage2(AppData.dataList)
-                resultAdapter.notifyDataSetChanged()
-                averageAdapter.addAll(AppData.averageList)
-//                adapter3.notifyDataSetChanged()
+                recal()
             }
         }
     }
@@ -64,7 +42,11 @@ class MainActivity2 : AppCompatActivity() {
         findViewById<GridView>(R.id.sortGrid).adapter = resultAdapter
         findViewById<GridView>(R.id.avrageGrid).adapter = averageAdapter
         planA()
-
+        findViewById<LinearLayout>(R.id.resetD).setOnClickListener {
+            Logic.clickDs()
+            recal()
+            adapter.notify_()
+        }
         findViewById<LinearLayout>(R.id.restart).setOnClickListener {
             restart()
         }
@@ -112,5 +94,31 @@ class MainActivity2 : AppCompatActivity() {
         }
         AppData.averageList = Logic.calAverage2(AppData.dataList)
         averageAdapter.addAll(AppData.averageList)
+    }
+
+    private fun recal() {
+
+        AppData.dataList = Logic.calResult(AppData.dataList)
+        AppData.dataList = Logic.calResult3(AppData.dataList)
+        AppData.dataList = Logic.calResult5(AppData.dataList)
+
+        val temp = ArrayList<Data>()
+        AppData.dataList.forEach {
+            if (it.finalValue2 > 0 && !it.isClicked) {
+                temp.add(it)
+            }
+        }
+        AppData.resultList.clear()
+        AppData.averageList.clear()
+        averageAdapter.clear()
+        temp.sortedByDescending { it.finalValue2 }.forEach {
+            if (AppData.resultList.size < 10 && it.number != 13) {
+                AppData.resultList.add(it.code)
+            }
+        }
+        AppData.averageList = Logic.calAverage2(AppData.dataList)
+        resultAdapter.notifyDataSetChanged()
+        averageAdapter.addAll(AppData.averageList)
+//                adapter3.notifyDataSetChanged()
     }
 }

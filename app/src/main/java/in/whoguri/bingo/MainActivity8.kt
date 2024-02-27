@@ -46,7 +46,6 @@ class MainActivity8 : AppCompatActivity() {
         findViewById<GridView>(R.id.sortGrid).adapter = resultAdapter
         findViewById<GridView>(R.id.avrageGrid).adapter = averageAdapter
         planA()
-        findViewById<LinearLayout>(R.id.resetD).visibility = View.VISIBLE
         findViewById<LinearLayout>(R.id.resetD).setOnClickListener {
             Logic.clickDs()
             recal()
