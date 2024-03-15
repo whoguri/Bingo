@@ -22,7 +22,7 @@ fun Double.roundOffDecimal2(): Double {
 //        val df = DecimalFormat("#.##")
 //        return df.format(this).toDouble()
     } catch (e: Exception) {
-        Log.e(">>>>", this.toString())
+        Log.e(">>>>", e.message +":::"+this.toString())
         return 0.0
     }
 }

@@ -47,7 +47,11 @@ class GridAdapter(
             courseTV.setBackgroundColor(context_.getColor(R.color.purple))
         } else {
             courseTV.setBackgroundColor(context_.getColor(R.color.white))
-            if (type == 8) {
+            if (type == 9) {
+                if (data.finalValue9 != -1.0) {
+                    courseTV.text = data.finalValue9.toString()
+                }
+            } else if (type == 8) {
                 if (data.finalValue8 != -1.0) {
                     courseTV.text = data.finalValue8.toString()
                 }

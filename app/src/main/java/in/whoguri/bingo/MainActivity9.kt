@@ -15,7 +15,7 @@ import androidx.core.os.LocaleListCompat
 
 class MainActivity9 : AppCompatActivity() {
     val adapter by lazy {
-        GridAdapter(this, 5, AppData.dataList) { it, b ->
+        GridAdapter(this, 9, AppData.dataList) { it, b ->
             val data = AppData.dataList[it]
             data.isClicked = !b
             AppData.dataList[it] = data
@@ -79,23 +79,24 @@ class MainActivity9 : AppCompatActivity() {
         AppData.dataList = Logic.calResult(AppData.dataList)
         AppData.dataList = Logic.calResult7(AppData.dataList)
         AppData.dataList = Logic.calResult8(AppData.dataList)
+        AppData.dataList = NewLogic.calResult9(AppData.dataList)
 
 //        AppData.dataList = Logic.calResult3(AppData.dataList)
         val temp = ArrayList<Data>()
         AppData.dataList.forEach {
-            if (it.finalValue5 > 0 && !it.isClicked) {
+            if (it.finalValue9 > 0 && !it.isClicked) {
                 temp.add(it)
             }
         }
         AppData.resultList.clear()
         AppData.averageList.clear()
         averageAdapter.clear()
-        temp.sortedByDescending { it.finalValue5 }.forEach {
+        temp.sortedByDescending { it.finalValue9 }.forEach {
             if (AppData.resultList.size < 10 && it.number != 13) {
                 AppData.resultList.add(it.code)
             }
         }
-        AppData.averageList = Logic.calAverage5(AppData.dataList)
+        AppData.averageList = NewLogic.calAverage9(AppData.dataList)
         resultAdapter.notifyDataSetChanged()
         averageAdapter.addAll(AppData.averageList)
 //                adapter3.notifyDataSetChanged()
@@ -114,19 +115,19 @@ class MainActivity9 : AppCompatActivity() {
 
         val temp = ArrayList<Data>()
         AppData.dataList.forEach {
-            if (it.finalValue5 > 0 && !it.isClicked) {
+            if (it.finalValue9 > 0 && !it.isClicked) {
                 temp.add(it)
             }
         }
         AppData.resultList.clear()
         AppData.averageList.clear()
         averageAdapter.clear()
-        temp.sortedByDescending { it.finalValue5 }.forEach {
+        temp.sortedByDescending { it.finalValue9 }.forEach {
             if (AppData.resultList.size < 10 && it.number != 13) {
                 AppData.resultList.add(it.code)
             }
         }
-        AppData.averageList = Logic.calAverage5(AppData.dataList)
+        AppData.averageList = NewLogic.calAverage9(AppData.dataList)
         averageAdapter.addAll(AppData.averageList)
     }
 
