@@ -50,8 +50,8 @@ object NewLogic {
             if (!data.h.contains(it.number)) {
                 total += it.hidden
                 count++
-                if (data.number === 25) {
-                    Log.e(">>hid", it.hidden.toString())
+                if (data.number === 20) {
+                    Log.e(">>hid", it.code + "  >> " + it.hidden.toString())
                 }
             }
         }
@@ -69,7 +69,7 @@ object NewLogic {
             data.avrage = 0.0 //(total / count).roundOffDecimal3()
         }
 
-        if (data.number === 25) {
+        if (data.number === 20) {
             Log.e(">>avg ", data.avrage.toString() + " " + total + " / " + count)
         }
         return data
@@ -79,33 +79,42 @@ object NewLogic {
         var total = 0.0
         var subTotal = 0.0
         var count = 0
-        var q = 1
 
-        q = 0
-
+        var temp = 0.0
         data.h.forEach {
             val d = list.filter { item -> item.number == it }.first()
             if (!d.isClicked) {
                 if (d.number != clicked) {
-                    if (d.avrage != 0.0)
+                    if (data.number === 19) {
+                        Log.e(">>>", d.code + ">> " + d.avrage + ":" + d.hidden)
+
+                    }
+                    if (d.avrage != 0.0) {
+                        temp = d.hidden
                         subTotal += d.avrage
-                    else
+
+                    } else
                         subTotal += d.hidden
                     count++
+                } else {
+                    Log.e("<<<", d.code + ">> " + d.avrage + ":" + d.hidden)
+
                 }
 
             }
         }
-        if (data.number === 21) {
+        if (data.number === 19) {
             Log.e(">>>", data.subHiddenH.toString() + ">> " + subTotal + ":" + count)
         }
-        if (count != q)
+        if (count == 1)
+            total += (data.subHiddenH * ((subTotal + temp) / 2).roundOffDecimal3()).roundOffDecimal3()
+        else if (count != 0)
             total += (data.subHiddenH * (subTotal / count).roundOffDecimal3()).roundOffDecimal3()
         else
             total = (total + 1).roundOffDecimal3()
         subTotal = 0.0
         count = 0
-        if (data.number === 21) {
+        if (data.number === 19) {
             Log.e(">>>", total.toString())
         }
         data.v.forEach {
@@ -121,7 +130,7 @@ object NewLogic {
 
             }
         }
-        if (count != q)
+        if (count != 0)
             total += (data.subHiddenV * (subTotal / count).roundOffDecimal3()).roundOffDecimal3()
         else
             total = (total + 1).roundOffDecimal3()
@@ -129,7 +138,7 @@ object NewLogic {
         subTotal = 0.0
         count = 0
 
-        if (data.number === 21) {
+        if (data.number === 19) {
             Log.e(">>>", total.toString())
         }
         if (data.d.size > 0) {
@@ -143,7 +152,7 @@ object NewLogic {
 
                 }
             }
-            if (count != q)
+            if (count != 0)
                 total += (data.subHiddenD)// * (subTotal / count).roundOffDecimal3()).roundOffDecimal3()
             else
                 total = (total + 1).roundOffDecimal3()
@@ -151,7 +160,7 @@ object NewLogic {
             subTotal = 0.0
             count = 0
         }
-        if (data.number === 21) {
+        if (data.number === 19) {
             Log.e(">>>", total.toString())
         }
 
@@ -167,7 +176,7 @@ object NewLogic {
                 }
             }
 
-            if (count != q) {
+            if (count != 0) {
                 total += (data.subHiddenC) //* (subTotal / count).roundOffDecimal3()).roundOffDecimal3()
             } else
                 total = (total + 1).roundOffDecimal3()
@@ -175,7 +184,7 @@ object NewLogic {
             subTotal = 0.0
             count = 0
         }
-        if (data.number === 21) {
+        if (data.number === 19) {
             Log.e(">>>", total.toString())
         }
         data.finalValue9 = total.roundOffDecimal3()
