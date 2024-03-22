@@ -25,5 +25,6 @@ class Data(
     var hidden: Double = 0.0,
     var hiddenPerc: Double = 0.0,
     var avrage: Double = 0.0,
+    var genAvrage: Double = 0.0,
 
     )
