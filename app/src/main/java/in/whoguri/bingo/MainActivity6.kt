@@ -52,7 +52,6 @@ class MainActivity6 : AppCompatActivity() {
         findViewById<LinearLayout>(R.id.resetD).setOnClickListener {
             Logic.clickDs()
             recal()
-            adapter.notify_()
         }
         findViewById<LinearLayout>(R.id.restart).setOnClickListener {
             restart()
@@ -78,12 +77,12 @@ class MainActivity6 : AppCompatActivity() {
 
     private fun recal() {
         AppData.dataList = Logic.calResult5(AppData.dataList, 2)
-        AppData.dataList = Logic.calResult5(AppData.dataList, 1)
-        AppData.dataList = Logic.calResult(AppData.dataList)
-        AppData.dataList = Logic.calResult7(AppData.dataList)
-        AppData.dataList = Logic.calResult8(AppData.dataList)
-        AppData.dataList = NewLogic.calResult9(AppData.dataList)
-
+//        AppData.dataList = Logic.calResult5(AppData.dataList, 1)
+//        AppData.dataList = Logic.calResult(AppData.dataList)
+//        AppData.dataList = Logic.calResult7(AppData.dataList)
+//        AppData.dataList = Logic.calResult8(AppData.dataList)
+//        AppData.dataList = NewLogic.calResult9(AppData.dataList)
+//
 //        AppData.dataList = Logic.calResult3(AppData.dataList)
         val temp = ArrayList<Data>()
         AppData.dataList.forEach {
@@ -103,6 +102,7 @@ class MainActivity6 : AppCompatActivity() {
         resultAdapter.notifyDataSetChanged()
         averageAdapter.addAll(AppData.averageList)
 //                adapter3.notifyDataSetChanged()
+        adapter.notify_()
 
     }
 
@@ -115,23 +115,23 @@ class MainActivity6 : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-
-        val temp = ArrayList<Data>()
-        AppData.dataList.forEach {
-            if (it.finalValue6 > 0 && !it.isClicked) {
-                temp.add(it)
-            }
-        }
-        AppData.resultList.clear()
-        AppData.averageList.clear()
-        averageAdapter.clear()
-        temp.sortedByDescending { it.finalValue6 }.forEach {
-            if (AppData.resultList.size < 10 && it.number != 13) {
-                AppData.resultList.add(it.code)
-            }
-        }
-        AppData.averageList = Logic.calAverage5(AppData.dataList)
-        averageAdapter.addAll(AppData.averageList)
+        recal()
+//        val temp = ArrayList<Data>()
+//        AppData.dataList.forEach {
+//            if (it.finalValue6 > 0 && !it.isClicked) {
+//                temp.add(it)
+//            }
+//        }
+//        AppData.resultList.clear()
+//        AppData.averageList.clear()
+//        averageAdapter.clear()
+//        temp.sortedByDescending { it.finalValue6 }.forEach {
+//            if (AppData.resultList.size < 10 && it.number != 13) {
+//                AppData.resultList.add(it.code)
+//            }
+//        }
+//        AppData.averageList = Logic.calAverage5(AppData.dataList)
+//        averageAdapter.addAll(AppData.averageList)
     }
 
 }

@@ -50,7 +50,6 @@ class MainActivity9 : AppCompatActivity() {
         findViewById<LinearLayout>(R.id.resetD).setOnClickListener {
             Logic.clickDs()
             recal()
-            adapter.notify_()
         }
         findViewById<LinearLayout>(R.id.restart).setOnClickListener {
             restart()
@@ -74,11 +73,11 @@ class MainActivity9 : AppCompatActivity() {
     }
 
     private fun recal() {
-        AppData.dataList = Logic.calResult5(AppData.dataList, 1)
-        AppData.dataList = Logic.calResult5(AppData.dataList, 2)
-        AppData.dataList = Logic.calResult(AppData.dataList)
-        AppData.dataList = Logic.calResult7(AppData.dataList)
-        AppData.dataList = Logic.calResult8(AppData.dataList)
+//        AppData.dataList = Logic.calResult5(AppData.dataList, 1)
+//        AppData.dataList = Logic.calResult5(AppData.dataList, 2)
+//        AppData.dataList = Logic.calResult(AppData.dataList)
+//        AppData.dataList = Logic.calResult7(AppData.dataList)
+//        AppData.dataList = Logic.calResult8(AppData.dataList)
         AppData.dataList = NewLogic.calResult9(AppData.dataList)
 
 //        AppData.dataList = Logic.calResult3(AppData.dataList)
@@ -94,12 +93,14 @@ class MainActivity9 : AppCompatActivity() {
         temp.sortedByDescending { it.finalValue9 }.forEach {
             if (AppData.resultList.size < 10 && it.number != 13) {
                 AppData.resultList.add(it.code)
+
             }
         }
         AppData.averageList = NewLogic.calAverage9(AppData.dataList)
         resultAdapter.notifyDataSetChanged()
         averageAdapter.addAll(AppData.averageList)
 //                adapter3.notifyDataSetChanged()
+        adapter.notify_()
 
     }
 
@@ -112,23 +113,7 @@ class MainActivity9 : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-
-        val temp = ArrayList<Data>()
-        AppData.dataList.forEach {
-            if (it.finalValue9 > 0 && !it.isClicked) {
-                temp.add(it)
-            }
-        }
-        AppData.resultList.clear()
-        AppData.averageList.clear()
-        averageAdapter.clear()
-        temp.sortedByDescending { it.finalValue9 }.forEach {
-            if (AppData.resultList.size < 10 && it.number != 13) {
-                AppData.resultList.add(it.code)
-            }
-        }
-        AppData.averageList = NewLogic.calAverage9(AppData.dataList)
-        averageAdapter.addAll(AppData.averageList)
+        recal()
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
