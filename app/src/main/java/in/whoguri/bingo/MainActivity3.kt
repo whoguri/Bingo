@@ -48,7 +48,6 @@ class MainActivity3 : AppCompatActivity() {
         findViewById<LinearLayout>(R.id.resetD).setOnClickListener {
             Logic.clickDs()
             recal()
-            adapter.notify_()
         }
         findViewById<LinearLayout>(R.id.restart).setOnClickListener {
             restart()
@@ -80,24 +79,25 @@ class MainActivity3 : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-
-        val temp = ArrayList<Data>()
-        AppData.dataList.forEach {
-            if (it.finalValue3 > 0 && !it.isClicked) {
-                temp.add(it)
-            }
-        }
-        AppData.resultList.clear()
-        AppData.averageList.clear()
-        averageAdapter.clear()
-        temp.sortedBy { it.finalValue3 }.forEach {
-            if (AppData.resultList.size < 10 && it.number != 13) {
-                AppData.resultList.add(it.code)
-            }
-        }
-        AppData.averageList = Logic.calAverage3(AppData.dataList)
-        averageAdapter.addAll(AppData.averageList)
+        recal()
+//        val temp = ArrayList<Data>()
+//        AppData.dataList.forEach {
+//            if (it.finalValue3 > 0 && !it.isClicked) {
+//                temp.add(it)
+//            }
+//        }
+//        AppData.resultList.clear()
+//        AppData.averageList.clear()
+//        averageAdapter.clear()
+//        temp.sortedBy { it.finalValue3 }.forEach {
+//            if (AppData.resultList.size < 10 && it.number != 13) {
+//                AppData.resultList.add(it.code)
+//            }
+//        }
+//        AppData.averageList = Logic.calAverage3(AppData.dataList)
+//        averageAdapter.addAll(AppData.averageList)
     }
+
     private fun recal() {
         AppData.dataList = Logic.calResult(AppData.dataList)
         AppData.dataList = Logic.calResult3(AppData.dataList)
@@ -121,6 +121,7 @@ class MainActivity3 : AppCompatActivity() {
         resultAdapter.notifyDataSetChanged()
         averageAdapter.addAll(AppData.averageList)
 //                adapter3.notifyDataSetChanged()
+        adapter.notify_()
 
     }
 }

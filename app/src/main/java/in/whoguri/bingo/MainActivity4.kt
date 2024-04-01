@@ -48,7 +48,6 @@ class MainActivity4 : AppCompatActivity() {
         findViewById<LinearLayout>(R.id.resetD).setOnClickListener {
             Logic.clickDs()
             recal()
-            adapter.notify_()
         }
         findViewById<LinearLayout>(R.id.restart).setOnClickListener {
             restart()
@@ -80,29 +79,29 @@ class MainActivity4 : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-
-        val temp = ArrayList<Data>()
-        AppData.dataList.forEach {
-            if (it.finalValue4 > 0 && !it.isClicked) {
-                temp.add(it)
-            }
-        }
-        AppData.resultList.clear()
-        AppData.averageList.clear()
-        averageAdapter.clear()
-        temp.sortedByDescending { it.finalValue4 }.forEach {
-            if (AppData.resultList.size < 10 && it.number != 13) {
-                AppData.resultList.add(it.code)
-            }
-        }
-        AppData.averageList = Logic.calAverage4(AppData.dataList)
-        averageAdapter.addAll(AppData.averageList)
+        recal()
+//        val temp = ArrayList<Data>()
+//        AppData.dataList.forEach {
+//            if (it.finalValue4 > 0 && !it.isClicked) {
+//                temp.add(it)
+//            }
+//        }
+//        AppData.resultList.clear()
+//        AppData.averageList.clear()
+//        averageAdapter.clear()
+//        temp.sortedByDescending { it.finalValue4 }.forEach {
+//            if (AppData.resultList.size < 10 && it.number != 13) {
+//                AppData.resultList.add(it.code)
+//            }
+//        }
+//        AppData.averageList = Logic.calAverage4(AppData.dataList)
+//        averageAdapter.addAll(AppData.averageList)
     }
 
     private fun recal() {
         AppData.dataList = Logic.calResult(AppData.dataList)
-        AppData.dataList = Logic.calResult3(AppData.dataList)
-        AppData.dataList = Logic.calResult5(AppData.dataList)
+//        AppData.dataList = Logic.calResult3(AppData.dataList)
+//        AppData.dataList = Logic.calResult5(AppData.dataList)
         val temp = ArrayList<Data>()
         AppData.dataList.forEach {
             if (it.finalValue4 > 0 && !it.isClicked) {
@@ -121,5 +120,6 @@ class MainActivity4 : AppCompatActivity() {
         resultAdapter.notifyDataSetChanged()
         averageAdapter.addAll(AppData.averageList)
 //                adapter3.notifyDataSetChanged()
+        adapter.notify_()
     }
 }
