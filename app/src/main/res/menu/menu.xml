@@ -26,6 +26,9 @@
         android:id="@+id/button_item1"
         android:title="Cal 1"
         app:showAsAction="always" />
-
+    <item
+        android:id="@+id/button_item9"
+        android:title="Cal 9"
+        app:showAsAction="always" />
 </menu>
 

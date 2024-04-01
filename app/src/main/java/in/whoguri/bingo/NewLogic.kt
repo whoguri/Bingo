@@ -3,6 +3,80 @@ package `in`.whoguri.bingo
 import android.util.Log
 
 object NewLogic {
+    fun calResult10_Group(list: ArrayList<Data>): Pair<ArrayList<Pair<String, Double>>, ArrayList<Data>> {
+        val mList = list
+        val group_BO = arrayListOf<Double>()
+        val group_15 = arrayListOf<Double>()
+
+        Logic.getRows().forEach {
+            var group_BO_count = 0.0
+            var group_15_count = 0.0
+
+            if (Logic.getSel(it, list).filter { !it.isClicked && it.group == "B-O" }.size > 0) {
+                it.forEach { no ->
+                    val item = mList.find { it.number == no }
+                    if (item != null && item.group != "1-5" && !item.isClicked) {
+                        group_BO_count++
+                    }
+                }
+            }
+            if (Logic.getSel(it, list).filter { !it.isClicked && it.group == "1-5" }.size > 0) {
+                it.forEach { no ->
+                    val item = mList.find { it.number == no }
+
+                    if (item != null && item.group != "B-O" && !item.isClicked) {
+                        group_15_count++
+                    }
+                }
+            }
+            if (group_BO_count != 0.0)
+                group_BO.add((1 / group_BO_count).roundOffDecimal3())
+            if (group_15_count != 0.0)
+                group_15.add((1 / group_15_count).roundOffDecimal3())
+        }
+        Logic.getCols().forEach {
+            var group_BO_count = 0.0
+            var group_15_count = 0.0
+
+            if (Logic.getSel(it, list).filter { !it.isClicked && it.group == "B-O" }.size > 0) {
+                it.forEach { no ->
+                    val item = mList.find { it.number == no }
+                    if (item != null && item.group != "1-5" && !item.isClicked) {
+                        group_BO_count++
+                    }
+                }
+            }
+            if (Logic.getSel(it, list).filter { !it.isClicked && it.group == "1-5" }.size > 0) {
+                it.forEach { no ->
+                    val item = mList.find { it.number == no }
+                    if (item != null && item.group != "B-O" && !item.isClicked) {
+                        group_15_count++
+                    }
+                }
+            }
+            if (group_BO_count != 0.0)
+                group_BO.add((1 / group_BO_count).roundOffDecimal3())
+            if (group_15_count != 0.0)
+                group_15.add((1 / group_15_count).roundOffDecimal3())
+        }
+
+        val result = arrayListOf<Pair<String, Double>>()
+
+        val avg_BO = if (group_BO.size > 0) (group_BO.sum() / group_BO.size).roundOffDecimal3() else 0.0
+        val avg_15 = if (group_15.size > 0) (group_15.sum() / group_15.size).roundOffDecimal3() else 0.0
+
+        result.add(Pair("B-O", avg_BO))
+        result.add(Pair("1-5", avg_15))
+        return Pair(result, mList)
+    }
+
+    fun calculateHidden10(list: ArrayList<Data>, data: Data, clicked: Int): Data {
+        val h: Double = (1.0 / Logic.getAll(data, list).filter { item -> !item.isClicked }.size).roundOffDecimal3()
+        data.hidden = h
+        return data
+    }
+
+
     fun calResult9(list: ArrayList<Data>): ArrayList<Data> {
         val mList = list
         for (i in 1..25) {
@@ -27,7 +101,7 @@ object NewLogic {
     fun calculateGA(list: ArrayList<Data>, data: Data, clicked: Int): Data {
         val all = Logic.getAll(data, list).filter { !it.isClicked }
         data.genAvrage = (data.bingos.toDouble() / all.size).roundOffDecimal3()
-        Log.e(">>genAvrage "+data.number,  data.genAvrage.toString())
+        Log.e(">>genAvrage " + data.number, data.genAvrage.toString())
 
         return data
     }
@@ -100,7 +174,7 @@ object NewLogic {
 
                     }
                     if (d.avrage != 0.0) {
-                        subTotal += ((d.avrage +d.hidden) /2).roundOffDecimal3()
+                        subTotal += ((d.avrage + d.hidden) / 2).roundOffDecimal3()
                     } else
                         subTotal += d.hidden
                     count++
@@ -114,7 +188,7 @@ object NewLogic {
         if (data.number === 21) {
             Log.e(">>>", data.subHiddenH.toString() + ">> " + subTotal + ":" + count)
         }
-       if (count != 0)
+        if (count != 0)
             total += (data.subHiddenH * (subTotal / count).roundOffDecimal3()).roundOffDecimal3()
         else
             total = (total + 1).roundOffDecimal3()

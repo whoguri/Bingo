@@ -1,7 +1,5 @@
 package `in`.whoguri.bingo
 
-import android.util.Log
-
 object Logic {
 
     val CORNERS = arrayListOf(1, 5, 21, 25)
@@ -583,7 +581,7 @@ object Logic {
     }
 
     fun calculateHidden8(list: ArrayList<Data>, data: Data, clicked: Int): Data {
-        if(data.isClicked)
+        if (data.isClicked)
             return data
         var count = 2
         var h: Double = (getSel(data.h, list).filter { item -> item.isClicked }.size + 1).toDouble()
@@ -837,7 +835,8 @@ object Logic {
                 18,
                 arrayListOf(1, 2, 3, 4, 5),
                 arrayListOf(2, 7, 12, 17, 22),
-                arrayListOf()
+                arrayListOf(),
+                "1-5"
             )
         )
         list.add(
@@ -848,7 +847,8 @@ object Logic {
                 16,
                 arrayListOf(1, 2, 3, 4, 5),
                 arrayListOf(3, 8, 18, 23),
-                arrayListOf()
+                arrayListOf(),
+                "1-5"
             )
         )
         list.add(
@@ -859,7 +859,8 @@ object Logic {
                 18,
                 arrayListOf(1, 2, 3, 4, 5),
                 arrayListOf(4, 9, 14, 19, 24),
-                arrayListOf()
+                arrayListOf(),
+                "1-5"
             )
         )
         list.add(
@@ -882,7 +883,8 @@ object Logic {
                 18,
                 arrayListOf(6, 7, 8, 9, 10),
                 arrayListOf(1, 6, 11, 16, 21),
-                arrayListOf()
+                arrayListOf(),
+                "B-O"
             )
         )
         list.add(
@@ -904,7 +906,8 @@ object Logic {
                 16,
                 arrayListOf(6, 7, 8, 9, 10),
                 arrayListOf(3, 8, 18, 23),
-                arrayListOf()
+                arrayListOf(),
+                "B-O"
             )
         )
         list.add(
@@ -926,7 +929,8 @@ object Logic {
                 18,
                 arrayListOf(6, 7, 8, 9, 10),
                 arrayListOf(5, 10, 15, 20, 25),
-                arrayListOf()
+                arrayListOf(),
+                "B-O"
             )
         )
 
@@ -938,7 +942,8 @@ object Logic {
                 16,
                 arrayListOf(11, 12, 14, 15),
                 arrayListOf(1, 6, 11, 16, 21),
-                arrayListOf()
+                arrayListOf(),
+                "B-O"
             )
         )
         list.add(
@@ -949,10 +954,11 @@ object Logic {
                 16,
                 arrayListOf(11, 12, 14, 15),
                 arrayListOf(2, 7, 12, 17, 22),
-                arrayListOf()
+                arrayListOf(),
+                "1-5"
             )
         )
-        list.add(Data(13, "n3", 0, 0, arrayListOf(), arrayListOf(), arrayListOf(), 0))
+        list.add(Data(13, "n3", 0, 0, arrayListOf(), arrayListOf(), arrayListOf(), "", 0))
         list.add(
             Data(
                 14,
@@ -961,7 +967,8 @@ object Logic {
                 16,
                 arrayListOf(11, 12, 14, 15),
                 arrayListOf(4, 9, 14, 19, 24),
-                arrayListOf()
+                arrayListOf(),
+                "1-5"
             )
         )
         list.add(
@@ -972,7 +979,8 @@ object Logic {
                 16,
                 arrayListOf(11, 12, 14, 15),
                 arrayListOf(5, 10, 15, 20, 25),
-                arrayListOf()
+                arrayListOf(),
+                "B-O"
             )
         )
 
@@ -984,7 +992,8 @@ object Logic {
                 18,
                 arrayListOf(16, 17, 18, 19, 20),
                 arrayListOf(1, 6, 11, 16, 21),
-                arrayListOf()
+                arrayListOf(),
+                "B-O"
             )
         )
         list.add(
@@ -1006,7 +1015,8 @@ object Logic {
                 16,
                 arrayListOf(16, 17, 18, 19, 20),
                 arrayListOf(3, 8, 18, 23),
-                arrayListOf()
+                arrayListOf(),
+                "B-O"
             )
         )
         list.add(
@@ -1028,7 +1038,8 @@ object Logic {
                 18,
                 arrayListOf(16, 17, 18, 19, 20),
                 arrayListOf(5, 10, 15, 20, 25),
-                arrayListOf()
+                arrayListOf(),
+                "B-O"
             )
         )
 
@@ -1051,7 +1062,8 @@ object Logic {
                 18,
                 arrayListOf(21, 22, 23, 24, 25),
                 arrayListOf(2, 7, 12, 17, 22),
-                arrayListOf()
+                arrayListOf(),
+                "1-5"
             )
         )
         list.add(
@@ -1062,7 +1074,8 @@ object Logic {
                 16,
                 arrayListOf(21, 22, 23, 24, 25),
                 arrayListOf(3, 8, 18, 23),
-                arrayListOf()
+                arrayListOf(),
+                "1-5"
             )
         )
         list.add(
@@ -1073,7 +1086,8 @@ object Logic {
                 18,
                 arrayListOf(21, 22, 23, 24, 25),
                 arrayListOf(4, 9, 14, 19, 24),
-                arrayListOf()
+                arrayListOf(),
+                "1-5"
             )
         )
         list.add(
@@ -1121,6 +1135,30 @@ object Logic {
         list.add(Pair("O1", arrayListOf(5, 9, 17, 21)))
 
         list.add(Pair("X", CORNERS))
+        return list
+    }
+
+    fun getRows(): ArrayList<ArrayList<Int>> {
+        val list = arrayListOf<ArrayList<Int>>()
+
+        list.add(arrayListOf(1, 2, 3, 4, 5))
+
+        list.add(arrayListOf(6, 7, 8, 9, 10))
+        list.add(arrayListOf(11, 12, 14, 15))
+        list.add(arrayListOf(16, 17, 18, 19, 20))
+        list.add(arrayListOf(21, 22, 23, 24, 25))
+
+        return list
+    }
+
+    fun getCols(): ArrayList<ArrayList<Int>> {
+        val list = arrayListOf<ArrayList<Int>>()
+
+        list.add(arrayListOf(1, 6, 11, 16, 21))
+        list.add(arrayListOf(2, 7, 12, 17, 22))
+        list.add(arrayListOf(3, 8, 18, 23))
+        list.add(arrayListOf(4, 9, 14, 19, 24))
+        list.add(arrayListOf(5, 10, 15, 20, 25))
         return list
     }
 

@@ -16,66 +16,72 @@
             android:exported="true">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MainActivity9" />
+                android:value=".MainActivity10" />
         </activity>
         <activity
             android:name=".MainActivity2"
             android:exported="true">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MainActivity9" />
+                android:value=".MainActivity10" />
         </activity>
         <activity
             android:name=".MainActivity4"
             android:exported="true">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MainActivity9" />
+                android:value=".MainActivity10" />
         </activity>
         <activity
             android:name=".MainActivity3"
             android:exported="true">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MainActivity9" />
+                android:value=".MainActivity10" />
         </activity>
         <activity
             android:name=".MainActivity6"
             android:exported="true">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MainActivity9" />
+                android:value=".MainActivity10" />
         </activity>
         <activity
             android:name=".MainActivity7"
             android:exported="true">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MainActivity9" />
+                android:value=".MainActivity10" />
         </activity>
         <activity
             android:name=".MainActivity8"
             android:exported="true">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MainActivity9" />
+                android:value=".MainActivity10" />
         </activity>
         <activity
             android:name=".MainActivity5"
             android:exported="true">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MainActivity9" />
+                android:value=".MainActivity10" />
         </activity>
         <activity
             android:name=".MainActivity9"
+            android:exported="true">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainActivity10" />
+        </activity>
+        <activity
+            android:name=".MainActivity10"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
     </application>
 
 </manifest>
