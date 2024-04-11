@@ -3,6 +3,81 @@ package `in`.whoguri.bingo
 import android.util.Log
 
 object NewLogic {
+    fun calResult11(list: ArrayList<Data>): ArrayList<Data> {
+        val mList = list
+        for (i in 1..25) {
+            mList[i - 1] = calculateHidden11(list, list[i - 1], i)
+        }
+        for (i in 1..25) {
+            mList[i - 1] = calculate11(list, list[i - 1], i)
+        }
+        return mList
+    }
+
+    fun calculate11(list: ArrayList<Data>, data: Data, clicked: Int): Data {
+        var v = 0.0
+        val vs = Logic.getSel(data.v, list).filter { !it.isClicked }
+        if (vs.size == 1)
+            v = 1.0
+        else
+            vs.forEach {
+
+            }
+
+        var h = 0.0
+        val hs = Logic.getSel(data.h, list).filter { !it.isClicked }
+        if (hs.size == 1) {
+            h = 1.0
+        } else {
+            var count = 1
+            h= data.subHiddenH
+            hs.forEach {
+
+                    h = h + it.subHiddenV
+                                count++
+            }
+            if(clicked==16)
+                Log.e(":>>>", count.toString() +" : "+ h)
+
+            h = (h / count).roundOffDecimal3()
+        }
+        if(clicked==16)
+            Log.e(":>>>", v.toString() +" : "+ h)
+        data.finalValue2 = h + v
+        return data
+    }
+
+    fun subValue_11(v: Int): Double {
+        return when (v) {
+            5 -> 0.2
+            4 -> 0.4
+            3 -> 0.6
+            2 -> 0.8
+            else -> 1.0
+        }
+    }
+
+    fun calculateHidden11(list: ArrayList<Data>, data: Data, clicked: Int): Data {
+        val h: Double = subValue_11(Logic.getSel(data.h, list).filter { item -> !item.isClicked }.size)
+        val v: Double = subValue_11(Logic.getSel(data.v, list).filter { item -> !item.isClicked }.size)
+        val d: Double = subValue_11(Logic.getSel(data.d, list).filter { item -> !item.isClicked }.size)
+        var c = 0.0
+        if (Logic.CORNERS.contains(clicked)) {
+            c = subValue_11(Logic.getSel(Logic.CORNERS, list).filter { item -> !item.isClicked }.size)
+        }
+
+        data.hidden = (h + v + d + c).roundOffDecimal3()
+
+        if (data.code === "o5") {
+            Log.e(">>>HIDDEN", data.hidden.toString() + " :: " + v)
+        }
+        data.subHiddenH = h
+        data.subHiddenV = v
+        data.subHiddenD = d
+        data.subHiddenC = c
+        return data
+    }
+
     fun calResult10_Group(list: ArrayList<Data>): Pair<ArrayList<Pair<String, Double>>, ArrayList<Data>> {
         val mList = list
         val group_BO = arrayListOf<Double>()

@@ -80,7 +80,7 @@ class GridAdapter(
                 if (data.finalValue3 != -1.0) {
                     courseTV.text = data.finalValue3.toString()
                 }
-            } else if (type == 2) {
+            } else if (type == 2 || type == 11) {
                 if (data.finalValue2 != -1.0) {
                     courseTV.text = data.finalValue2.toString()
                 }
