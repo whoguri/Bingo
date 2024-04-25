@@ -82,7 +82,7 @@ class GridAdapter(
                 }
             } else if (type == 2 || type == 11) {
                 if (data.finalValue2 != -1.0) {
-                    courseTV.text = data.hidden.toString()
+                    courseTV.text = data.finalValue2.toString()
                 }
             } else {
                 if (data.finalValue != -1) {

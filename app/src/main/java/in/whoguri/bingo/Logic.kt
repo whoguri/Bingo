@@ -3,6 +3,7 @@ package `in`.whoguri.bingo
 object Logic {
 
     val CORNERS = arrayListOf(1, 5, 21, 25)
+    val DIAGONALS = arrayListOf(1, 5, 2, 9, 17, 19, 21, 25)
     fun getAll(data: Data, list: ArrayList<Data>, corner: Boolean = false): ArrayList<Data> {
         val all = arrayListOf<Int>()
         val allData = arrayListOf<Data>()
