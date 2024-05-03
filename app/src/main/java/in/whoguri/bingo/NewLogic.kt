@@ -28,7 +28,7 @@ object NewLogic {
 
     fun calculate11(list: ArrayList<Data>, data: Data, clicked: Int, isD: Boolean, logN: Int? = null): Data {
         var v = 0.0
-        val vs: List<Data>  = Logic.getSel(data.v, list).filter { !it.isClicked }
+        var vs: List<Data> = Logic.getSel(data.v, list).filter { !it.isClicked }
 //        if (isD) {
 //            vs = Logic.getSel(data.v, list).filter { !it.isClicked }
 //        } else {
@@ -38,21 +38,33 @@ object NewLogic {
         if (vs.size == 1) {
             v = 1.0
         } else {
-            var count = 1
+            var count = 2
             v = data.subHiddenV
+            v = v + data.subHiddenH
+
+            if (data.d.size > 0) {
+                count++
+                v = v + data.subHiddenD
+            }
+            if (Logic.CORNERS.contains(data.number)) {
+                count++
+                v = v + data.subHiddenC
+            }
             var hasOther = false
 
             vs.forEach {
-                val hsInner = Logic.getSel(it.h, list).filter { !it.isClicked }
-                if (hsInner.size > 1) {
-                    hasOther = true
+                if (it.number != data.number) {
+                    val hsInner = Logic.getSel(it.h, list).filter { !it.isClicked }
+                    if (hsInner.size > 1) {
+                        hasOther = true
+                    }
+                    if (Logic.CORNERS.contains(it.number) || it.d.size > 0) {
+                        v = v + it.hidden
+                    } else {
+                        v = v + it.subHiddenH
+                    }
+                    count++
                 }
-                if (Logic.CORNERS.contains(it.number) || it.d.size > 0) {
-                    v = v + it.hidden
-                } else {
-                    v = v + it.subHiddenH
-                }
-                count++
             }
             v = (v / count).roundOffDecimal3()
 
@@ -61,16 +73,20 @@ object NewLogic {
                 v = 0.0
 
                 vs.forEach {
-                    val hsInner = Logic.getSel(it.h, list).filter { !it.isClicked }
-                    var subAvrg = (avrg / hsInner.size).roundOffDecimal3()
-                    hsInner.forEach { innerIt ->
-                        if (it.number == innerIt.number) {
-                            v += subAvrg
-                        } else {
-                            if (Logic.CORNERS.contains(innerIt.number) || innerIt.d.size > 0) {
-                                v = v + (subAvrg * innerIt.hidden).roundOffDecimal3()
+                    if (it.number == data.number) {
+                        v += avrg
+                    } else {
+                        val hsInner = Logic.getSel(it.h, list).filter { !it.isClicked }
+                        var subAvrg = (avrg / hsInner.size).roundOffDecimal3()
+                        hsInner.forEach { innerIt ->
+                            if (it.number == innerIt.number) {
+                                v += subAvrg
                             } else {
-                                v = v + (subAvrg * innerIt.subHiddenV).roundOffDecimal3()
+                                if (Logic.CORNERS.contains(innerIt.number) || innerIt.d.size > 0) {
+                                    v = v + (subAvrg * innerIt.hidden).roundOffDecimal3()
+                                } else {
+                                    v = v + (subAvrg * innerIt.subHiddenV).roundOffDecimal3()
+                                }
                             }
                         }
                     }
@@ -90,38 +106,67 @@ object NewLogic {
         if (hs.size == 1) {
             h = 1.0
         } else {
-            var count = 1
-            h = data.subHiddenH
+            var count = 2
+            h = data.subHiddenV
+            h = h + data.subHiddenH
+
+            if (data.d.size > 0) {
+                count++
+                h = h + data.subHiddenD
+            }
+            if (Logic.CORNERS.contains(data.number)) {
+                count++
+                h = h + data.subHiddenC
+            }
+//            h = (h / count).roundOffDecimal3()
+
+//has other
             var hasOther = false
             hs.forEach {
-                val vsInner = Logic.getSel(it.v, list).filter { !it.isClicked }
-                if (vsInner.size > 1) {
-                    hasOther = true
+                if (it.number != data.number) {
+
+                    val vsInner = Logic.getSel(it.v, list).filter { !it.isClicked }
+                    if (vsInner.size > 1) {
+                        hasOther = true
+//                        vsInner.forEach {
+//                            if (clicked == logN)
+//                                Log.e("fuckkkkk: " + it.code, it.subHiddenV.toString() + ", " + it.subHiddenH)
+//                        }
+                    }
+//                    else {
+                    if (Logic.CORNERS.contains(it.number) || it.d.size > 0) {
+                        h = h + it.hidden
+                    } else {
+                        h = h + it.subHiddenV
+                    }
+                    count++
+//                    }
                 }
-                if (Logic.CORNERS.contains(it.number) || it.d.size > 0) {
-                    h = h + it.hidden
-                } else {
-                    h = h + it.subHiddenV
-                }
-                count++
             }
             h = (h / count).roundOffDecimal3()
 
-            if (clicked == logN)
-                Log.e("h: " + clicked, h.toString() + ", " + count)
+//            if (clicked == logN)
+//                Log.e("h: " + clicked, h.toString() + ", " + count)
 
 //has other
             if (hasOther) {
                 var avrg = (h / hs.size).roundOffDecimal3()
+//                if (clicked == logN)
+//                    Log.e("h: " + clicked, avrg.toString() + ", " + hs.size)
+
                 h = 0.0
                 hs.forEach {
-                    val vsInner = Logic.getSel(it.v, list).filter { !it.isClicked }
-                    var subAvrg = (avrg / vsInner.size).roundOffDecimal3()
-                    vsInner.forEach { innerIt ->
-                        if (it.number == innerIt.number) {
-                            h += subAvrg
-                        } else {
-                            h = h + (subAvrg * innerIt.subHiddenH).roundOffDecimal3()
+                    if (it.number == data.number) {
+                        h += avrg
+                    } else {
+                        val vsInner = Logic.getSel(it.v, list).filter { !it.isClicked }
+                        var subAvrg = (avrg / vsInner.size).roundOffDecimal3()
+                        vsInner.forEach { innerIt ->
+                            if (it.number == innerIt.number) {
+                                h += subAvrg
+                            } else {
+                                h = h + (subAvrg * innerIt.subHiddenH).roundOffDecimal3()
+                            }
                         }
                     }
                 }
@@ -131,11 +176,170 @@ object NewLogic {
         var d = 0.0
         if (data.d.size > 0) {
 
+            var ds: List<Data>
+//            if (isD) {
+            ds = Logic.getSel(data.d, list).filter { !it.isClicked }
+//            } else {
+//                hs = Logic.getSel(data.h, list).filter { !it.isClicked && (!Logic.DIAGONALS.contains(it.number) || it.number == clicked) }
+//            }
+
+            if (ds.size == 1) {
+                d = 1.0
+            } else {
+                var count = 2
+                d = data.subHiddenV
+                d = d + data.subHiddenH
+
+                if (data.d.size > 0) {
+                    count++
+                    d = d + data.subHiddenD
+                }
+                if (Logic.CORNERS.contains(data.number)) {
+                    count++
+                    d = d + data.subHiddenC
+                }
+//            h = (h / count).roundOffDecimal3()
+
+//has other
+                var hasOther = false
+                ds.forEach {
+                    if (it.number != data.number) {
+                        val vsInner = Logic.getSel(it.d, list).filter { !it.isClicked }
+                        if (vsInner.size > 1) {
+                            hasOther = true
+//                        vsInner.forEach {
+//                            if (clicked == logN)
+//                                Log.e("fuckkkkk: " + it.code, it.subHiddenV.toString() + ", " + it.subHiddenH)
+//                        }
+                        }
+//                    else {
+                        if (Logic.CORNERS.contains(it.number) || it.d.size > 0) {
+                            d = d + it.hidden
+                        } else {
+                            d = d + it.subHiddenV
+                        }
+                        count++
+//                    }
+                    }
+                }
+                d = (d / count).roundOffDecimal3()
+
+                if (clicked == logN)
+                    Log.e("d: " + clicked, d.toString() + ", " + count)
+
+//has other
+                if (hasOther) {
+                    var avrg = (d / ds.size).roundOffDecimal3()
+                if (clicked == logN)
+                    Log.e("d: avg" , avrg.toString() + ", " + hs.size)
+
+                    d = 0.0
+                    ds.forEach {
+                        if (it.number == data.number) {
+                            d += avrg
+                            if (clicked == logN)
+                                Log.e("d: avg 2" , d.toString() )
+
+                        } else {
+                            val dsInner = Logic.getSel(it.d, list).filter { !it.isClicked }
+                            var subAvrg = (avrg / dsInner.size).roundOffDecimal3()
+                            dsInner.forEach { innerIt ->
+                                if (it.number == innerIt.number) {
+                                    d += subAvrg
+                                    if (clicked == logN)
+                                        Log.e("d: avg 3" , subAvrg.toString() )
+
+                                } else {
+                                    d = d + (subAvrg * innerIt.subHiddenD).roundOffDecimal3()
+                                    if (clicked == logN)
+                                        Log.e("d: avg 3" , subAvrg.toString() +" * " +innerIt.subHiddenD)
+
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            d = d.roundOffDecimal3()
         }
 
         var c = 0.0
         if (Logic.CORNERS.contains(data.number)) {
-            c = 1.0
+            var cs: List<Data>
+//            if (isD) {
+            cs = Logic.getSel(Logic.CORNERS, list).filter { !it.isClicked }
+//            } else {
+//                hs = Logic.getSel(data.h, list).filter { !it.isClicked && (!Logic.DIAGONALS.contains(it.number) || it.number == clicked) }
+//            }
+
+            if (cs.size == 1) {
+                c = 1.0
+            } else {
+                var count = 2
+                c = data.subHiddenV
+                c = c + data.subHiddenH
+
+                if (data.d.size > 0) {
+                    count++
+                    c = c + data.subHiddenD
+                }
+                if (Logic.CORNERS.contains(data.number)) {
+                    count++
+                    c = c + data.subHiddenC
+                }
+//            h = (h / count).roundOffDecimal3()
+
+//has other
+                var hasOther = false
+                cs.forEach {
+                    if (it.number != data.number) {
+                        val vsInner = Logic.getSel(Logic.DIAGONALS, list).filter { !it.isClicked }
+                        if (vsInner.size > 1) {
+                            hasOther = true
+//                        vsInner.forEach {
+//                            if (clicked == logN)
+//                                Log.e("fuckkkkk: " + it.code, it.subHiddenV.toString() + ", " + it.subHiddenH)
+//                        }
+                        }
+//                    else {
+                        if (Logic.CORNERS.contains(it.number) || it.d.size > 0) {
+                            c = c + it.hidden
+                        } else {
+                            c = c + it.subHiddenV
+                        }
+                        count++
+//                    }
+                    }
+                }
+                c = (c / count).roundOffDecimal3()
+
+                if (clicked == logN)
+                    Log.e("c: " + clicked, c.toString() + ", " + count)
+
+//has other
+                if (hasOther) {
+                    var avrg = (c / cs.size).roundOffDecimal3()
+//                if (clicked == logN)
+//                    Log.e("h: " + clicked, avrg.toString() + ", " + hs.size)
+
+                    h = 0.0
+                    cs.forEach {
+                        if (it.number == data.number) {
+                            c += avrg
+                        } else {
+                            val csInner = Logic.getSel(Logic.CORNERS, list).filter { !it.isClicked }
+                            var subAvrg = (avrg / csInner.size).roundOffDecimal3()
+                            csInner.forEach { innerIt ->
+                                if (it.number == innerIt.number) {
+                                    c += subAvrg
+                                } else {
+                                    c = c + (subAvrg * innerIt.subHiddenC).roundOffDecimal3()
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }
 
         if (clicked == logN)
