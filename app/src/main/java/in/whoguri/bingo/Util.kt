@@ -5,7 +5,7 @@ import java.math.RoundingMode
 
 fun Double.roundOffDecimal3(): Double {
     try {
-        val roundedUp = this.toBigDecimal().setScale(3, RoundingMode.UP).toDouble()
+        val roundedUp = this.toBigDecimal().setScale(3, RoundingMode.HALF_EVEN).toDouble()
         return roundedUp
 
 //        val df = DecimalFormat("#.###")
