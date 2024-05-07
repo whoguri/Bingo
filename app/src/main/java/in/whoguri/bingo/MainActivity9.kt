@@ -83,14 +83,14 @@ class MainActivity9 : AppCompatActivity() {
 //        AppData.dataList = Logic.calResult3(AppData.dataList)
         val temp = ArrayList<Data>()
         AppData.dataList.forEach {
-            if (it.finalValue9 > 0 && !it.isClicked) {
+            if (it.finalValue2 > 0 && !it.isClicked) {
                 temp.add(it)
             }
         }
         AppData.resultList.clear()
         AppData.averageList.clear()
         averageAdapter.clear()
-        temp.sortedByDescending { it.finalValue9 }.forEach {
+        temp.sortedByDescending { it.finalValue2 }.forEach {
             if (AppData.resultList.size < 10 && it.number != 13) {
                 AppData.resultList.add(it.code)
 

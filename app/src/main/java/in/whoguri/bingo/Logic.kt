@@ -160,9 +160,9 @@ object Logic {
             val tempArray = arrayListOf<Double>()
             it.second.forEach {
                 val data = list.find { e -> e.number == it }
-                if (data != null && data.finalValue5 != -1.0 && !data.isClicked) {
-                    temp += data.finalValue5
-                    tempArray.add(data.finalValue5)
+                if (data != null && data.finalValue2 != -1.0 && !data.isClicked) {
+                    temp += data.finalValue2
+                    tempArray.add(data.finalValue2)
                 }
             }
             if (tempArray.size > 0) {
@@ -478,7 +478,7 @@ object Logic {
             count = 0
         }
         if (variant == 1)
-            data.finalValue5 = total.roundOffDecimal3()
+            data.finalValue2 = total.roundOffDecimal3()
         else
             data.finalValue6 = total.roundOffDecimal3()
         return data
@@ -506,7 +506,7 @@ object Logic {
         if (CORNERS.contains(clicked)) {
 //            c = getSel(CORNERS, list).filter { item -> !item.isClicked }.size - 1
         }
-        data.avrage = (data.finalValue5 / (h + v + d + c)).roundOffDecimal3()
+        data.avrage = (data.finalValue2 / (h + v + d + c)).roundOffDecimal3()
         return data
     }
 
@@ -635,17 +635,6 @@ object Logic {
         return data
     }
 
-    fun calResult5_dep(list: ArrayList<Data>): ArrayList<Data> {
-        val mList = list
-        for (i in 1..25) {
-            mList[i - 1] = calculateHidden5_dep(list, list[i - 1], i)
-        }
-        for (i in 1..25) {
-            mList[i - 1] = calculate5_dep(list, list[i - 1], i)
-        }
-        return mList
-    }
-
     fun calculateHidden5_dep(list: ArrayList<Data>, data: Data, clicked: Int): Data {
         val h: Double = (1.0 / getSel(data.h, list).filter { item -> !item.isClicked }.size).roundOffDecimal3()
         val v: Double = (1.0 / getSel(data.v, list).filter { item -> !item.isClicked }.size).roundOffDecimal3()
@@ -659,80 +648,6 @@ object Logic {
         data.subHiddenV = v
         data.subHiddenD = d
         data.subHiddenC = c
-        return data
-    }
-
-    fun calculate5_dep(list: ArrayList<Data>, data: Data, clicked: Int): Data {
-        var total = 0.0
-        var subTotal = 0.0
-        var count = 0
-
-        data.h.forEach {
-            val d = list.filter { item -> item.number == it }.first()
-            if (!d.isClicked && d.number != clicked) {
-                subTotal += d.hidden
-                count++
-            }
-        }
-        if (count != 0)
-            total += data.subHiddenH * (subTotal / count).roundOffDecimal3()
-        else
-            total += 1
-
-        subTotal = 0.0
-        count = 0
-
-        data.v.forEach {
-            val d = list.filter { item -> item.number == it }.first()
-            if (!d.isClicked && d.number != clicked) {
-                subTotal += d.hidden
-                count++
-            }
-        }
-        if (count != 0)
-            total += (data.subHiddenV * (subTotal / count)).roundOffDecimal3()
-        else
-            total += 1
-
-        subTotal = 0.0
-        count = 0
-
-        if (data.d.size > 0) {
-            data.d.forEach {
-                val d = list.filter { item -> item.number == it }.first()
-                if (!d.isClicked && d.number != clicked) {
-                    subTotal += d.hidden
-                    count++
-                }
-            }
-            if (count != 0)
-                total += data.subHiddenD * (subTotal / count).roundOffDecimal3()
-            else
-                total += 1
-
-            subTotal = 0.0
-            count = 0
-        }
-
-        if (CORNERS.contains(clicked)) {
-            CORNERS.forEach {
-                val d = list.filter { item -> item.number == it }.first()
-                if (!d.isClicked && d.number != clicked) {
-                    subTotal += d.hidden
-                    count++
-                }
-            }
-            if (count != 0)
-                total += data.subHiddenC * (subTotal / count).roundOffDecimal3()
-            else
-                total += 1
-
-            subTotal = 0.0
-            count = 0
-        }
-
-        data.finalValue5 = total.roundOffDecimal3()
-
         return data
     }
 

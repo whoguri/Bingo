@@ -667,7 +667,7 @@ object NewLogic {
         if (data.number === 21) {
             Log.e(">>>", total.toString())
         }
-        data.finalValue9 = total.roundOffDecimal3()
+        data.finalValue2 = total.roundOffDecimal3()
         return data
     }
 
@@ -679,9 +679,9 @@ object NewLogic {
             val tempArray = arrayListOf<Double>()
             it.second.forEach {
                 val data = list.find { e -> e.number == it }
-                if (data != null && data.finalValue9 != -1.0 && !data.isClicked) {
-                    temp += data.finalValue9
-                    tempArray.add(data.finalValue9)
+                if (data != null && data.finalValue2 != -1.0 && !data.isClicked) {
+                    temp += data.finalValue2
+                    tempArray.add(data.finalValue2)
                 }
             }
             if (tempArray.size > 0) {
@@ -747,122 +747,6 @@ object NewLogic {
         if (data.number === 20) {
             Log.e(">>avg ", data.avrage.toString() + " " + total + " / " + count)
         }
-        return data
-    }
-
-    fun calculate9_dep(list: ArrayList<Data>, data: Data, clicked: Int): Data {
-        var total = 0.0
-        var subTotal = 0.0
-        var count = 0
-
-        var temp = 0.0
-        data.h.forEach {
-            val d = list.filter { item -> item.number == it }.first()
-            if (!d.isClicked) {
-                if (d.number != clicked) {
-                    if (data.number === 19) {
-                        Log.e(">>>", d.code + ">> " + d.avrage + ":" + d.hidden)
-
-                    }
-                    if (d.avrage != 0.0) {
-                        temp = d.hidden
-                        subTotal += d.avrage
-
-                    } else
-                        subTotal += d.hidden
-                    count++
-                } else {
-                    Log.e("<<<", d.code + ">> " + d.avrage + ":" + d.hidden)
-
-                }
-
-            }
-        }
-        if (data.number === 19) {
-            Log.e(">>>", data.subHiddenH.toString() + ">> " + subTotal + ":" + count)
-        }
-        if (count == 1)
-            total += (data.subHiddenH * ((subTotal + temp) / 2).roundOffDecimal3()).roundOffDecimal3()
-        else if (count != 0)
-            total += (data.subHiddenH * (subTotal / count).roundOffDecimal3()).roundOffDecimal3()
-        else
-            total = (total + 1).roundOffDecimal3()
-        subTotal = 0.0
-        count = 0
-        if (data.number === 19) {
-            Log.e(">>>", total.toString())
-        }
-        data.v.forEach {
-            val d = list.filter { item -> item.number == it }.first()
-            if (!d.isClicked) {
-                if (d.number != clicked) {
-                    if (d.avrage != 0.0)
-                        subTotal += d.avrage
-                    else
-                        subTotal += d.hidden
-                    count++
-                }
-
-            }
-        }
-        if (count != 0)
-            total += (data.subHiddenV * (subTotal / count).roundOffDecimal3()).roundOffDecimal3()
-        else
-            total = (total + 1).roundOffDecimal3()
-
-        subTotal = 0.0
-        count = 0
-
-        if (data.number === 19) {
-            Log.e(">>>", total.toString())
-        }
-        if (data.d.size > 0) {
-            data.d.forEach {
-                val d = list.filter { item -> item.number == it }.first()
-                if (!d.isClicked) {
-                    if (d.number != clicked) {
-                        subTotal += d.avrage
-                        count++
-                    }
-
-                }
-            }
-            if (count != 0)
-                total += (data.subHiddenD)// * (subTotal / count).roundOffDecimal3()).roundOffDecimal3()
-            else
-                total = (total + 1).roundOffDecimal3()
-
-            subTotal = 0.0
-            count = 0
-        }
-        if (data.number === 19) {
-            Log.e(">>>", total.toString())
-        }
-
-        if (Logic.CORNERS.contains(clicked)) {
-            Logic.CORNERS.forEach {
-                val d = list.filter { item -> item.number == it }.first()
-                if (!d.isClicked) {
-                    if (d.number != clicked) {
-                        subTotal += d.avrage
-                        count++
-                    }
-
-                }
-            }
-
-            if (count != 0) {
-                total += (data.subHiddenC) //* (subTotal / count).roundOffDecimal3()).roundOffDecimal3()
-            } else
-                total = (total + 1).roundOffDecimal3()
-
-            subTotal = 0.0
-            count = 0
-        }
-        if (data.number === 19) {
-            Log.e(">>>", total.toString())
-        }
-        data.finalValue9 = total.roundOffDecimal3()
         return data
     }
 
