@@ -115,6 +115,7 @@ class MainActivity11 : AppCompatActivity() {
                     num1.setBackgroundColor(getColor(R.color.green))
                     num2.setBackgroundColor(getColor(R.color.yellow))
                 }
+                adapter.setHigh(result.get(0).first)
             }
             view = "a"
         } else {
@@ -144,8 +145,8 @@ class MainActivity11 : AppCompatActivity() {
                 } else {
                     num1.setBackgroundColor(getColor(R.color.green))
                     num2.setBackgroundColor(getColor(R.color.yellow))
-
                 }
+                adapter.setHigh(result.get(0).first)
             }
             view = "b"
         }

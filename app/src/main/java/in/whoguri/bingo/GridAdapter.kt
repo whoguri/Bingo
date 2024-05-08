@@ -17,6 +17,7 @@ class GridAdapter(
 ) :
     ArrayAdapter<Data>(context_, 0, list) {
     var calType: Int = 0
+    var higher: String = ""
 
     init {
         calType = type
@@ -28,6 +29,12 @@ class GridAdapter(
 
     fun setType(type_: Int) {
         calType = type_
+        higher = ""
+        notify_()
+    }
+
+    fun setHigh(shine_: String) {
+        higher = shine_
         notify_()
     }
 
@@ -93,7 +100,9 @@ class GridAdapter(
                 if (data.finalValue3 != -1.0) {
                     courseTV.text = data.finalValue3.roundOffDecimal3().toString()
                 }
-            } else if (calType == 2 || calType == 11 || calType == 1 || calType == 9) {
+            } else if (calType == 2 || calType == 11 || calType ==
+                1 || calType == 9
+            ) {
                 if (data.finalValue2 != -1.0) {
                     courseTV.text = data.finalValue2.roundOffDecimal3().toString()
                 }
@@ -102,13 +111,26 @@ class GridAdapter(
                     courseTV.text = data.finalValue.toString()
                 }
             }
-
-            if (calType == 10) {
-                val courseLL2 = listitemView.findViewById<LinearLayout>(R.id.numLL2)
-//                courseLL2.setBackgroundDrawable(context_.getDrawable(R.drawable.border))
-            }
-
         }
+
+        val courseLL2 = listitemView.findViewById<LinearLayout>(R.id.numLL2)
+        if (calType == 10) {
+            if (higher == "B-O") {
+                if (arrayOf(6, 8, 10, 11, 15, 16, 18, 20).contains(position + 1))
+                    courseLL2.setBackgroundDrawable(context_.getDrawable(R.drawable.border))
+                else
+                    courseLL2.setBackgroundDrawable(context_.getDrawable(R.drawable.plain))
+            } else if (higher == "1-5") {
+                if (arrayOf(2, 3, 4, 12, 14, 22, 23, 24).contains(position + 1))
+                    courseLL2.setBackgroundDrawable(context_.getDrawable(R.drawable.border))
+                else
+                    courseLL2.setBackgroundDrawable(context_.getDrawable(R.drawable.plain))
+
+            }
+        } else {
+            courseLL2.setBackgroundDrawable(context_.getDrawable(R.drawable.plain))
+        }
+
         return listitemView
     }
 }
