@@ -72,7 +72,7 @@ class MainActivity10 : AppCompatActivity() {
         } else {
             num1.text = result.get(0).first
             num2.text = result.get(1).first
-            if (result.get(0).first === "B-O") {
+            if (result.get(0).first == "B-O") {
                 num1.setBackgroundColor(getColor(R.color.yellow))
                 num2.setBackgroundColor(getColor(R.color.green))
             } else {
@@ -94,7 +94,7 @@ class MainActivity10 : AppCompatActivity() {
         } else {
             num1.text = result.get(0).second.toString()
             num2.text = result.get(1).second.toString()
-            if (result.get(0).first === "B-O") {
+            if (result.get(0).first == "B-O") {
                 num1.setBackgroundColor(getColor(R.color.yellow))
                 num2.setBackgroundColor(getColor(R.color.green))
             } else {

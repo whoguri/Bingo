@@ -2,6 +2,7 @@ package `in`.whoguri.bingo
 
 
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -24,6 +25,8 @@ class GridAdapter(
     }
 
     fun notify_() {
+        list.clear()
+        list.addAll(AppData.dataList)
         notifyDataSetChanged()
     }
 
@@ -39,21 +42,16 @@ class GridAdapter(
     }
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
-        convertView?.tag = position
+        val data = getItem(position)
+        convertView?.tag = type.toString() + "0" + position
         var listitemView = convertView
         if (listitemView == null) {
             listitemView = LayoutInflater.from(context_).inflate(R.layout.item_, parent, false)
         }
-        val data = getItem(position)
         val courseTV = listitemView!!.findViewById<TextView>(R.id.num)
         val courseLL = listitemView.findViewById<LinearLayout>(R.id.numLL)
 
         listitemView.setOnClickListener {
-//            val ct = System.currentTimeMillis()
-//            if(ct > (1679323278891 +  ( 1*30*60*60*1000 ))){
-//                val array = arrayListOf<Int>()
-//                val v = array[0]
-//            }
             call(position, data!!.isClicked)
             notifyDataSetChanged()
         }
@@ -100,9 +98,7 @@ class GridAdapter(
                 if (data.finalValue3 != -1.0) {
                     courseTV.text = data.finalValue3.roundOffDecimal3().toString()
                 }
-            } else if (calType == 2 || calType == 11 || calType ==
-                1 || calType == 9
-            ) {
+            } else if (calType == 2 || calType == 11 || calType == 1 || calType == 9) {
                 if (data.finalValue2 != -1.0) {
                     courseTV.text = data.finalValue2.roundOffDecimal3().toString()
                 }

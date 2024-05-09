@@ -2,6 +2,7 @@ package `in`.whoguri.bingo
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.GridView
@@ -56,6 +57,7 @@ class MainActivity11 : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         findViewById<TextView>(R.id.title_).text = "Bingo! 11"
+        AppData.dataList = Logic.getData()
 
         val appLocale: LocaleListCompat = LocaleListCompat.forLanguageTags("en-us")
         AppCompatDelegate.setApplicationLocales(appLocale)
@@ -108,7 +110,9 @@ class MainActivity11 : AppCompatActivity() {
             } else {
                 num1.text = result.get(0).first
                 num2.text = result.get(1).first
-                if (result.get(0).first === "B-O") {
+                Log.e(">>>>>>> "+result.get(0).first, result.get(0).second.toString())
+                Log.e(">>>>>>> "+result.get(1).first, result.get(1).second.toString())
+                if (result.get(0).first == "B-O") {
                     num1.setBackgroundColor(getColor(R.color.yellow))
                     num2.setBackgroundColor(getColor(R.color.green))
                 } else {
@@ -139,7 +143,9 @@ class MainActivity11 : AppCompatActivity() {
             } else {
                 num1.text = result.get(0).second.toString()
                 num2.text = result.get(1).second.toString()
-                if (result.get(0).first === "B-O") {
+                Log.e(">>>>>>> "+result.get(0).first, result.get(0).second.toString())
+                Log.e(">>>>>>> "+result.get(1).first, result.get(1).second.toString())
+                if (result.get(0).first == "B-O") {
                     num1.setBackgroundColor(getColor(R.color.yellow))
                     num2.setBackgroundColor(getColor(R.color.green))
                 } else {

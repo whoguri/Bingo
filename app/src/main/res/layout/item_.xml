@@ -28,7 +28,7 @@
                 android:minHeight="80dp"
                 android:text="1"
                 android:textColor="@color/black"
-                android:textSize="36sp"
+                android:textSize="32sp"
 
                 />
         </LinearLayout>
