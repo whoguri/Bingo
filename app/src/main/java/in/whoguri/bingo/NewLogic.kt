@@ -35,7 +35,7 @@ object NewLogic {
 //    for (i in 1..25) {
 //        val data = mList[i - 1]
         val selected = Logic.getSel(getMarked(data.number), mList).filter { !it.isClicked }
-        if (data.number == 25)
+        if (data.number == 5)
             Log.e(">>>>>>>>>>>>", selected.size.toString())
 
         if (Logic.CORNERS.contains(data.number) && data.d.size > 0) {
@@ -45,7 +45,7 @@ object NewLogic {
             if (selected.size <= 1)
                 isInv = true
         }
-        if (data.number == 25)
+        if (data.number == 5)
             Log.e(">>>>>>>>>>>>", isInv.toString())
 //    }
         return isInv
@@ -59,15 +59,19 @@ object NewLogic {
 //        } else {
 //            vs = Logic.getSel(data.v, list).filter { !it.isClicked && (!Logic.DIAGONALS.contains(it.number) || it.number == clicked) }
 //        }
-        if (clicked == logN)
-            Log.e("VV: " + clicked, vs.size.toString())
+//        if (clicked == logN)
+//            Log.e("VV: " + clicked, vs.size.toString())
 
         if (vs.size == 1) {
             v = 1.0
         } else {
             var count = 2
             v = data.subHiddenV
+            if (clicked == logN)
+                Log.e("V1: " + clicked, v.toString() + count)
             v = v + data.subHiddenH
+            if (clicked == logN)
+                Log.e("V2: " + clicked, v.toString() + count)
 
             if (data.d.size > 0) {
                 count++
@@ -81,7 +85,7 @@ object NewLogic {
 
             vs.forEach {
                 if (it.number != data.number) {
-                    val hsInner = Logic.getSel(it.h, list).filter { !it.isClicked }
+                    val hsInner = Logic.getSel(it.h, list).filter { !it.isClicked && !isInvisible(list, it, clicked)}
                     if (hsInner.size > 1) {
                         hasOther = true
                     }
@@ -90,11 +94,16 @@ object NewLogic {
                     } else {
                         v = v + it.subHiddenH
                     }
+                    if (clicked == logN)
+                        Log.e("V3: " + clicked, v.toString() + count)
+
                     count++
                 }
             }
             v = (v / count).roundOffDecimal3()
 
+            if (clicked == logN)
+                Log.e("VV: " + clicked, v.toString() + count)
             if (hasOther) {
                 var avrg = (v / vs.size).roundOffDecimal3()
                 v = 0.0
@@ -103,7 +112,7 @@ object NewLogic {
                     if (it.number == data.number) {
                         v += avrg
                     } else {
-                        val hsInner = Logic.getSel(it.h, list).filter { !it.isClicked }
+                        val hsInner = Logic.getSel(it.h, list).filter { !it.isClicked && !isInvisible(list, it, clicked)}
                         var subAvrg = (avrg / hsInner.size).roundOffDecimal3()
                         hsInner.forEach { innerIt ->
                             if (it.number == innerIt.number) {
@@ -152,7 +161,7 @@ object NewLogic {
             hs.forEach {
                 if (it.number != data.number) {
 
-                    val vsInner = Logic.getSel(it.v, list).filter { !it.isClicked }
+                    val vsInner = Logic.getSel(it.v, list).filter { !it.isClicked && !isInvisible(list, it, clicked)}
                     if (vsInner.size > 1) {
                         hasOther = true
 //                        vsInner.forEach {
@@ -186,7 +195,7 @@ object NewLogic {
                     if (it.number == data.number) {
                         h += avrg
                     } else {
-                        val vsInner = Logic.getSel(it.v, list).filter { !it.isClicked }
+                        val vsInner = Logic.getSel(it.v, list).filter { !it.isClicked && !isInvisible(list, it, clicked)}
                         var subAvrg = (avrg / vsInner.size).roundOffDecimal3()
                         vsInner.forEach { innerIt ->
                             if (it.number == innerIt.number) {
@@ -205,7 +214,7 @@ object NewLogic {
 
             var ds: List<Data>
 //            if (isD) {
-            ds = Logic.getSel(data.d, list).filter { !it.isClicked }
+            ds = Logic.getSel(data.d, list).filter { !it.isClicked && !isInvisible(list, it, clicked)}
 //            } else {
 //                hs = Logic.getSel(data.h, list).filter { !it.isClicked && (!Logic.DIAGONALS.contains(it.number) || it.number == clicked) }
 //            }
@@ -231,7 +240,7 @@ object NewLogic {
                 var hasOther = false
                 ds.forEach {
                     if (it.number != data.number) {
-                        val vsInner = Logic.getSel(it.d, list).filter { !it.isClicked }
+                        val vsInner = Logic.getSel(it.d, list).filter { !it.isClicked && !isInvisible(list, it, clicked)}
                         if (vsInner.size > 1) {
                             hasOther = true
 //                        vsInner.forEach {
@@ -268,7 +277,7 @@ object NewLogic {
                                 Log.e("d: avg 2", d.toString())
 
                         } else {
-                            val dsInner = Logic.getSel(it.d, list).filter { !it.isClicked }
+                            val dsInner = Logic.getSel(it.d, list).filter { !it.isClicked && !isInvisible(list, it, clicked)}
                             var subAvrg = (avrg / dsInner.size).roundOffDecimal3()
                             dsInner.forEach { innerIt ->
                                 if (it.number == innerIt.number) {
@@ -294,7 +303,7 @@ object NewLogic {
         if (Logic.CORNERS.contains(data.number)) {
             var cs: List<Data>
 //            if (isD) {
-            cs = Logic.getSel(Logic.CORNERS, list).filter { !it.isClicked }
+            cs = Logic.getSel(Logic.CORNERS, list).filter { !it.isClicked && !isInvisible(list, it, clicked)}
 //            } else {
 //                hs = Logic.getSel(data.h, list).filter { !it.isClicked && (!Logic.DIAGONALS.contains(it.number) || it.number == clicked) }
 //            }
@@ -320,7 +329,7 @@ object NewLogic {
                 var hasOther = false
                 cs.forEach {
                     if (it.number != data.number) {
-                        val vsInner = Logic.getSel(Logic.DIAGONALS, list).filter { !it.isClicked }
+                        val vsInner = Logic.getSel(Logic.DIAGONALS, list).filter { !it.isClicked && !isInvisible(list, it, clicked)}
                         if (vsInner.size > 1) {
                             hasOther = true
 //                        vsInner.forEach {
@@ -354,7 +363,7 @@ object NewLogic {
                         if (it.number == data.number) {
                             c += avrg
                         } else {
-                            val csInner = Logic.getSel(Logic.CORNERS, list).filter { !it.isClicked }
+                            val csInner = Logic.getSel(Logic.CORNERS, list).filter { !it.isClicked&& !isInvisible(list, it, clicked) }
                             var subAvrg = (avrg / csInner.size).roundOffDecimal3()
                             csInner.forEach { innerIt ->
                                 if (it.number == innerIt.number) {
@@ -406,11 +415,11 @@ object NewLogic {
         val v: Double = subValue_11(Logic.getSel(data.v, list).filter { item -> !item.isClicked && !isInvisible(list, item, clicked) }.size)
         var d = 0.0
         if (data.d.size > 0) {
-            d = subValue_11(Logic.getSel(data.d, list).filter { item -> !item.isClicked }.size)
+            d = subValue_11(Logic.getSel(data.d, list).filter { item -> !item.isClicked && !isInvisible(list, item, clicked)}.size)
         }
         var c = 0.0
         if (Logic.CORNERS.contains(clicked)) {
-            c = subValue_11(Logic.getSel(Logic.CORNERS, list).filter { item -> !item.isClicked }.size)
+            c = subValue_11(Logic.getSel(Logic.CORNERS, list).filter { item -> !item.isClicked && !isInvisible(list, item, clicked)}.size)
         }
 
         data.subHiddenH = h.roundOffDecimal3()
@@ -418,6 +427,12 @@ object NewLogic {
         data.subHiddenD = d.roundOffDecimal3()
         data.subHiddenC = c.roundOffDecimal3()
 
+        if (data.number == 4) {
+            Log.e(">>> h", data.subHiddenH.toString())
+            Log.e(">>> v", data.subHiddenV.toString())
+            Log.e(">>> d", data.subHiddenD.toString())
+            Log.e(">>> c", data.subHiddenC.toString())
+        }
         val numbers = listOf(data.subHiddenH, data.subHiddenV, data.subHiddenD, data.subHiddenC)
         data.hidden = numbers[0]
 
@@ -445,16 +460,16 @@ object NewLogic {
                 if (Logic.getSel(it, list).filter { !it.isClicked && it.group == "B-O" }.size > 0) {
                     it.forEach { no ->
                         val item = mList.find { it.number == no }
-                        if (item != null &&  !item.isClicked) {
+                        if (item != null && !item.isClicked) {
                             group_BO_count++
                         }
                     }
                 }
             if (index == 0 || index == 2 || index == 4)
-                if (Logic.getSel(it, list).filter { !it.isClicked  && it.group == "1-5"  }.size > 0) {
+                if (Logic.getSel(it, list).filter { !it.isClicked && it.group == "1-5" }.size > 0) {
                     it.forEach { no ->
                         val item = mList.find { it.number == no }
-                        if (item != null &&  !item.isClicked) {
+                        if (item != null && !item.isClicked) {
                             group_15_count++
                         }
                     }
@@ -464,37 +479,37 @@ object NewLogic {
             if (group_15_count != 0.0)
                 group_15.add((1 / group_15_count).roundOffDecimal3())
             if (group_BO_count != 0.0)
-                Log.e("10 ## R"+(index +1), group_BO_count.toString() + " : " + group_15.size)
+                Log.e("10 ## R" + (index + 1), group_BO_count.toString() + " : " + group_15.size)
 
         }
         Logic.getCols().forEachIndexed { index, it ->
             var group_BO_count = 0.0
             var group_15_count = 0.0
 
-            if(index == 0 ||index == 2 || index == 4 )
-            if (Logic.getSel(it, list).filter { !it.isClicked && it.group == "B-O" }.size > 0) {
-                it.forEach { no ->
-                    val item = mList.find { it.number == no }
-                    if (item != null &&  !item.isClicked) {
-                        group_BO_count++
+            if (index == 0 || index == 2 || index == 4)
+                if (Logic.getSel(it, list).filter { !it.isClicked && it.group == "B-O" }.size > 0) {
+                    it.forEach { no ->
+                        val item = mList.find { it.number == no }
+                        if (item != null && !item.isClicked) {
+                            group_BO_count++
+                        }
                     }
                 }
-            }
-            if(index == 1 ||index == 2 || index == 3 )
-            if (Logic.getSel(it, list).filter { !it.isClicked  && it.group == "1-5"  }.size > 0) {
-                it.forEach { no ->
-                    val item = mList.find { it.number == no }
-                    if (item != null && !item.isClicked) {
-                        group_15_count++
+            if (index == 1 || index == 2 || index == 3)
+                if (Logic.getSel(it, list).filter { !it.isClicked && it.group == "1-5" }.size > 0) {
+                    it.forEach { no ->
+                        val item = mList.find { it.number == no }
+                        if (item != null && !item.isClicked) {
+                            group_15_count++
+                        }
                     }
                 }
-            }
             if (group_BO_count != 0.0)
                 group_BO.add((1 / group_BO_count).roundOffDecimal3())
             if (group_15_count != 0.0)
                 group_15.add((1 / group_15_count).roundOffDecimal3())
             if (group_BO_count != 0.0)
-                Log.e("10 ## C"+(index +1), group_BO_count.toString() + " : " + group_15.size)
+                Log.e("10 ## C" + (index + 1), group_BO_count.toString() + " : " + group_15.size)
 
         }
 
