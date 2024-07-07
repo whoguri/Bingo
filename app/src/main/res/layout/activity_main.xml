@@ -24,7 +24,7 @@
             android:layout_weight="1"
             android:background="@color/white"
             android:padding="12dp"
-            android:text="11"
+            android:text="11 P"
             android:textAlignment="center"
             android:textColor="@color/black"
             android:textSize="24dp" />
@@ -63,7 +63,7 @@
             android:layout_weight="1"
             android:background="@color/white"
             android:padding="12dp"
-            android:text="9"
+            android:text="12"
             android:textAlignment="center"
             android:textColor="@color/black"
             android:textSize="24dp" />

@@ -41,10 +41,10 @@ class MainActivity11 : AppCompatActivity() {
 //        findViewById<TextView>(R.id.cal_4)
         val title = findViewById<TextView>(R.id.title_)
         when (no) {
-            11 -> title.text = "Bingo! 11"
+            11 -> title.text = "Bingo! 11 P"
             10 -> title.text = "Bingo! G"
             1 -> title.text = "Bingo! 1"
-            9 -> title.text = "Bingo! 9"
+            12 -> title.text = "Bingo! 12"
             else -> title.text = "Bingo!"
         }
         findViewById<LinearLayout>(R.id.result1).visibility = View.VISIBLE
@@ -91,7 +91,7 @@ class MainActivity11 : AppCompatActivity() {
             changeTab(1)
         }
         findViewById<TextView>(R.id.cal_4).setOnClickListener {
-            changeTab(9)
+            changeTab(12)
         }
     }
 
@@ -161,12 +161,13 @@ class MainActivity11 : AppCompatActivity() {
 
     private fun recal() {
         if (adapter.calType == 10) {
-            val result_ = NewLogic.calResult10_Group(AppData.dataList)
+            val result_ = NewLogic.calResult10_GroupNew(AppData.dataList)
             AppData.dataList = result_.second
             AppData.resultList.clear()
             AppData.averageList.clear()
             averageAdapter.clear()
             result.clear()
+            //descending for old
             result_.first.sortedBy { it.second }.forEach {
                 result.add(it)
             }
@@ -178,11 +179,11 @@ class MainActivity11 : AppCompatActivity() {
 
         } else {
             if (adapter.calType == 11)
-                AppData.dataList = NewLogic.calResult11(AppData.dataList)
+                AppData.dataList = NewLogic.calResult11P(AppData.dataList)
             else if (adapter.calType == 1)
                 AppData.dataList = Logic.calResult5(AppData.dataList)
-            else if (adapter.calType == 9)
-                AppData.dataList = NewLogic.calResult9(AppData.dataList)
+            else if (adapter.calType == 12)
+                AppData.dataList = NewLogic.calResult12(AppData.dataList)
 
             val temp = ArrayList<Data>()
             AppData.dataList.forEach {
