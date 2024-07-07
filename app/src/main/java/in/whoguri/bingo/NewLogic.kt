@@ -445,19 +445,48 @@ object NewLogic {
         return data
     }
 
-    fun calResult10_Group(list: ArrayList<Data>): Pair<ArrayList<Pair<String, Double>>, ArrayList<Data>> {
+    fun calResult10_Group(list: ArrayList<Data>, ): Pair<ArrayList<Pair<String, Double>>, ArrayList<Data>> {
         val mList = list
         val group_BO = arrayListOf<Double>()
         val group_15 = arrayListOf<Double>()
         for (i in 1..25) {
             mList[i - 1].hidden = 0.0
         }
+
+        if(mList.find {  !it.isClicked && (it.code == "b3" || it.code == "o3") }.toString() != "null") {
+            mList[12 - 1].group = "B-O,1-5"
+            mList[14 - 1].group = "B-O,1-5"
+        }else{
+            mList[12 - 1].group = ""
+            mList[14 - 1].group = ""
+        }
+        if(mList.find {  !it.isClicked && (it.code == "n2" || it.code == "n4") }.toString() != "null") {
+            mList[3 - 1].group = "B-O,1-5"
+            mList[23 - 1].group = "B-O,1-5"
+        }else{
+            mList[3 - 1].group = "1-5"
+            mList[23 - 1].group = "1-5"
+        }
+        if(mList.find {  !it.isClicked && (it.code == "i3" || it.code == "g3") }.toString() != "null") {
+            mList[11 - 1].group = "1-5,B-O"
+            mList[15 - 1].group = "1-5,B-O"
+        }else{
+            mList[11 - 1].group = "B-O"
+            mList[15 - 1].group = "B-O"
+        }
+        if(mList.find {  !it.isClicked && (it.code == "n1" || it.code == "n5") }.toString() != "null") {
+            mList[8 - 1].group = "1-5,B-O"
+            mList[18 - 1].group = "1-5,B-O"
+        }else{
+            mList[8 - 1].group = "B-O"
+            mList[18 - 1].group = "B-O"
+        }
         Logic.getRows().forEachIndexed { index, it ->
             var group_BO_count = 0.0
             var group_15_count = 0.0
 
             if (index == 1 || index == 2 || index == 3)
-                if (Logic.getSel(it, list).filter { !it.isClicked && it.group == "B-O" }.size > 0) {
+                if (Logic.getSel(it, list).filter { !it.isClicked && it.group.contains("B-O") }.size > 0) {
                     it.forEach { no ->
                         val item = mList.find { it.number == no }
                         if (item != null && !item.isClicked) {
@@ -466,7 +495,7 @@ object NewLogic {
                     }
                 }
             if (index == 0 || index == 2 || index == 4)
-                if (Logic.getSel(it, list).filter { !it.isClicked && it.group == "1-5" }.size > 0) {
+                if (Logic.getSel(it, list).filter { !it.isClicked && it.group.contains("1-5") }.size > 0) {
                     it.forEach { no ->
                         val item = mList.find { it.number == no }
                         if (item != null && !item.isClicked) {
@@ -487,7 +516,7 @@ object NewLogic {
             var group_15_count = 0.0
 
             if (index == 0 || index == 2 || index == 4)
-                if (Logic.getSel(it, list).filter { !it.isClicked && it.group == "B-O" }.size > 0) {
+                if (Logic.getSel(it, list).filter { !it.isClicked && it.group.contains("B-O") }.size > 0) {
                     it.forEach { no ->
                         val item = mList.find { it.number == no }
                         if (item != null && !item.isClicked) {
@@ -496,7 +525,7 @@ object NewLogic {
                     }
                 }
             if (index == 1 || index == 2 || index == 3)
-                if (Logic.getSel(it, list).filter { !it.isClicked && it.group == "1-5" }.size > 0) {
+                if (Logic.getSel(it, list).filter { !it.isClicked && it.group.contains("1-5") }.size > 0) {
                     it.forEach { no ->
                         val item = mList.find { it.number == no }
                         if (item != null && !item.isClicked) {
@@ -513,68 +542,10 @@ object NewLogic {
 
         }
 
-//        Logic.getRows().forEach {
-//            var group_BO_count = 0.0
-//            var group_15_count = 0.0
-//
-//            if (Logic.getSel(it, list).filter { !it.isClicked && it.group == "B-O" }.size > 0) {
-//                it.forEach { no ->
-//                    val item = mList.find { it.number == no }
-//                    if (item != null && item.group != "1-5" && !item.isClicked) {
-//                        group_BO_count++
-//                    }
-//                }
-//            }
-//            if (Logic.getSel(it, list).filter { !it.isClicked && it.group == "1-5" }.size > 0) {
-//                it.forEach { no ->
-//                    val item = mList.find { it.number == no }
-//
-//                    if (item != null && item.group != "B-O" && !item.isClicked) {
-//                        group_15_count++
-//                    }
-//                }
-//            }
-//            if (group_BO_count != 0.0)
-//                group_BO.add((1 / group_BO_count).roundOffDecimal3())
-//            if (group_15_count != 0.0)
-//                group_15.add((1 / group_15_count).roundOffDecimal3())
-//            if (group_15_count != 0.0)
-//                Log.e("10 ## R" , group_15_count.toString() + " : " + group_15.size)
-//
-//        }
-//        Logic.getCols().forEach {
-//            var group_BO_count = 0.0
-//            var group_15_count = 0.0
-//
-//            if (Logic.getSel(it, list).filter { !it.isClicked && it.group == "B-O" }.size > 0) {
-//                it.forEach { no ->
-//                    val item = mList.find { it.number == no }
-//                    if (item != null && item.group != "1-5" && !item.isClicked) {
-//                        group_BO_count++
-//                    }
-//                }
-//            }
-//            if (Logic.getSel(it, list).filter { !it.isClicked && it.group == "1-5" }.size > 0) {
-//                it.forEach { no ->
-//                    val item = mList.find { it.number == no }
-//                    if (item != null && item.group != "B-O" && !item.isClicked) {
-//                        group_15_count++
-//                    }
-//                }
-//            }
-//            if (group_BO_count != 0.0)
-//                group_BO.add((1 / group_BO_count).roundOffDecimal3())
-//            if (group_15_count != 0.0)
-//                group_15.add((1 / group_15_count).roundOffDecimal3())
-//            if (group_15_count != 0.0)
-//                Log.e("10 ## C" , group_15_count.toString() + " : " + group_15.size)
-//
-//        }
-
         val result = arrayListOf<Pair<String, Double>>()
-        Log.e("10 ## " + (group_15.sum() / group_15.size), group_15.sum().toString() + " : " + group_15.size)
-        val avg_BO = if (group_BO.size > 0) (group_BO.sum() / group_BO.size).roundOffDecimal3() else 0.0
-        val avg_15 = if (group_15.size > 0) (group_15.sum() / group_15.size).roundOffDecimal3() else 0.0
+//        Log.e("10 ## " + (group_15.sum() / group_15.size), group_15.sum().toString() + " : " + group_15.size)
+        val avg_BO = group_BO.size.toDouble() //if (group_BO.size > 0) (group_BO.sum() / group_BO.size).roundOffDecimal3() else 0.0
+        val avg_15 = group_15.size.toDouble() //if (group_15.size > 0) (group_15.sum() / group_15.size).roundOffDecimal3() else 0.0
 
         result.add(Pair("B-O", avg_BO))
         result.add(Pair("1-5", avg_15))

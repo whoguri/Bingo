@@ -8,7 +8,7 @@ class Data(
     var h: ArrayList<Int>,
     var v: ArrayList<Int>,
     var d: ArrayList<Int>,
-    val group:String="",
+    var group:String="",
     var finalValue: Int = -1,
     var finalValue2: Double = -1.0,
     var finalValue3: Double = -1.0,

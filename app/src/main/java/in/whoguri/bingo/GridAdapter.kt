@@ -42,7 +42,7 @@ class GridAdapter(
     }
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
-        val data = getItem(position)
+        val data = getItem(position)!!
         convertView?.tag = type.toString() + "0" + position
         var listitemView = convertView
         if (listitemView == null) {
@@ -112,16 +112,17 @@ class GridAdapter(
         val courseLL2 = listitemView.findViewById<LinearLayout>(R.id.numLL2)
         if (calType == 10) {
             if (higher == "B-O") {
-                if (arrayOf(6, 8, 10, 11, 15, 16, 18, 20).contains(position + 1))
+//                if (arrayOf(6, 8, 10, 11, 15, 16, 18, 20).contains(position + 1))
+                if (data.group.contains("B-O"))
                     courseLL2.setBackgroundDrawable(context_.getDrawable(R.drawable.border))
                 else
                     courseLL2.setBackgroundDrawable(context_.getDrawable(R.drawable.plain))
             } else if (higher == "1-5") {
-                if (arrayOf(2, 3, 4, 12, 14, 22, 23, 24).contains(position + 1))
+//                if (arrayOf(2, 3, 4, 12, 14, 22, 23, 24).contains(position + 1))
+                if (data.group.contains("1-5"))
                     courseLL2.setBackgroundDrawable(context_.getDrawable(R.drawable.border))
                 else
                     courseLL2.setBackgroundDrawable(context_.getDrawable(R.drawable.plain))
-
             }
         } else {
             courseLL2.setBackgroundDrawable(context_.getDrawable(R.drawable.plain))

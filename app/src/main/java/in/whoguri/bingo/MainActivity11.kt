@@ -110,8 +110,6 @@ class MainActivity11 : AppCompatActivity() {
             } else {
                 num1.text = result.get(0).first
                 num2.text = result.get(1).first
-                Log.e(">>>>>>> "+result.get(0).first, result.get(0).second.toString())
-                Log.e(">>>>>>> "+result.get(1).first, result.get(1).second.toString())
                 if (result.get(0).first == "B-O") {
                     num1.setBackgroundColor(getColor(R.color.yellow))
                     num2.setBackgroundColor(getColor(R.color.green))
@@ -143,8 +141,6 @@ class MainActivity11 : AppCompatActivity() {
             } else {
                 num1.text = result.get(0).second.toString()
                 num2.text = result.get(1).second.toString()
-                Log.e(">>>>>>> "+result.get(0).first, result.get(0).second.toString())
-                Log.e(">>>>>>> "+result.get(1).first, result.get(1).second.toString())
                 if (result.get(0).first == "B-O") {
                     num1.setBackgroundColor(getColor(R.color.yellow))
                     num2.setBackgroundColor(getColor(R.color.green))
@@ -171,7 +167,7 @@ class MainActivity11 : AppCompatActivity() {
             AppData.averageList.clear()
             averageAdapter.clear()
             result.clear()
-            result_.first.sortedByDescending { it.second }.forEach {
+            result_.first.sortedBy { it.second }.forEach {
                 result.add(it)
             }
             if (view == "a")
