@@ -1,12 +1,54 @@
 package `in`.whoguri.bingo
 
 import android.util.Log
+import `in`.whoguri.bingo.Logic.CORNERS
+import `in`.whoguri.bingo.Logic.getHV
+import `in`.whoguri.bingo.Logic.getSel
 
 object NewLogic {
     fun calResult12(list: ArrayList<Data>): ArrayList<Data> {
         if (list.size != 25)
             return Logic.getData()
         val mList = list
+        for (i in 1..25) {
+            val data = list[i - 1]
+            val h: Double = (1.0 / getSel(data.h, list).filter { item -> !item.isClicked }.size).roundOffDecimal4()
+            val v: Double = (1.0 / getSel(data.v, list).filter { item -> !item.isClicked }.size).roundOffDecimal4()
+            data.subHiddenH = h
+            data.subHiddenV = v
+            data.hidden = h + v
+            data.avrage = (data.hidden / 2).roundOffDecimal4()
+            if (CORNERS.contains(i)) {
+                data.avrage = (data.avrage * 2).roundOffDecimal4()
+            } else if (data.d.size > 0) {
+                data.avrage = (data.avrage * 1.5).roundOffDecimal4()
+            }
+            mList[i - 1] = data
+        }
+        for (i in 1..25) {
+            val data = mList[i - 1]
+            var count = 0
+            var total = 0.0
+            getHV(data, mList).forEach { itt ->
+                if (!itt.isClicked && itt.number != data.number) {
+                    getHV(itt, mList).forEach {
+                        if (!it.isClicked && it.number != data.number) {
+                            if(i==12) Log.e(">>>",it.avrage.toString() + data.avrage )
+                            if (itt.number == it.number) {
+                                total = total + ((it.avrage + data.avrage) / 2).roundOffDecimal4()
+                            } else {
+                                total = total + ((data.avrage + ((it.avrage + itt.avrage) / 2).roundOffDecimal4()) / 2).roundOffDecimal4()
+                            }
+                            count++
+                        }
+                    }
+                }
+            }
+            if (i == 12) Log.e("::>>> B", data.code + " : " + total + " : " + count)
+            if (count > 0)
+                data.finalValue2 = (total / count).roundOffDecimal4()
+            mList[i - 1] = data
+        }
 
         return mList
     }

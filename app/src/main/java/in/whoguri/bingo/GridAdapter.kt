@@ -66,7 +66,15 @@ class GridAdapter(
         } else {
             courseLL.setBackgroundColor(context_.getColor(R.color.white))
 
-            if (calType == 10) {
+            if (calType == 12) {
+                if (data.finalValue2 != -1.0) {
+                    courseTV.text = data.finalValue2.roundOffDecimal4().toString()
+                }
+            } else if (calType == 2 || calType == 11 || calType == 1 || calType == 9) {
+                if (data.finalValue2 != -1.0) {
+                    courseTV.text = data.finalValue2.roundOffDecimal3().toString()
+                }
+            } else if (calType == 10) {
                 if (data.hidden != -1.0) {
                     courseTV.text = data.hidden.roundOffDecimal3().toString()
                 }
@@ -97,10 +105,6 @@ class GridAdapter(
             } else if (calType == 3) {
                 if (data.finalValue3 != -1.0) {
                     courseTV.text = data.finalValue3.roundOffDecimal3().toString()
-                }
-            } else if (calType == 2 || calType == 11 || calType == 1 || calType == 9) {
-                if (data.finalValue2 != -1.0) {
-                    courseTV.text = data.finalValue2.roundOffDecimal3().toString()
                 }
             } else {
                 if (data.finalValue != -1) {

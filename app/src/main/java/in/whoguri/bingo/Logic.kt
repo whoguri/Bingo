@@ -40,6 +40,26 @@ object Logic {
         return allData
     }
 
+    fun getHV(data: Data, list: ArrayList<Data>): ArrayList<Data> {
+        val all = arrayListOf<Int>()
+        val allData = arrayListOf<Data>()
+        data.h.forEach {
+            all.add(it)
+        }
+        data.v.forEach {
+            if (all.filter { item -> item == it }.isEmpty()) {
+                all.add(it)
+            }
+        }
+        list.forEach {
+            val has = all.filter { i -> i == it.number }.isNotEmpty()
+            if (has) {
+                allData.add(it)
+            }
+        }
+        return allData
+    }
+
     fun getSel(all: ArrayList<Int>, list: ArrayList<Data>): ArrayList<Data> {
         val allData = arrayListOf<Data>()
 
