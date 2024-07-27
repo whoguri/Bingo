@@ -14,7 +14,7 @@ import androidx.core.os.LocaleListCompat
 
 class MainActivity11 : AppCompatActivity() {
     val adapter by lazy {
-        GridAdapter(this, 11, AppData.dataList) { it, b ->
+        GridAdapter(this, 13, AppData.dataList) { it, b ->
             val data = AppData.dataList[it]
             data.isClicked = !b
             AppData.dataList[it] = data
@@ -45,12 +45,10 @@ class MainActivity11 : AppCompatActivity() {
             10 -> title.text = "Bingo! G"
             1 -> title.text = "Bingo! 1"
             12 -> title.text = "Bingo! 12"
+            13 -> title.text = "Bingo! GT"
             else -> title.text = "Bingo!"
         }
-        findViewById<LinearLayout>(R.id.result1).visibility = View.VISIBLE
-        findViewById<LinearLayout>(R.id.result2).visibility = View.GONE
         recal()
-
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -66,8 +64,9 @@ class MainActivity11 : AppCompatActivity() {
         findViewById<GridView>(R.id.grid).adapter = adapter
         findViewById<GridView>(R.id.sortGrid).adapter = resultAdapter
         findViewById<GridView>(R.id.avrageGrid).adapter = averageAdapter
+        findViewById<GridView>(R.id.hlGrid).adapter = result13Adapter
         planA()
-        changeTab(11)
+        changeTab(13)
         findViewById<LinearLayout>(R.id.resetD).setOnClickListener {
             Logic.clickDs()
             recal()
@@ -93,12 +92,17 @@ class MainActivity11 : AppCompatActivity() {
         findViewById<TextView>(R.id.cal_4).setOnClickListener {
             changeTab(12)
         }
+        findViewById<TextView>(R.id.cal_5).setOnClickListener {
+            changeTab(13)
+        }
     }
 
     private fun planA() {
+        result13Adapter.clear()
         if (adapter.calType == 10) {
             findViewById<LinearLayout>(R.id.result1).visibility = View.GONE
             findViewById<LinearLayout>(R.id.result2).visibility = View.VISIBLE
+            findViewById<LinearLayout>(R.id.result3).visibility = View.GONE
 
             var num1 = findViewById<TextView>(R.id.num1)
             var num2 = findViewById<TextView>(R.id.num2)
@@ -120,9 +124,17 @@ class MainActivity11 : AppCompatActivity() {
                 adapter.setHigh(result.get(0).first)
             }
             view = "a"
+        } else if (adapter.calType == 13) {
+            findViewById<LinearLayout>(R.id.result1).visibility = View.GONE
+            findViewById<LinearLayout>(R.id.result2).visibility = View.GONE
+            findViewById<LinearLayout>(R.id.result3).visibility = View.VISIBLE
+
+            result13Adapter.setType(1)
+            result13Adapter.notify_(result13)
         } else {
             findViewById<LinearLayout>(R.id.result1).visibility = View.VISIBLE
             findViewById<LinearLayout>(R.id.result2).visibility = View.GONE
+            findViewById<LinearLayout>(R.id.result3).visibility = View.GONE
 
             findViewById<GridView>(R.id.sortGrid).visibility = View.VISIBLE
             findViewById<GridView>(R.id.avrageGrid).visibility = View.GONE
@@ -131,6 +143,10 @@ class MainActivity11 : AppCompatActivity() {
 
     private fun planB() {
         if (adapter.calType == 10) {
+            findViewById<LinearLayout>(R.id.result1).visibility = View.GONE
+            findViewById<LinearLayout>(R.id.result2).visibility = View.VISIBLE
+            findViewById<LinearLayout>(R.id.result3).visibility = View.GONE
+
             var num1 = findViewById<TextView>(R.id.num1)
             var num2 = findViewById<TextView>(R.id.num2)
             if (result.size == 0) {
@@ -151,16 +167,33 @@ class MainActivity11 : AppCompatActivity() {
                 adapter.setHigh(result.get(0).first)
             }
             view = "b"
-        }
-        else{   findViewById<GridView>(R.id.sortGrid).visibility = View.GONE
+        } else if (adapter.calType == 13) {
+            findViewById<LinearLayout>(R.id.result1).visibility = View.GONE
+            findViewById<LinearLayout>(R.id.result2).visibility = View.GONE
+            findViewById<LinearLayout>(R.id.result3).visibility = View.VISIBLE
+
+            result13Adapter.setType(0)
+            result13Adapter.notify_(result13)
+        } else {
+            findViewById<LinearLayout>(R.id.result1).visibility = View.VISIBLE
+            findViewById<LinearLayout>(R.id.result2).visibility = View.GONE
+            findViewById<LinearLayout>(R.id.result3).visibility = View.GONE
+
+            findViewById<GridView>(R.id.sortGrid).visibility = View.GONE
             findViewById<GridView>(R.id.avrageGrid).visibility = View.VISIBLE
         }
     }
+
     var result = arrayListOf<Pair<String, Double>>()
     var view = "a"
-
+    var result13 = arrayListOf<Data_13>()
+    val result13Adapter by lazy { HLResultAdapter(this, arrayListOf(), 1) }
     private fun recal() {
-        if (adapter.calType == 10) {
+        if (AppData.dataList.size != 25) {
+            AppData.dataList = Logic.getData()
+            adapter.notify_()
+
+        } else if (adapter.calType == 10) {
             val result_ = NewLogic.calResult10_GroupNew(AppData.dataList)
             AppData.dataList = result_.second
             AppData.resultList.clear()
@@ -177,6 +210,26 @@ class MainActivity11 : AppCompatActivity() {
                 planB()
             adapter.notify_()
 
+        } else if (adapter.calType == 13) {
+            val result_ = NewLogic2.calResult13(AppData.dataList)
+            AppData.resultList.clear()
+            AppData.averageList.clear()
+            averageAdapter.clear()
+            result.clear()
+            result13.clear()
+
+            //descending for old
+            result_.forEach {
+                result13.add(it)
+            }
+            if (view == "a")
+                planA()
+            else
+                planB()
+
+            adapter.setHigh(result13.get(0).name)
+
+            adapter.notify_()
         } else {
             if (adapter.calType == 11)
                 AppData.dataList = NewLogic.calResult11P(AppData.dataList)
@@ -203,7 +256,10 @@ class MainActivity11 : AppCompatActivity() {
             resultAdapter.notifyDataSetChanged()
             averageAdapter.addAll(AppData.averageList)
             adapter.notify_()
-
+            if (view == "a")
+                planA()
+            else
+                planB()
         }
     }
 

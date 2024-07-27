@@ -66,7 +66,9 @@ class GridAdapter(
         } else {
             courseLL.setBackgroundColor(context_.getColor(R.color.white))
 
-            if (calType == 12) {
+            if (calType == 13) {
+                courseTV.text = "O"
+            } else if (calType == 12) {
                 if (data.finalValue2 != -1.0) {
                     courseTV.text = data.finalValue2.roundOffDecimal4().toString()
                 }
@@ -128,6 +130,12 @@ class GridAdapter(
                 else
                     courseLL2.setBackgroundDrawable(context_.getDrawable(R.drawable.plain))
             }
+        } else if (calType == 13) {
+            val selcted = NewLogic2.GROUP_ARRAY.find { it.first == higher }?.second ?: arrayListOf()
+            if (selcted.contains(position + 1))
+                courseLL2.setBackgroundDrawable(context_.getDrawable(R.drawable.border))
+            else
+                courseLL2.setBackgroundDrawable(context_.getDrawable(R.drawable.plain))
         } else {
             courseLL2.setBackgroundDrawable(context_.getDrawable(R.drawable.plain))
         }
