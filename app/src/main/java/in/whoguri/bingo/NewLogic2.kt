@@ -5,7 +5,7 @@ import `in`.whoguri.bingo.Logic.CORNERS
 import `in`.whoguri.bingo.Logic.getHV
 import `in`.whoguri.bingo.Logic.getSel
 
-class Data_13(val name: String, val result: Double)
+class Data_13(val name: String, val result: Double, val noWhite: Int, val noWhitePlus: Int)
 object NewLogic2 {
     val GROUP_IN = arrayListOf(2, 3, 12, 22, 23)
     val GROUP_NG = arrayListOf(3, 4, 14, 23, 24)
@@ -31,8 +31,14 @@ object NewLogic2 {
             val noWhite = getSel(item.second, list).filter { item -> !item.isClicked }.size
 
             var word = ""
+            var other = 0
+
             getSel(item.second, list).filter { item -> !item.isClicked }.forEach {
                 word = word + it.code
+                if (arrayOf("IN", "NG", "IG").contains(item.first))
+                    other = other + getSel(it.h, list).filter { item -> !item.isClicked }.size
+                else
+                    other = other + getSel(it.v, list).filter { item -> !item.isClicked }.size
             }
             val uniqueChars = mutableSetOf<Char>()
 
@@ -48,10 +54,12 @@ object NewLogic2 {
                 res = (noWhite.toDouble() / noBingo).roundOffDecimal2()
 
             Log.e(">>>> ", item.first + " " + res)
-            result.add(Data_13(item.first, res))
+            result.add(Data_13(item.first, res, noWhite, noWhite + other))
         }
         val temp = arrayListOf<Data_13>()
-        result.sortedByDescending { it.result }.forEach {
+        val sortedList = result.sortedWith(compareByDescending<Data_13> { it.result }.thenByDescending { it.noWhite }.thenByDescending { it.noWhitePlus })
+
+        sortedList.forEach {
             temp.add(it)
         }
 
