@@ -286,9 +286,9 @@ class MainActivity11 : AppCompatActivity() {
         var o_size = AppData.dataList.filter { !arrayListOf(1, 7, 19, 25, 5, 9, 17, 21).contains(it.number) }.filter { it.isClicked }.size
         val xo_btn = findViewById<TextView>(R.id.btn_XO)
         if (x_size == 0 && o_size == 0)
-            xo_btn.text = " "
+            xo_btn.text = "  "
         else if (x_size * 2 == o_size)
-            xo_btn.text = " "
+            xo_btn.text = "  "
         else if (x_size * 2 > o_size)
             xo_btn.text = "X"
         else

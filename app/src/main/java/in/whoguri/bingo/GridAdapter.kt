@@ -36,8 +36,20 @@ class GridAdapter(
         notify_()
     }
 
+    var others = arrayListOf<Int>()
     fun setHigh(shine_: String) {
         higher = shine_
+        others.clear()
+        NewLogic2.GROUP_ARRAY.find { it.first == higher }?.second?.forEach { k ->
+            val d = AppData.dataList.find { it.number == k }!!
+            Logic.getSel(d.v, AppData.dataList).forEach { it ->
+                if (!it.isClicked) others.add(it.number);
+            }
+            Logic.getSel(d.h, AppData.dataList).forEach { it ->
+                if (!it.isClicked) others.add(it.number);
+            }
+        }
+
         notify_()
     }
 
@@ -132,10 +144,14 @@ class GridAdapter(
             }
         } else if (calType == 13) {
             val selcted = NewLogic2.GROUP_ARRAY.find { it.first == higher }?.second ?: arrayListOf()
-            if (selcted.contains(position + 1))
+            if (selcted.contains(position + 1)) {
                 courseLL2.setBackgroundDrawable(context_.getDrawable(R.drawable.border))
-            else
-                courseLL2.setBackgroundDrawable(context_.getDrawable(R.drawable.plain))
+            } else {
+                if (others.contains(data.number))
+                    courseLL2.setBackgroundDrawable(context_.getDrawable(R.drawable.border2))
+                else
+                    courseLL2.setBackgroundDrawable(context_.getDrawable(R.drawable.plain))
+            }
         } else {
             courseLL2.setBackgroundDrawable(context_.getDrawable(R.drawable.plain))
         }

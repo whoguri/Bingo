@@ -28,17 +28,17 @@ object NewLogic2 {
         if (list.size != 25)
             return result
         GROUP_ARRAY.forEachIndexed { i, item ->
-            val noWhite = getSel(item.second, list).filter { item -> !item.isClicked }.size
+            val noWhite = getSel(item.second, list).filter { item_w -> !item_w.isClicked  }.size // && !item.second.contains(item_w.number)
 
             var word = ""
             var other = 0
 
-            getSel(item.second, list).filter { item -> !item.isClicked }.forEach {
+            getSel(item.second, list).filter { item_s -> !item_s.isClicked }.forEach {
                 word = word + it.code
-                if (arrayOf("IN", "NG", "IG").contains(item.first))
-                    other = other + getSel(it.h, list).filter { item -> !item.isClicked }.size
-                else
-                    other = other + getSel(it.v, list).filter { item -> !item.isClicked }.size
+//                if (arrayOf("IN", "NG", "IG").contains(item.first))
+                    other = other + getSel(it.h, list).filter { item_o -> !item_o.isClicked && !item.second.contains(item_o.number)}.size //
+//                else
+                    other = other + getSel(it.v, list).filter { item_o -> !item_o.isClicked && !item.second.contains(item_o.number)}.size //
             }
             val uniqueChars = mutableSetOf<Char>()
 
@@ -53,7 +53,6 @@ object NewLogic2 {
             if (noBingo > 0)
                 res = (noWhite.toDouble() / noBingo).roundOffDecimal2()
 
-            Log.e(">>>> ", item.first + " " + res)
             result.add(Data_13(item.first, res, noWhite, noWhite + other))
         }
         val temp = arrayListOf<Data_13>()
@@ -62,6 +61,7 @@ object NewLogic2 {
 
         sortedList.forEach {
             temp.add(it)
+            Log.e(">>>> ", it.name + ": " + it.result +" "+it.noWhite +" " +it.noWhitePlus)
         }
 
         return temp
