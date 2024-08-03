@@ -57,7 +57,8 @@ object NewLogic2 {
             result.add(Data_13(item.first, res, noWhite, noWhite + other))
         }
         val temp = arrayListOf<Data_13>()
-        val sortedList = result.sortedWith(compareByDescending<Data_13> { it.result }.thenByDescending { it.noWhite }.thenByDescending { it.noWhitePlus })
+        val sortedList = result.sortedWith(compareByDescending<Data_13> { it.result }.thenByDescending { it.noWhitePlus })
+        //.thenByDescending { it.noWhite }
 
         sortedList.forEach {
             temp.add(it)

@@ -19,7 +19,8 @@ class MainActivity11 : AppCompatActivity() {
             data.isClicked = !b
             AppData.dataList[it] = data
             if (AppData.dataList.filter { it.isClicked }.isEmpty()) {
-                restart()
+                AppData.reset()
+                recal()
                 return@GridAdapter
             } else {
                 recal()
@@ -68,11 +69,16 @@ class MainActivity11 : AppCompatActivity() {
         planA()
         changeTab(13)
         findViewById<LinearLayout>(R.id.resetD).setOnClickListener {
-            Logic.clickDs()
+            if (Logic.getSel(arrayListOf(1, 7, 19, 25, 5, 9, 17, 21), AppData.dataList).filter { it.isClicked }.size == 8)
+                Logic.clickDs(false)
+            else
+                Logic.clickDs(true)
             recal()
         }
         findViewById<LinearLayout>(R.id.restart).setOnClickListener {
-            restart()
+            AppData.reset()
+            Logic.clickDs()
+            recal()
         }
         findViewById<Button>(R.id.btn1).setOnClickListener {
             planA()
@@ -261,13 +267,6 @@ class MainActivity11 : AppCompatActivity() {
             else
                 planB()
         }
-    }
-
-    fun restart() {
-        AppData.reset()
-        startActivity(Intent(this, MainActivity11::class.java))
-        overridePendingTransition(0, 0)
-        finishAffinity()
     }
 
     override fun onResume() {

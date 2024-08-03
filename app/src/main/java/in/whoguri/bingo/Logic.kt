@@ -1040,13 +1040,13 @@ object Logic {
         return list
     }
 
-    fun clickDs() {
+    fun clickDs(click:Boolean = true) {
         val list = AppData.dataList
         val newList = getData()
         for (i in 1..25) {
             if (arrayListOf(1, 7, 19, 25, 5, 9, 17, 21).contains(i)) {
                 val item = newList[i - 1]
-                item.isClicked = true
+                item.isClicked = click
                 list[i - 1] = item
             }
         }
