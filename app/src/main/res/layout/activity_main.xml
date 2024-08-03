@@ -90,22 +90,21 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/btn"
-            android:backgroundTint="@color/white"
-            android:paddingHorizontal="12dp"
+            android:background="@drawable/btn2"
+            android:paddingHorizontal="8dp"
             android:paddingVertical="12dp">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:id="@+id/btn_XO"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="12dp"
+                android:layout_marginHorizontal="8dp"
                 android:layout_marginVertical="0dp"
                 android:padding="8px"
                 android:text="X"
                 android:textAlignment="center"
                 android:textColor="@color/red"
-                android:textSize="48dp" />
+                android:textSize="42dp" />
         </LinearLayout>
         <LinearLayout
             android:id="@+id/restart"
@@ -115,7 +114,7 @@
             android:background="@drawable/btn"
             android:gravity="center"
             android:orientation="vertical"
-            android:padding="8dp">
+            android:padding="6dp">
 
             <TextView
                 android:id="@+id/title_"
@@ -151,19 +150,19 @@
             android:layout_height="wrap_content"
             android:background="@drawable/btn"
             android:backgroundTint="@color/white"
-            android:paddingHorizontal="12dp"
+            android:paddingHorizontal="8dp"
             android:paddingVertical="12dp">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="12dp"
+                android:layout_marginHorizontal="8dp"
                 android:layout_marginVertical="0dp"
                 android:padding="8px"
                 android:text="D"
                 android:textAlignment="center"
                 android:textColor="@color/purple_500"
-                android:textSize="48dp" />
+                android:textSize="42dp" />
         </LinearLayout>
     </LinearLayout>
 

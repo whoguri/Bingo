@@ -267,6 +267,33 @@ class MainActivity11 : AppCompatActivity() {
             else
                 planB()
         }
+        xo()
+    }
+
+    fun xo() {
+        //    We have 8 diagonal tile and other 16 tiles , when they are all
+        //    white so it will be empty (kind of tie- tie here is when the ratio
+        //    is 1 to 2)
+        //    Also in any other situation like this I mean ratio wise, if there
+        //    are 6 diagonal tile white and 12 of the others so it will still be
+        //    empty.
+        //    When the ratio will be more towards the diagonal tile for
+        //        example 6 diagonal tile are white and 11 of the others white so
+        //    X, and if the ratio is towards the others , for example 6 diagonal
+        //    tiles and 13 of the other so “O”
+
+        var x_size = Logic.getSel(arrayListOf(1, 7, 19, 25, 5, 9, 17, 21), AppData.dataList).filter { it.isClicked }.size
+        var o_size = AppData.dataList.filter { !arrayListOf(1, 7, 19, 25, 5, 9, 17, 21).contains(it.number) }.filter { it.isClicked }.size
+        val xo_btn = findViewById<TextView>(R.id.btn_XO)
+        if (x_size == 0 && o_size == 0)
+            xo_btn.text = " "
+        else if (x_size * 2 == o_size)
+            xo_btn.text = " "
+        else if (x_size * 2 > o_size)
+            xo_btn.text = "X"
+        else
+            xo_btn.text = "O"
+
     }
 
     override fun onResume() {
