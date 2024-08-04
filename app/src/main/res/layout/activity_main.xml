@@ -265,7 +265,7 @@
                 android:id="@+id/btn3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="C" />
+                android:text="T" />
         </LinearLayout>
         <LinearLayout
             android:layout_width="0dp"
@@ -324,6 +324,24 @@
             android:layoutDirection="ltr"
             android:numColumns="5"
             tools:listitem="@layout/item_" />
+
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/result_t"
+        android:layout_width="match_parent"
+        android:layout_height="224dp"
+        android:background="#FFB6F2"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="4dp">
+
+        <GridView
+            android:id="@+id/t_Grid"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layoutDirection="ltr"
+            android:numColumns="5"
+            tools:listitem="@layout/item_trans" />
 
     </LinearLayout>
 

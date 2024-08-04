@@ -1,8 +1,6 @@
 package `in`.whoguri.bingo
 
-import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.GridView
@@ -32,6 +30,9 @@ class MainActivity11 : AppCompatActivity() {
     }
     val averageAdapter by lazy {
         ResultAdapter(this, AppData.averageList)
+    }
+    val tAdapter by lazy {
+        ResultAdapter(this, arrayListOf("1", "2", "3", "4", "5", "6", "7", "8", "9", "10"), true)
     }
 
     fun changeTab(no: Int) {
@@ -66,6 +67,8 @@ class MainActivity11 : AppCompatActivity() {
         findViewById<GridView>(R.id.sortGrid).adapter = resultAdapter
         findViewById<GridView>(R.id.avrageGrid).adapter = averageAdapter
         findViewById<GridView>(R.id.hlGrid).adapter = result13Adapter
+        findViewById<GridView>(R.id.t_Grid).adapter = tAdapter
+
         planA()
         changeTab(13)
         findViewById<LinearLayout>(R.id.resetD).setOnClickListener {
@@ -86,6 +89,9 @@ class MainActivity11 : AppCompatActivity() {
         findViewById<Button>(R.id.btn2).setOnClickListener {
             planB()
         }
+        findViewById<Button>(R.id.btn3).setOnClickListener {
+            planT()
+        }
         findViewById<TextView>(R.id.cal_1).setOnClickListener {
             changeTab(11)
         }
@@ -104,6 +110,8 @@ class MainActivity11 : AppCompatActivity() {
     }
 
     private fun planA() {
+        findViewById<LinearLayout>(R.id.result_t).visibility = View.GONE
+        view = "a"
         result13Adapter.clear()
         if (adapter.calType == 10) {
             findViewById<LinearLayout>(R.id.result1).visibility = View.GONE
@@ -129,7 +137,6 @@ class MainActivity11 : AppCompatActivity() {
                 }
                 adapter.setHigh(result.get(0).first)
             }
-            view = "a"
         } else if (adapter.calType == 13) {
             findViewById<LinearLayout>(R.id.result1).visibility = View.GONE
             findViewById<LinearLayout>(R.id.result2).visibility = View.GONE
@@ -148,6 +155,9 @@ class MainActivity11 : AppCompatActivity() {
     }
 
     private fun planB() {
+        findViewById<LinearLayout>(R.id.result_t).visibility = View.GONE
+        view = "b"
+
         if (adapter.calType == 10) {
             findViewById<LinearLayout>(R.id.result1).visibility = View.GONE
             findViewById<LinearLayout>(R.id.result2).visibility = View.VISIBLE
@@ -172,7 +182,6 @@ class MainActivity11 : AppCompatActivity() {
                 }
                 adapter.setHigh(result.get(0).first)
             }
-            view = "b"
         } else if (adapter.calType == 13) {
             findViewById<LinearLayout>(R.id.result1).visibility = View.GONE
             findViewById<LinearLayout>(R.id.result2).visibility = View.GONE
@@ -190,10 +199,19 @@ class MainActivity11 : AppCompatActivity() {
         }
     }
 
+    private fun planT() {
+        findViewById<LinearLayout>(R.id.result1).visibility = View.GONE
+        findViewById<LinearLayout>(R.id.result2).visibility = View.GONE
+        findViewById<LinearLayout>(R.id.result3).visibility = View.GONE
+        findViewById<LinearLayout>(R.id.result_t).visibility = View.VISIBLE
+        view = "t"
+    }
+
     var result = arrayListOf<Pair<String, Double>>()
     var view = "a"
     var result13 = arrayListOf<Data_13>()
     val result13Adapter by lazy { HLResultAdapter(this, arrayListOf(), 1) }
+
     private fun recal() {
         if (AppData.dataList.size != 25) {
             AppData.dataList = Logic.getData()
@@ -212,6 +230,8 @@ class MainActivity11 : AppCompatActivity() {
             }
             if (view == "a")
                 planA()
+            else if (view == "t")
+                planT()
             else
                 planB()
             adapter.notify_()
@@ -230,6 +250,8 @@ class MainActivity11 : AppCompatActivity() {
             }
             if (view == "a")
                 planA()
+            else if (view == "t")
+                planT()
             else
                 planB()
 
@@ -264,6 +286,8 @@ class MainActivity11 : AppCompatActivity() {
             adapter.notify_()
             if (view == "a")
                 planA()
+            else if (view == "t")
+                planT()
             else
                 planB()
         }
