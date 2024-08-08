@@ -295,17 +295,6 @@ class MainActivity11 : AppCompatActivity() {
     }
 
     fun xo() {
-        //    We have 8 diagonal tile and other 16 tiles , when they are all
-        //    white so it will be empty (kind of tie- tie here is when the ratio
-        //    is 1 to 2)
-        //    Also in any other situation like this I mean ratio wise, if there
-        //    are 6 diagonal tile white and 12 of the others so it will still be
-        //    empty.
-        //    When the ratio will be more towards the diagonal tile for
-        //        example 6 diagonal tile are white and 11 of the others white so
-        //    X, and if the ratio is towards the others , for example 6 diagonal
-        //    tiles and 13 of the other so “O”
-
         var x_size = Logic.getSel(arrayListOf(1, 7, 19, 25, 5, 9, 17, 21), AppData.dataList).filter { it.isClicked }.size
         var o_size = AppData.dataList.filter { !arrayListOf(1, 7, 19, 25, 5, 9, 17, 21).contains(it.number) }.filter { it.isClicked }.size
         val xo_btn = findViewById<TextView>(R.id.btn_XO)
@@ -314,64 +303,13 @@ class MainActivity11 : AppCompatActivity() {
         else if (x_size * 2 == o_size)
             xo_btn.text = "  "
         else if (x_size * 2 > o_size)
-            xo_btn.text = "X"
-        else
             xo_btn.text = "O"
-
+        else
+            xo_btn.text = "X"
     }
 
     override fun onResume() {
         super.onResume()
         recal()
     }
-
-//    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-//        menuInflater.inflate(R.menu.menu, menu)
-
-//        val item2: MenuItem = menu.findItem(R.id.button_item2)
-//        item2.setOnMenuItemClickListener { it ->
-//            startActivity(Intent(this, MainActivity6::class.java))
-//            overridePendingTransition(0, 0)
-//            return@setOnMenuItemClickListener true
-//        }
-//        val item3: MenuItem = menu.findItem(R.id.button_item3)
-//        item3.setOnMenuItemClickListener { it ->
-//            startActivity(Intent(this, MainActivity::class.java))
-//            overridePendingTransition(0, 0)
-//            return@setOnMenuItemClickListener true
-//        }
-//
-//        val item7: MenuItem = menu.findItem(R.id.button_item7)
-//        item7.setOnMenuItemClickListener { it ->
-//            startActivity(Intent(this, MainActivity7::class.java))
-//            overridePendingTransition(0, 0)
-//            return@setOnMenuItemClickListener true
-//        }
-//        val item8: MenuItem = menu.findItem(R.id.button_item8)
-//        item8.setOnMenuItemClickListener { it ->
-//            startActivity(Intent(this, MainActivity8::class.java))
-//            overridePendingTransition(0, 0)
-//            return@setOnMenuItemClickListener true
-//        }
-//        val item1: MenuItem = menu.findItem(R.id.button_item1)
-//        item1.setOnMenuItemClickListener { it ->
-//            startActivity(Intent(this, MainActivity5::class.java))
-//            overridePendingTransition(0, 0)
-//            return@setOnMenuItemClickListener true
-//        }
-//        val item9: MenuItem = menu.findItem(R.id.button_item9)
-//        item9.setOnMenuItemClickListener { it ->
-//            startActivity(Intent(this, MainActivity9::class.java))
-//            overridePendingTransition(0, 0)
-//            return@setOnMenuItemClickListener true
-//        }
-//        val item10: MenuItem = menu.findItem(R.id.button_item10)
-//        item10.setOnMenuItemClickListener { it ->
-//            startActivity(Intent(this, MainActivity10::class.java))
-//            overridePendingTransition(0, 0)
-//            return@setOnMenuItemClickListener true
-//        }
-//        return true
-//    }
-
 }
