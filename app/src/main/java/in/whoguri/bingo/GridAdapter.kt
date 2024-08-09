@@ -2,7 +2,6 @@ package `in`.whoguri.bingo
 
 
 import android.content.Context
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -43,10 +42,14 @@ class GridAdapter(
         NewLogic2.GROUP_ARRAY.find { it.first == higher }?.second?.forEach { k ->
             val d = AppData.dataList.find { it.number == k }!!
             Logic.getSel(d.v, AppData.dataList).forEach { it ->
-                if (!it.isClicked) others.add(it.number);
+                if (!it.isClicked) {
+                    others.add(it.number)
+                }
             }
             Logic.getSel(d.h, AppData.dataList).forEach { it ->
-                if (!it.isClicked) others.add(it.number);
+                if (!it.isClicked) {
+                    others.add(it.number)
+                }
             }
         }
 
@@ -64,7 +67,7 @@ class GridAdapter(
         val courseLL = listitemView.findViewById<LinearLayout>(R.id.numLL)
 
         listitemView.setOnClickListener {
-            call(position, data!!.isClicked)
+            call(position, data.isClicked)
             notifyDataSetChanged()
         }
 
@@ -72,9 +75,11 @@ class GridAdapter(
             courseTV.text = "X"
             listitemView.setOnClickListener {}
             courseLL.setBackgroundColor(context_.getColor(R.color.black))
-        } else if (data!!.isClicked) {
+        } else if (data.isClicked) {
             courseTV.text = ""
             courseLL.setBackgroundColor(context_.getColor(R.color.purple))
+//            courseLL.setBackgroundDrawable(context_.getDrawable(R.drawable.plain))
+
         } else {
             courseLL.setBackgroundColor(context_.getColor(R.color.white))
 
@@ -92,10 +97,6 @@ class GridAdapter(
                 if (data.hidden != -1.0) {
                     courseTV.text = data.hidden.roundOffDecimal3().toString()
                 }
-//            } else if (calType == 9) {
-//                if (data.finalValue9 != -1.0) {
-//                    courseTV.text = data.finalValue9.roundOffDecimal3().toString()
-//                }
             } else if (calType == 8) {
                 if (data.finalValue8 != -1.0) {
                     courseTV.text = data.finalValue8.roundOffDecimal3().toString()
@@ -108,10 +109,6 @@ class GridAdapter(
                 if (data.finalValue6 != -1.0) {
                     courseTV.text = data.finalValue6.roundOffDecimal3().toString()
                 }
-//            } else if (calType == 5) {
-//                if (data.finalValue5 != -1.0) {
-//                    courseTV.text = data.finalValue5.roundOffDecimal3().toString()
-//                }
             } else if (calType == 4) {
                 if (data.finalValue4 != -1.0) {
                     courseTV.text = data.finalValue4.roundOffDecimal3().toString()
@@ -125,18 +122,17 @@ class GridAdapter(
                     courseTV.text = data.finalValue.toString()
                 }
             }
+
         }
 
         val courseLL2 = listitemView.findViewById<LinearLayout>(R.id.numLL2)
         if (calType == 10) {
             if (higher == "B-O") {
-//                if (arrayOf(6, 8, 10, 11, 15, 16, 18, 20).contains(position + 1))
                 if (data.group.contains("B-O"))
                     courseLL2.setBackgroundDrawable(context_.getDrawable(R.drawable.border))
                 else
                     courseLL2.setBackgroundDrawable(context_.getDrawable(R.drawable.plain))
             } else if (higher == "1-5") {
-//                if (arrayOf(2, 3, 4, 12, 14, 22, 23, 24).contains(position + 1))
                 if (data.group.contains("1-5"))
                     courseLL2.setBackgroundDrawable(context_.getDrawable(R.drawable.border))
                 else
@@ -144,11 +140,20 @@ class GridAdapter(
             }
         } else if (calType == 13) {
             val selcted = NewLogic2.GROUP_ARRAY.find { it.first == higher }?.second ?: arrayListOf()
-            if (selcted.contains(position + 1)) {
-                courseLL2.setBackgroundDrawable(context_.getDrawable(R.drawable.border))
+            if (!data.isClicked) {
+                if (selcted.contains(position + 1)) {
+                    courseTV.text = ""
+                    courseLL2.setBackgroundDrawable(context_.getDrawable(R.drawable.fill_red_2))
+                } else {
+                    if (others.contains(data.number)) {
+                        courseTV.text = ""
+                        courseLL2.setBackgroundDrawable(context_.getDrawable(R.drawable.fill_red_))
+                    } else
+                        courseLL2.setBackgroundDrawable(context_.getDrawable(R.drawable.plain))
+                }
             } else {
-                if (others.contains(data.number))
-                    courseLL2.setBackgroundDrawable(context_.getDrawable(R.drawable.border2))
+                if (selcted.contains(position + 1))
+                    courseLL2.setBackgroundDrawable(context_.getDrawable(R.drawable.border))
                 else
                     courseLL2.setBackgroundDrawable(context_.getDrawable(R.drawable.plain))
             }
