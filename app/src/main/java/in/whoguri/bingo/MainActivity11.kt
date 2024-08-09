@@ -56,7 +56,7 @@ class MainActivity11 : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        findViewById<TextView>(R.id.title_).text = "Bingo! 11"
+        findViewById<TextView>(R.id.title_).text = ""
         AppData.dataList = Logic.getData()
 
         val appLocale: LocaleListCompat = LocaleListCompat.forLanguageTags("en-us")
@@ -84,19 +84,22 @@ class MainActivity11 : AppCompatActivity() {
             recal()
         }
         findViewById<Button>(R.id.btn1).setOnClickListener {
+            view = "a"
             planA()
         }
         findViewById<Button>(R.id.btn2).setOnClickListener {
+            view = "b"
             planB()
         }
         findViewById<Button>(R.id.btn3).setOnClickListener {
+            view = "t"
             planT()
         }
         findViewById<TextView>(R.id.cal_1).setOnClickListener {
             changeTab(11)
         }
         findViewById<TextView>(R.id.cal_2).setOnClickListener {
-            changeTab(10)
+            changeTab(10) // hiden
         }
         findViewById<TextView>(R.id.cal_3).setOnClickListener {
             changeTab(1)
@@ -111,7 +114,6 @@ class MainActivity11 : AppCompatActivity() {
 
     private fun planA() {
         findViewById<LinearLayout>(R.id.result_t).visibility = View.GONE
-        view = "a"
         result13Adapter.clear()
         if (adapter.calType == 10) {
             findViewById<LinearLayout>(R.id.result1).visibility = View.GONE
@@ -156,7 +158,6 @@ class MainActivity11 : AppCompatActivity() {
 
     private fun planB() {
         findViewById<LinearLayout>(R.id.result_t).visibility = View.GONE
-        view = "b"
 
         if (adapter.calType == 10) {
             findViewById<LinearLayout>(R.id.result1).visibility = View.GONE
@@ -204,7 +205,6 @@ class MainActivity11 : AppCompatActivity() {
         findViewById<LinearLayout>(R.id.result2).visibility = View.GONE
         findViewById<LinearLayout>(R.id.result3).visibility = View.GONE
         findViewById<LinearLayout>(R.id.result_t).visibility = View.VISIBLE
-        view = "t"
     }
 
     var result = arrayListOf<Pair<String, Double>>()
@@ -228,12 +228,6 @@ class MainActivity11 : AppCompatActivity() {
             result_.first.sortedBy { it.second }.forEach {
                 result.add(it)
             }
-            if (view == "a")
-                planA()
-            else if (view == "t")
-                planT()
-            else
-                planB()
             adapter.notify_()
 
         } else if (adapter.calType == 13) {
@@ -248,15 +242,7 @@ class MainActivity11 : AppCompatActivity() {
             result_.forEach {
                 result13.add(it)
             }
-            if (view == "a")
-                planA()
-            else if (view == "t")
-                planT()
-            else
-                planB()
-
             adapter.setHigh(result13.get(0).name)
-
             adapter.notify_()
         } else {
             if (adapter.calType == 11)
@@ -273,24 +259,26 @@ class MainActivity11 : AppCompatActivity() {
                 }
             }
             AppData.resultList.clear()
-            AppData.averageList.clear()
-            averageAdapter.clear()
+            resultAdapter.clear()
             temp.sortedByDescending { it.finalValue2 }.forEach {
                 if (AppData.resultList.size < 10 && it.number != 13) {
                     AppData.resultList.add(it.code)
                 }
             }
+            resultAdapter.addAll(AppData.resultList)
+            
+            AppData.averageList.clear()
+            averageAdapter.clear()
             AppData.averageList = Logic.calAverage2(AppData.dataList)
-            resultAdapter.notifyDataSetChanged()
             averageAdapter.addAll(AppData.averageList)
             adapter.notify_()
-            if (view == "a")
-                planA()
-            else if (view == "t")
-                planT()
-            else
-                planB()
         }
+        if (view == "a")
+            planA()
+        else if (view == "t")
+            planT()
+        else
+            planB()
         xo()
     }
 
