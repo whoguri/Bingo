@@ -1,7 +1,5 @@
-package `in`.whoguri.bingo
+package `in`.whoguri.bingo.helpers
 
-import android.util.Log
-import java.math.BigInteger
 import java.math.RoundingMode
 
 fun Double.roundOffDecimal(n: Int, mode: RoundingMode = RoundingMode.HALF_EVEN): Double {

@@ -12,70 +12,70 @@
         android:theme="@style/Theme.Bingo"
         tools:targetApi="31">
         <activity
-            android:name=".MainActivity"
+            android:name=".oldscreens.MainActivity"
             android:exported="true">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MainActivity11" />
         </activity>
         <activity
-            android:name=".MainActivity2"
+            android:name=".oldscreens.MainActivity2"
             android:exported="true">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MainActivity11" />
         </activity>
         <activity
-            android:name=".MainActivity4"
+            android:name=".oldscreens.MainActivity4"
             android:exported="true">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MainActivity11" />
         </activity>
         <activity
-            android:name=".MainActivity3"
+            android:name=".oldscreens.MainActivity3"
             android:exported="true">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MainActivity11" />
         </activity>
         <activity
-            android:name=".MainActivity6"
+            android:name=".oldscreens.MainActivity6"
             android:exported="true">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MainActivity11" />
         </activity>
         <activity
-            android:name=".MainActivity7"
+            android:name=".oldscreens.MainActivity7"
             android:exported="true">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MainActivity11" />
         </activity>
         <activity
-            android:name=".MainActivity8"
+            android:name=".oldscreens.MainActivity8"
             android:exported="true">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MainActivity11" />
         </activity>
         <activity
-            android:name=".MainActivity5"
+            android:name=".oldscreens.MainActivity5"
             android:exported="true">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MainActivity11" />
         </activity>
         <activity
-            android:name=".MainActivity9"
+            android:name=".oldscreens.MainActivity9"
             android:exported="true">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MainActivity11" />
         </activity>
         <activity
-            android:name=".MainActivity10"
+            android:name=".oldscreens.MainActivity10"
             android:exported="true">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"

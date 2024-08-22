@@ -7,7 +7,7 @@
     android:gravity="center_horizontal"
     android:layoutDirection="ltr"
     android:orientation="vertical"
-    tools:context=".MainActivity">
+    tools:context=".oldscreens.MainActivity">
 
     <LinearLayout
         android:layout_width="match_parent"

@@ -1,9 +1,7 @@
-package `in`.whoguri.bingo
+package `in`.whoguri.bingo.oldscreens
 
 import android.content.Intent
 import android.os.Bundle
-import android.view.Menu
-import android.view.MenuItem
 import android.widget.Button
 import android.widget.GridView
 import android.widget.LinearLayout
@@ -11,6 +9,12 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.os.LocaleListCompat
+import `in`.whoguri.bingo.AppData
+import `in`.whoguri.bingo.adapters.GridAdapter
+import `in`.whoguri.bingo.helpers.Logic
+import `in`.whoguri.bingo.helpers.NewLogic
+import `in`.whoguri.bingo.R
+import `in`.whoguri.bingo.adapters.ResultAdapter
 
 class MainActivity10 : AppCompatActivity() {
     val adapter by lazy {

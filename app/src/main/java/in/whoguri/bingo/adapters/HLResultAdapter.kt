@@ -1,4 +1,4 @@
-package `in`.whoguri.bingo
+package `in`.whoguri.bingo.adapters
 
 
 import android.content.Context
@@ -7,6 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.TextView
+import `in`.whoguri.bingo.helpers.Data_13
+import `in`.whoguri.bingo.R
 
 class HLResultAdapter(val context_: Context, val list: ArrayList<Data_13>, val type: Int) : ArrayAdapter<Data_13>(context_, 0, list) {
     var calType: Int = 0

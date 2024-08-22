@@ -1,4 +1,4 @@
-package `in`.whoguri.bingo
+package `in`.whoguri.bingo.adapters
 
 
 import android.content.Context
@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.TextView
+import `in`.whoguri.bingo.R
 import java.util.Locale
 
 class ResultAdapter(val context_: Context, val list: MutableList<String>, val isTras: Boolean = false) :

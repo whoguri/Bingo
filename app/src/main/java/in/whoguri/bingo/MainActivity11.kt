@@ -9,6 +9,13 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.os.LocaleListCompat
+import `in`.whoguri.bingo.adapters.GridAdapter
+import `in`.whoguri.bingo.adapters.HLResultAdapter
+import `in`.whoguri.bingo.adapters.ResultAdapter
+import `in`.whoguri.bingo.helpers.Data_13
+import `in`.whoguri.bingo.helpers.Logic
+import `in`.whoguri.bingo.helpers.NewLogic
+import `in`.whoguri.bingo.helpers.NewLogic2
 
 class MainActivity11 : AppCompatActivity() {
     val adapter by lazy {

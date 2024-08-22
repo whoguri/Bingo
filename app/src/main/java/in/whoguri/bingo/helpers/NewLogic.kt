@@ -1,9 +1,10 @@
-package `in`.whoguri.bingo
+package `in`.whoguri.bingo.helpers
 
 import android.util.Log
-import `in`.whoguri.bingo.Logic.CORNERS
-import `in`.whoguri.bingo.Logic.getHV
-import `in`.whoguri.bingo.Logic.getSel
+import `in`.whoguri.bingo.Data
+import `in`.whoguri.bingo.helpers.Logic.CORNERS
+import `in`.whoguri.bingo.helpers.Logic.getHV
+import `in`.whoguri.bingo.helpers.Logic.getSel
 
 object NewLogic {
     fun calResult12(list: ArrayList<Data>): ArrayList<Data> {
@@ -577,24 +578,24 @@ object NewLogic {
 
     fun calculateHidden11(list: ArrayList<Data>, data: Data, clicked: Int): Data {
         val h: Double = subValue_11(
-            Logic.getSel(data.h, list)
+            getSel(data.h, list)
                 .filter { item -> !item.isClicked && !isInvisible(list, item, clicked) }.size
         )
         val v: Double = subValue_11(
-            Logic.getSel(data.v, list)
+            getSel(data.v, list)
                 .filter { item -> !item.isClicked && !isInvisible(list, item, clicked) }.size
         )
         var d = 0.0
         if (data.d.size > 0) {
             d = subValue_11(
-                Logic.getSel(data.d, list)
+                getSel(data.d, list)
                     .filter { item -> !item.isClicked && !isInvisible(list, item, clicked) }.size
             )
         }
         var c = 0.0
         if (Logic.CORNERS.contains(clicked)) {
             c = subValue_11(
-                Logic.getSel(Logic.CORNERS, list)
+                getSel(CORNERS, list)
                     .filter { item -> !item.isClicked && !isInvisible(list, item, clicked) }.size
             )
         }
@@ -623,8 +624,8 @@ object NewLogic {
     }
 
     fun calculateHidden11p(list: ArrayList<Data>, data: Data): Data {
-        val h: Double = subValue_11(Logic.getSel(data.h, list).filter { item -> !item.isClicked }.size)
-        val v: Double = subValue_11(Logic.getSel(data.v, list).filter { item -> !item.isClicked }.size)
+        val h: Double = subValue_11(getSel(data.h, list).filter { item -> !item.isClicked }.size)
+        val v: Double = subValue_11(getSel(data.v, list).filter { item -> !item.isClicked }.size)
         var d = 0.0
         var c = 0.0
 

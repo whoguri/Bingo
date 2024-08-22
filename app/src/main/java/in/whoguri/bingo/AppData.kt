@@ -1,5 +1,7 @@
 package `in`.whoguri.bingo
 
+import `in`.whoguri.bingo.helpers.Logic
+
 object AppData {
     var dataList = Logic.getData()
     var resultList = ArrayList<String>()

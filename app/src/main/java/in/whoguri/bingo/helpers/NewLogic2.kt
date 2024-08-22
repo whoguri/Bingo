@@ -1,9 +1,8 @@
-package `in`.whoguri.bingo
+package `in`.whoguri.bingo.helpers
 
 import android.util.Log
-import `in`.whoguri.bingo.Logic.CORNERS
-import `in`.whoguri.bingo.Logic.getHV
-import `in`.whoguri.bingo.Logic.getSel
+import `in`.whoguri.bingo.Data
+import `in`.whoguri.bingo.helpers.Logic.getSel
 
 class Data_13(val name: String, val result: Double, val noWhite: Int, val noWhitePlus: Int)
 object NewLogic2 {

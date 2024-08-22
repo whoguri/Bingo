@@ -1,4 +1,7 @@
-package `in`.whoguri.bingo
+package `in`.whoguri.bingo.helpers
+
+import `in`.whoguri.bingo.AppData
+import `in`.whoguri.bingo.Data
 
 object Logic {
 

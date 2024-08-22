@@ -1,4 +1,4 @@
-package `in`.whoguri.bingo
+package `in`.whoguri.bingo.adapters
 
 
 import android.content.Context
@@ -8,6 +8,13 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.LinearLayout
 import android.widget.TextView
+import `in`.whoguri.bingo.AppData
+import `in`.whoguri.bingo.Data
+import `in`.whoguri.bingo.helpers.Logic
+import `in`.whoguri.bingo.helpers.NewLogic2
+import `in`.whoguri.bingo.R
+import `in`.whoguri.bingo.helpers.roundOffDecimal3
+import `in`.whoguri.bingo.helpers.roundOffDecimal4
 
 class GridAdapter(
     val context_: Context,

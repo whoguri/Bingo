@@ -1,4 +1,4 @@
-package `in`.whoguri.bingo
+package `in`.whoguri.bingo.oldscreens
 
 import android.content.Intent
 import android.os.Bundle
@@ -10,10 +10,16 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.os.LocaleListCompat
+import `in`.whoguri.bingo.AppData
+import `in`.whoguri.bingo.Data
+import `in`.whoguri.bingo.adapters.GridAdapter
+import `in`.whoguri.bingo.helpers.Logic
+import `in`.whoguri.bingo.R
+import `in`.whoguri.bingo.adapters.ResultAdapter
 
-class MainActivity7 : AppCompatActivity() {
+class MainActivity6 : AppCompatActivity() {
     val adapter by lazy {
-        GridAdapter(this, 7, AppData.dataList) { it, b ->
+        GridAdapter(this, 6, AppData.dataList) { it, b ->
             val data = AppData.dataList[it]
             data.isClicked = !b
             AppData.dataList[it] = data
@@ -36,7 +42,7 @@ class MainActivity7 : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        findViewById<TextView>(R.id.title_).text = "Bingo! 4"
+        findViewById<TextView>(R.id.title_).text = "Bingo! 2"
 
         val appLocale: LocaleListCompat = LocaleListCompat.forLanguageTags("en-us")
         AppCompatDelegate.setApplicationLocales(appLocale)
@@ -46,7 +52,6 @@ class MainActivity7 : AppCompatActivity() {
         findViewById<GridView>(R.id.sortGrid).adapter = resultAdapter
         findViewById<GridView>(R.id.avrageGrid).adapter = averageAdapter
         planA()
-
         findViewById<LinearLayout>(R.id.resetD).setOnClickListener {
             Logic.clickDs()
             recal()
@@ -74,24 +79,24 @@ class MainActivity7 : AppCompatActivity() {
     }
 
     private fun recal() {
-//        AppData.dataList = Logic.calResult5(AppData.dataList, 2)
+        AppData.dataList = Logic.calResult5(AppData.dataList, 2)
 //        AppData.dataList = Logic.calResult5(AppData.dataList, 1)
-        AppData.dataList = Logic.calResult7(AppData.dataList)
 //        AppData.dataList = Logic.calResult(AppData.dataList)
+//        AppData.dataList = Logic.calResult7(AppData.dataList)
 //        AppData.dataList = Logic.calResult8(AppData.dataList)
 //        AppData.dataList = NewLogic.calResult9(AppData.dataList)
-
+//
 //        AppData.dataList = Logic.calResult3(AppData.dataList)
         val temp = ArrayList<Data>()
         AppData.dataList.forEach {
-            if (it.finalValue7 > 0 && !it.isClicked) {
+            if (it.finalValue6 > 0 && !it.isClicked) {
                 temp.add(it)
             }
         }
         AppData.resultList.clear()
         AppData.averageList.clear()
         averageAdapter.clear()
-        temp.sortedByDescending { it.finalValue7 }.forEach {
+        temp.sortedByDescending { it.finalValue6 }.forEach {
             if (AppData.resultList.size < 10 && it.number != 13) {
                 AppData.resultList.add(it.code)
             }
@@ -102,12 +107,11 @@ class MainActivity7 : AppCompatActivity() {
 //                adapter3.notifyDataSetChanged()
         adapter.notify_()
 
-
     }
 
     fun restart() {
         AppData.reset()
-        startActivity(Intent(this, MainActivity7::class.java))
+        startActivity(Intent(this, MainActivity6::class.java))
         overridePendingTransition(0, 0)
         finishAffinity()
     }
@@ -117,14 +121,14 @@ class MainActivity7 : AppCompatActivity() {
         recal()
 //        val temp = ArrayList<Data>()
 //        AppData.dataList.forEach {
-//            if (it.finalValue7 > 0 && !it.isClicked) {
+//            if (it.finalValue6 > 0 && !it.isClicked) {
 //                temp.add(it)
 //            }
 //        }
 //        AppData.resultList.clear()
 //        AppData.averageList.clear()
 //        averageAdapter.clear()
-//        temp.sortedByDescending { it.finalValue7 }.forEach {
+//        temp.sortedByDescending { it.finalValue6 }.forEach {
 //            if (AppData.resultList.size < 10 && it.number != 13) {
 //                AppData.resultList.add(it.code)
 //            }
