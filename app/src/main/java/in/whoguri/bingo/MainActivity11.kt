@@ -13,13 +13,15 @@ import `in`.whoguri.bingo.adapters.GridAdapter
 import `in`.whoguri.bingo.adapters.HLResultAdapter
 import `in`.whoguri.bingo.adapters.ResultAdapter
 import `in`.whoguri.bingo.helpers.Data_13
+import `in`.whoguri.bingo.helpers.Data_13_2
 import `in`.whoguri.bingo.helpers.Logic
 import `in`.whoguri.bingo.helpers.NewLogic
+import `in`.whoguri.bingo.helpers.NewLogic13_2
 import `in`.whoguri.bingo.helpers.NewLogic2
 
 class MainActivity11 : AppCompatActivity() {
     val adapter by lazy {
-        GridAdapter(this, 13, AppData.dataList) { it, b ->
+        GridAdapter(this, 132, AppData.dataList) { it, b ->
             val data = AppData.dataList[it]
             data.isClicked = !b
             AppData.dataList[it] = data
@@ -44,17 +46,13 @@ class MainActivity11 : AppCompatActivity() {
 
     fun changeTab(no: Int) {
         adapter.setType(no)
-//        findViewById<TextView>(R.id.cal_1)
-//        findViewById<TextView>(R.id.cal_2)
-//        findViewById<TextView>(R.id.cal_3)
-//        findViewById<TextView>(R.id.cal_4)
         val title = findViewById<TextView>(R.id.title_)
         when (no) {
             11 -> title.text = "Bingo! 11 P"
             10 -> title.text = "Bingo! G"
             1 -> title.text = "Bingo! 1"
-            12 -> title.text = "Bingo! 12"
             13 -> title.text = "Bingo! GT"
+            132 -> title.text = "Bingo! 13"
             else -> title.text = "Bingo!"
         }
         recal()
@@ -77,7 +75,7 @@ class MainActivity11 : AppCompatActivity() {
         findViewById<GridView>(R.id.t_Grid).adapter = tAdapter
 
         planA()
-        changeTab(13)
+        changeTab(132)
         findViewById<LinearLayout>(R.id.resetD).setOnClickListener {
             if (Logic.getSel(arrayListOf(1, 7, 19, 25, 5, 9, 17, 21), AppData.dataList).filter { it.isClicked }.size == 8)
                 Logic.clickDs(false)
@@ -112,7 +110,7 @@ class MainActivity11 : AppCompatActivity() {
             changeTab(1)
         }
         findViewById<TextView>(R.id.cal_4).setOnClickListener {
-            changeTab(12)
+            changeTab(132)
         }
         findViewById<TextView>(R.id.cal_5).setOnClickListener {
             changeTab(13)
@@ -120,12 +118,15 @@ class MainActivity11 : AppCompatActivity() {
     }
 
     private fun planA() {
+        findViewById<LinearLayout>(R.id.result1).visibility = View.GONE
+        findViewById<LinearLayout>(R.id.result2).visibility = View.GONE
+        findViewById<LinearLayout>(R.id.result3).visibility = View.GONE
         findViewById<LinearLayout>(R.id.result_t).visibility = View.GONE
+        findViewById<LinearLayout>(R.id.result13_2).visibility = View.GONE
+
         result13Adapter.clear()
         if (adapter.calType == 10) {
-            findViewById<LinearLayout>(R.id.result1).visibility = View.GONE
             findViewById<LinearLayout>(R.id.result2).visibility = View.VISIBLE
-            findViewById<LinearLayout>(R.id.result3).visibility = View.GONE
 
             var num1 = findViewById<TextView>(R.id.num1)
             var num2 = findViewById<TextView>(R.id.num2)
@@ -147,16 +148,23 @@ class MainActivity11 : AppCompatActivity() {
                 adapter.setHigh(result.get(0).first)
             }
         } else if (adapter.calType == 13) {
-            findViewById<LinearLayout>(R.id.result1).visibility = View.GONE
-            findViewById<LinearLayout>(R.id.result2).visibility = View.GONE
             findViewById<LinearLayout>(R.id.result3).visibility = View.VISIBLE
 
             result13Adapter.setType(1)
             result13Adapter.notify_(result13)
-        } else {
+        }  else if (adapter.calType == 132) {
+            findViewById<LinearLayout>(R.id.result13_2).visibility = View.VISIBLE
+            findViewById<TextView>(R.id._13_x_1).text =  result13_2.find { it.name=="X" }?.result?.get(0)?.first ?:""
+            findViewById<TextView>(R.id._13_bo_1).text =  result13_2.find { it.name=="BO" }?.result?.get(0)?.first ?:""
+            findViewById<TextView>(R.id._13_ig_1).text =  result13_2.find { it.name=="IG" }?.result?.get(0)?.first ?:""
+            findViewById<TextView>(R.id._13_n3_1).text =  result13_2.find { it.name=="N3" }?.result?.get(0)?.first ?:""
+
+            findViewById<TextView>(R.id._13_x_2).text =  result13_2.find { it.name=="X" }?.result?.get(1)?.first ?:""
+            findViewById<TextView>(R.id._13_bo_2).text =  result13_2.find { it.name=="BO" }?.result?.get(1)?.first ?:""
+            findViewById<TextView>(R.id._13_ig_2).text =  result13_2.find { it.name=="IG" }?.result?.get(1)?.first ?:""
+            findViewById<TextView>(R.id._13_n3_2).text =  result13_2.find { it.name=="N3" }?.result?.get(1)?.first ?:""
+        }else {
             findViewById<LinearLayout>(R.id.result1).visibility = View.VISIBLE
-            findViewById<LinearLayout>(R.id.result2).visibility = View.GONE
-            findViewById<LinearLayout>(R.id.result3).visibility = View.GONE
 
             findViewById<GridView>(R.id.sortGrid).visibility = View.VISIBLE
             findViewById<GridView>(R.id.avrageGrid).visibility = View.GONE
@@ -164,12 +172,14 @@ class MainActivity11 : AppCompatActivity() {
     }
 
     private fun planB() {
+        findViewById<LinearLayout>(R.id.result1).visibility = View.GONE
+        findViewById<LinearLayout>(R.id.result2).visibility = View.GONE
+        findViewById<LinearLayout>(R.id.result3).visibility = View.GONE
         findViewById<LinearLayout>(R.id.result_t).visibility = View.GONE
+        findViewById<LinearLayout>(R.id.result13_2).visibility = View.GONE
 
         if (adapter.calType == 10) {
-            findViewById<LinearLayout>(R.id.result1).visibility = View.GONE
             findViewById<LinearLayout>(R.id.result2).visibility = View.VISIBLE
-            findViewById<LinearLayout>(R.id.result3).visibility = View.GONE
 
             var num1 = findViewById<TextView>(R.id.num1)
             var num2 = findViewById<TextView>(R.id.num2)
@@ -191,16 +201,23 @@ class MainActivity11 : AppCompatActivity() {
                 adapter.setHigh(result.get(0).first)
             }
         } else if (adapter.calType == 13) {
-            findViewById<LinearLayout>(R.id.result1).visibility = View.GONE
-            findViewById<LinearLayout>(R.id.result2).visibility = View.GONE
             findViewById<LinearLayout>(R.id.result3).visibility = View.VISIBLE
 
             result13Adapter.setType(0)
             result13Adapter.notify_(result13)
-        } else {
+        } else if (adapter.calType == 132) {
+            findViewById<LinearLayout>(R.id.result13_2).visibility = View.VISIBLE
+            findViewById<TextView>(R.id._13_x_1).text =  result13_2.find { it.name=="X" }?.result?.get(0)?.second?.toString() ?:""
+            findViewById<TextView>(R.id._13_bo_1).text =  result13_2.find { it.name=="BO" }?.result?.get(0)?.second?.toString() ?:""
+            findViewById<TextView>(R.id._13_ig_1).text =  result13_2.find { it.name=="IG" }?.result?.get(0)?.second?.toString() ?:""
+            findViewById<TextView>(R.id._13_n3_1).text =  result13_2.find { it.name=="N3" }?.result?.get(0)?.second?.toString() ?:""
+
+            findViewById<TextView>(R.id._13_x_2).text =  result13_2.find { it.name=="X" }?.result?.get(1)?.second?.toString() ?:""
+            findViewById<TextView>(R.id._13_bo_2).text =  result13_2.find { it.name=="BO" }?.result?.get(1)?.second?.toString() ?:""
+            findViewById<TextView>(R.id._13_ig_2).text =  result13_2.find { it.name=="IG" }?.result?.get(1)?.second?.toString() ?:""
+            findViewById<TextView>(R.id._13_n3_2).text =  result13_2.find { it.name=="N3" }?.result?.get(1)?.second?.toString() ?:""
+        }else {
             findViewById<LinearLayout>(R.id.result1).visibility = View.VISIBLE
-            findViewById<LinearLayout>(R.id.result2).visibility = View.GONE
-            findViewById<LinearLayout>(R.id.result3).visibility = View.GONE
 
             findViewById<GridView>(R.id.sortGrid).visibility = View.GONE
             findViewById<GridView>(R.id.avrageGrid).visibility = View.VISIBLE
@@ -211,12 +228,14 @@ class MainActivity11 : AppCompatActivity() {
         findViewById<LinearLayout>(R.id.result1).visibility = View.GONE
         findViewById<LinearLayout>(R.id.result2).visibility = View.GONE
         findViewById<LinearLayout>(R.id.result3).visibility = View.GONE
+        findViewById<LinearLayout>(R.id.result13_2).visibility = View.GONE
         findViewById<LinearLayout>(R.id.result_t).visibility = View.VISIBLE
     }
 
     var result = arrayListOf<Pair<String, Double>>()
     var view = "a"
     var result13 = arrayListOf<Data_13>()
+    var result13_2 = arrayListOf<Data_13_2>()
     val result13Adapter by lazy { HLResultAdapter(this, arrayListOf(), 1) }
 
     private fun recal() {
@@ -250,6 +269,15 @@ class MainActivity11 : AppCompatActivity() {
                 result13.add(it)
             }
             adapter.setHigh(result13.get(0).name)
+            adapter.notify_()
+        } else if (adapter.calType == 132) {
+            result13_2 = NewLogic13_2.calResult(AppData.dataList)
+            AppData.resultList.clear()
+            AppData.averageList.clear()
+            averageAdapter.clear()
+            result.clear()
+            result13.clear()
+
             adapter.notify_()
         } else {
             if (adapter.calType == 11)
