@@ -1,5 +1,6 @@
 package `in`.whoguri.bingo
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
@@ -106,8 +107,8 @@ class MainActivity11 : AppCompatActivity() {
         findViewById<TextView>(R.id.cal_2).setOnClickListener {
             changeTab(10) // hiden
         }
-        findViewById<TextView>(R.id.cal_3).setOnClickListener {
-            changeTab(1)
+        findViewById<TextView>(R.id.cal_src).setOnClickListener {
+            startActivity(Intent(this, CallActivity::class.java))
         }
         findViewById<TextView>(R.id.cal_4).setOnClickListener {
             changeTab(132)
@@ -152,18 +153,18 @@ class MainActivity11 : AppCompatActivity() {
 
             result13Adapter.setType(1)
             result13Adapter.notify_(result13)
-        }  else if (adapter.calType == 132) {
+        } else if (adapter.calType == 132) {
             findViewById<LinearLayout>(R.id.result13_2).visibility = View.VISIBLE
-            findViewById<TextView>(R.id._13_x_1).text =  result13_2.find { it.name=="X" }?.result?.get(0)?.first ?:""
-            findViewById<TextView>(R.id._13_bo_1).text =  result13_2.find { it.name=="BO" }?.result?.get(0)?.first ?:""
-            findViewById<TextView>(R.id._13_ig_1).text =  result13_2.find { it.name=="IG" }?.result?.get(0)?.first ?:""
-            findViewById<TextView>(R.id._13_n3_1).text =  result13_2.find { it.name=="N3" }?.result?.get(0)?.first ?:""
+            findViewById<TextView>(R.id._13_x_1).text = result13_2.find { it.name == "X" }?.result?.get(0)?.first ?: ""
+            findViewById<TextView>(R.id._13_bo_1).text = result13_2.find { it.name == "BO" }?.result?.get(0)?.first ?: ""
+            findViewById<TextView>(R.id._13_ig_1).text = result13_2.find { it.name == "IG" }?.result?.get(0)?.first ?: ""
+            findViewById<TextView>(R.id._13_n3_1).text = result13_2.find { it.name == "N3" }?.result?.get(0)?.first ?: ""
 
-            findViewById<TextView>(R.id._13_x_2).text =  result13_2.find { it.name=="X" }?.result?.get(1)?.first ?:""
-            findViewById<TextView>(R.id._13_bo_2).text =  result13_2.find { it.name=="BO" }?.result?.get(1)?.first ?:""
-            findViewById<TextView>(R.id._13_ig_2).text =  result13_2.find { it.name=="IG" }?.result?.get(1)?.first ?:""
-            findViewById<TextView>(R.id._13_n3_2).text =  result13_2.find { it.name=="N3" }?.result?.get(1)?.first ?:""
-        }else {
+            findViewById<TextView>(R.id._13_x_2).text = result13_2.find { it.name == "X" }?.result?.get(1)?.first ?: ""
+            findViewById<TextView>(R.id._13_bo_2).text = result13_2.find { it.name == "BO" }?.result?.get(1)?.first ?: ""
+            findViewById<TextView>(R.id._13_ig_2).text = result13_2.find { it.name == "IG" }?.result?.get(1)?.first ?: ""
+            findViewById<TextView>(R.id._13_n3_2).text = result13_2.find { it.name == "N3" }?.result?.get(1)?.first ?: ""
+        } else {
             findViewById<LinearLayout>(R.id.result1).visibility = View.VISIBLE
 
             findViewById<GridView>(R.id.sortGrid).visibility = View.VISIBLE
@@ -207,16 +208,16 @@ class MainActivity11 : AppCompatActivity() {
             result13Adapter.notify_(result13)
         } else if (adapter.calType == 132) {
             findViewById<LinearLayout>(R.id.result13_2).visibility = View.VISIBLE
-            findViewById<TextView>(R.id._13_x_1).text =  result13_2.find { it.name=="X" }?.result?.get(0)?.second?.toString() ?:""
-            findViewById<TextView>(R.id._13_bo_1).text =  result13_2.find { it.name=="BO" }?.result?.get(0)?.second?.toString() ?:""
-            findViewById<TextView>(R.id._13_ig_1).text =  result13_2.find { it.name=="IG" }?.result?.get(0)?.second?.toString() ?:""
-            findViewById<TextView>(R.id._13_n3_1).text =  result13_2.find { it.name=="N3" }?.result?.get(0)?.second?.toString() ?:""
+            findViewById<TextView>(R.id._13_x_1).text = result13_2.find { it.name == "X" }?.result?.get(0)?.second?.toString() ?: ""
+            findViewById<TextView>(R.id._13_bo_1).text = result13_2.find { it.name == "BO" }?.result?.get(0)?.second?.toString() ?: ""
+            findViewById<TextView>(R.id._13_ig_1).text = result13_2.find { it.name == "IG" }?.result?.get(0)?.second?.toString() ?: ""
+            findViewById<TextView>(R.id._13_n3_1).text = result13_2.find { it.name == "N3" }?.result?.get(0)?.second?.toString() ?: ""
 
-            findViewById<TextView>(R.id._13_x_2).text =  result13_2.find { it.name=="X" }?.result?.get(1)?.second?.toString() ?:""
-            findViewById<TextView>(R.id._13_bo_2).text =  result13_2.find { it.name=="BO" }?.result?.get(1)?.second?.toString() ?:""
-            findViewById<TextView>(R.id._13_ig_2).text =  result13_2.find { it.name=="IG" }?.result?.get(1)?.second?.toString() ?:""
-            findViewById<TextView>(R.id._13_n3_2).text =  result13_2.find { it.name=="N3" }?.result?.get(1)?.second?.toString() ?:""
-        }else {
+            findViewById<TextView>(R.id._13_x_2).text = result13_2.find { it.name == "X" }?.result?.get(1)?.second?.toString() ?: ""
+            findViewById<TextView>(R.id._13_bo_2).text = result13_2.find { it.name == "BO" }?.result?.get(1)?.second?.toString() ?: ""
+            findViewById<TextView>(R.id._13_ig_2).text = result13_2.find { it.name == "IG" }?.result?.get(1)?.second?.toString() ?: ""
+            findViewById<TextView>(R.id._13_n3_2).text = result13_2.find { it.name == "N3" }?.result?.get(1)?.second?.toString() ?: ""
+        } else {
             findViewById<LinearLayout>(R.id.result1).visibility = View.VISIBLE
 
             findViewById<GridView>(R.id.sortGrid).visibility = View.GONE
@@ -301,7 +302,7 @@ class MainActivity11 : AppCompatActivity() {
                 }
             }
             resultAdapter.addAll(AppData.resultList)
-            
+
             AppData.averageList.clear()
             averageAdapter.clear()
             AppData.averageList = Logic.calAverage2(AppData.dataList)
