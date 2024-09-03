@@ -73,13 +73,40 @@ object NewLogic2 {
 
         list.forEach {
             if (!it.isClicked) {
-                val vList = getSel(it.v, list, true)
                 val hList = getSel(it.h, list, true)
-                var notInSym = false
-                if (hList.size > 1 && vList.size > 1) {
+                var notInSym = true
+                if (hList.size > 1 && getSel(it.v, list, true).size > 1) {
 //                    notInSym = false
-
-
+                    hList.forEach { hIt ->
+                        if (notInSym) {
+                            if (hIt.number != it.number) {
+                                val vList = getSel(hIt.v, list, true)
+                                vList.forEach { vIt ->
+                                    if (hIt.number != vIt.number) {
+                                        val hList2 = getSel(vIt.h, list, true)
+                                        hList2.forEach { hIt2 ->
+                                            if (hIt2.number != vIt.number) {
+                                                val vList2 = getSel(hIt2.v, list, true)
+                                                vList2.forEach { vIt2 ->
+                                                    if (hIt2.number != vIt2.number) {
+                                                        if (it.number == vIt2.number) {
+                                                            var c = 0
+                                                            if (hIt.d.size > 0) c = c + 1
+                                                            if (vIt.d.size > 0) c = c + 1
+                                                            if (hIt2.d.size > 0) c = c + 1
+                                                            if (vIt2.d.size > 0) c = c + 1
+                                                            if (c <= 1)
+                                                                notInSym = false
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
                 } else {
                     notInSym = true
                 }
@@ -89,5 +116,4 @@ object NewLogic2 {
         }
         return result
     }
-
 }
