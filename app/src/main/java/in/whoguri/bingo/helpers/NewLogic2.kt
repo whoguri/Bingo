@@ -27,7 +27,7 @@ object NewLogic2 {
         if (list.size != 25)
             return result
         GROUP_ARRAY.forEachIndexed { i, item ->
-            val noWhite = getSel(item.second, list).filter { item_w -> !item_w.isClicked  }.size // && !item.second.contains(item_w.number)
+            val noWhite = getSel(item.second, list).filter { item_w -> !item_w.isClicked }.size // && !item.second.contains(item_w.number)
 
             var word = ""
             var other = 0
@@ -35,9 +35,9 @@ object NewLogic2 {
             getSel(item.second, list).filter { item_s -> !item_s.isClicked }.forEach {
                 word = word + it.code
 //                if (arrayOf("IN", "NG", "IG").contains(item.first))
-                    other = other + getSel(it.h, list).filter { item_o -> !item_o.isClicked && !item.second.contains(item_o.number)}.size //
+                other = other + getSel(it.h, list).filter { item_o -> !item_o.isClicked && !item.second.contains(item_o.number) }.size //
 //                else
-                    other = other + getSel(it.v, list).filter { item_o -> !item_o.isClicked && !item.second.contains(item_o.number)}.size //
+                other = other + getSel(it.v, list).filter { item_o -> !item_o.isClicked && !item.second.contains(item_o.number) }.size //
             }
             val uniqueChars = mutableSetOf<Char>()
 
@@ -60,9 +60,34 @@ object NewLogic2 {
 
         sortedList.forEach {
             temp.add(it)
-            Log.e(">>>> ", it.name + ": " + it.result +" "+it.noWhite +" " +it.noWhitePlus)
+            Log.e(">>>> ", it.name + ": " + it.result + " " + it.noWhite + " " + it.noWhitePlus)
         }
 
         return temp
     }
+
+    fun calResult133(list: ArrayList<Data>): ArrayList<Int> {
+        var result = arrayListOf<Int>()
+        if (list.size != 25)
+            return result
+
+        list.forEach {
+            if (!it.isClicked) {
+                val vList = getSel(it.v, list, true)
+                val hList = getSel(it.h, list, true)
+                var notInSym = false
+                if (hList.size > 1 && vList.size > 1) {
+//                    notInSym = false
+
+
+                } else {
+                    notInSym = true
+                }
+                if (notInSym)
+                    result.add(it.number)
+            }
+        }
+        return result
+    }
+
 }

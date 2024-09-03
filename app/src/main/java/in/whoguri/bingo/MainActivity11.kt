@@ -22,7 +22,7 @@ import `in`.whoguri.bingo.helpers.NewLogic2
 
 class MainActivity11 : AppCompatActivity() {
     val adapter by lazy {
-        GridAdapter(this, 132, AppData.dataList) { it, b ->
+        GridAdapter(this, 133, AppData.dataList) { it, b ->
             val data = AppData.dataList[it]
             data.isClicked = !b
             AppData.dataList[it] = data
@@ -52,7 +52,8 @@ class MainActivity11 : AppCompatActivity() {
             11 -> title.text = "Bingo! 11 P"
             10 -> title.text = "Bingo! G"
             1 -> title.text = "Bingo! 1"
-            13 -> title.text = "Bingo! GT"
+//            13 -> title.text = "Bingo! GT"
+            133 -> title.text = "Bingo! GT"
             132 -> title.text = "Bingo! 13"
             else -> title.text = "Bingo!"
         }
@@ -76,7 +77,7 @@ class MainActivity11 : AppCompatActivity() {
         findViewById<GridView>(R.id.t_Grid).adapter = tAdapter
 
         planA()
-        changeTab(132)
+        changeTab(133)
         findViewById<LinearLayout>(R.id.resetD).setOnClickListener {
             if (Logic.getSel(arrayListOf(1, 7, 19, 25, 5, 9, 17, 21), AppData.dataList).filter { it.isClicked }.size == 8)
                 Logic.clickDs(false)
@@ -86,7 +87,7 @@ class MainActivity11 : AppCompatActivity() {
         }
         findViewById<LinearLayout>(R.id.restart).setOnClickListener {
             AppData.reset()
-            Logic.clickDs()
+//            Logic.clickDs()
             recal()
         }
         findViewById<Button>(R.id.btn1).setOnClickListener {
@@ -114,7 +115,7 @@ class MainActivity11 : AppCompatActivity() {
             changeTab(132)
         }
         findViewById<TextView>(R.id.cal_5).setOnClickListener {
-            changeTab(13)
+            changeTab(133)
         }
     }
 
@@ -148,6 +149,8 @@ class MainActivity11 : AppCompatActivity() {
                 }
                 adapter.setHigh(result.get(0).first)
             }
+        } else if (adapter.calType == 133) {
+
         } else if (adapter.calType == 13) {
             findViewById<LinearLayout>(R.id.result3).visibility = View.VISIBLE
 
@@ -201,6 +204,9 @@ class MainActivity11 : AppCompatActivity() {
                 }
                 adapter.setHigh(result.get(0).first)
             }
+        } else if (adapter.calType == 133) {
+
+
         } else if (adapter.calType == 13) {
             findViewById<LinearLayout>(R.id.result3).visibility = View.VISIBLE
 
@@ -240,6 +246,13 @@ class MainActivity11 : AppCompatActivity() {
     val result13Adapter by lazy { HLResultAdapter(this, arrayListOf(), 1) }
 
     private fun recal() {
+        AppData.resultList.clear()
+        AppData.averageList.clear()
+        averageAdapter.clear()
+        result.clear()
+        result13.clear()
+        adapter.setGreensx(arrayListOf())
+
         if (AppData.dataList.size != 25) {
             AppData.dataList = Logic.getData()
             adapter.notify_()
@@ -257,6 +270,9 @@ class MainActivity11 : AppCompatActivity() {
             }
             adapter.notify_()
 
+        } else if (adapter.calType == 133) {
+            val result13_3 = NewLogic2.calResult133(AppData.dataList)
+            adapter.setGreensx(result13_3)
         } else if (adapter.calType == 13) {
             val result_ = NewLogic2.calResult13(AppData.dataList)
             AppData.resultList.clear()

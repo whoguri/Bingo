@@ -10,9 +10,9 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import `in`.whoguri.bingo.AppData
 import `in`.whoguri.bingo.Data
+import `in`.whoguri.bingo.R
 import `in`.whoguri.bingo.helpers.Logic
 import `in`.whoguri.bingo.helpers.NewLogic2
-import `in`.whoguri.bingo.R
 import `in`.whoguri.bingo.helpers.roundOffDecimal3
 import `in`.whoguri.bingo.helpers.roundOffDecimal4
 
@@ -25,6 +25,7 @@ class GridAdapter(
     ArrayAdapter<Data>(context_, 0, list) {
     var calType: Int = 0
     var higher: String = ""
+    var greens = arrayListOf<Int>()
 
     init {
         calType = type
@@ -39,6 +40,11 @@ class GridAdapter(
     fun setType(type_: Int) {
         calType = type_
         higher = ""
+        notify_()
+    }
+
+    fun setGreensx(greens_: ArrayList<Int>) {
+        greens = greens_
         notify_()
     }
 
@@ -90,7 +96,7 @@ class GridAdapter(
         } else {
             courseLL.setBackgroundColor(context_.getColor(R.color.white))
 
-            if (calType == 13) {
+            if (calType == 13 || calType == 133) {
                 courseTV.text = "O"
             } else if (calType == 12) {
                 if (data.finalValue2 != -1.0) {
@@ -162,6 +168,14 @@ class GridAdapter(
                 if (selcted.contains(position + 1))
                     courseLL2.setBackgroundDrawable(context_.getDrawable(R.drawable.border))
                 else
+                    courseLL2.setBackgroundDrawable(context_.getDrawable(R.drawable.plain))
+            }
+        } else if (calType == 133) {
+            if (position !== 12) {
+                if (greens.contains(data.number)) {
+                    courseTV.text = ""
+                    courseLL2.setBackgroundDrawable(context_.getDrawable(R.drawable.fill_green_))
+                } else
                     courseLL2.setBackgroundDrawable(context_.getDrawable(R.drawable.plain))
             }
         } else {

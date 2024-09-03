@@ -63,13 +63,16 @@ object Logic {
         return allData
     }
 
-    fun getSel(all: ArrayList<Int>, list: ArrayList<Data>): ArrayList<Data> {
+    fun getSel(all: ArrayList<Int>, list: ArrayList<Data>, onlyWhite: Boolean = false): ArrayList<Data> {
         val allData = arrayListOf<Data>()
 
         list.forEach {
             val has = all.filter { i -> i == it.number }.isNotEmpty()
             if (has) {
-                allData.add(it)
+                if (onlyWhite && !it.isClicked)
+                    allData.add(it)
+                else if (!onlyWhite)
+                    allData.add(it)
             }
         }
         return allData
@@ -1043,7 +1046,7 @@ object Logic {
         return list
     }
 
-    fun clickDs(click:Boolean = true) {
+    fun clickDs(click: Boolean = true) {
         val list = AppData.dataList
         val newList = getData()
         for (i in 1..25) {
