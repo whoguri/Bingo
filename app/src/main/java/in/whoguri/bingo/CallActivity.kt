@@ -3,6 +3,7 @@ package `in`.whoguri.bingo
 import android.os.Bundle
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
 import `in`.whoguri.bingo.helpers.roundOffDecimal2
 
 class CallActivity : AppCompatActivity() {
@@ -27,6 +28,11 @@ class CallActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_cal)
+        val toolbar: Toolbar = findViewById(R.id.toolbar)
+        setSupportActionBar(toolbar)
+        if (supportActionBar != null) {
+            supportActionBar!!.setDisplayHomeAsUpEnabled(true)
+        }
         tv_n_1 = findViewById(R.id.cal_n_1)
         tv_n_2 = findViewById(R.id.cal_n_2)
         tv_n_3 = findViewById(R.id.cal_n_3)
