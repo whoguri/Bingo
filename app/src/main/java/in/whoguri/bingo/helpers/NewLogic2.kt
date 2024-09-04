@@ -2,6 +2,7 @@ package `in`.whoguri.bingo.helpers
 
 import android.util.Log
 import `in`.whoguri.bingo.Data
+import `in`.whoguri.bingo.helpers.Logic.CORNERS
 import `in`.whoguri.bingo.helpers.Logic.getSel
 
 class Data_13(val name: String, val result: Double, val noWhite: Int, val noWhitePlus: Int)
@@ -72,7 +73,7 @@ object NewLogic2 {
             return result
 
         list.forEach {
-            if (!it.isClicked) {
+            if (!it.isClicked && !CORNERS.contains(it.number)) {
                 val hList = getSel(it.h, list, true)
                 var notInSym = true
                 if (hList.size > 1 && getSel(it.v, list, true).size > 1) {
@@ -91,10 +92,10 @@ object NewLogic2 {
                                                     if (hIt2.number != vIt2.number) {
                                                         if (it.number == vIt2.number) {
                                                             var c = 0
-                                                            if (hIt.d.size > 0) c = c + 1
-                                                            if (vIt.d.size > 0) c = c + 1
-                                                            if (hIt2.d.size > 0) c = c + 1
-                                                            if (vIt2.d.size > 0) c = c + 1
+                                                            if (hIt.d.size > 0 && !CORNERS.contains(hIt.number)) c = c + 1
+                                                            if (vIt.d.size > 0&& !CORNERS.contains(vIt.number)) c = c + 1
+                                                            if (hIt2.d.size > 0&& !CORNERS.contains(hIt2.number)) c = c + 1
+                                                            if (vIt2.d.size > 0&& !CORNERS.contains(vIt2.number)) c = c + 1
                                                             if (c <= 1)
                                                                 notInSym = false
                                                         }
