@@ -80,16 +80,16 @@ object NewLogic2 {
 //                    notInSym = false
                     hList.forEach { hIt ->
                         if (notInSym) {
-                            if (hIt.number != it.number) {
+                            if (hIt.number != it.number && !CORNERS.contains(hIt.number)) {
                                 val vList = getSel(hIt.v, list, true)
                                 vList.forEach { vIt ->
-                                    if (hIt.number != vIt.number) {
+                                    if (hIt.number != vIt.number && !CORNERS.contains(vIt.number)) {
                                         val hList2 = getSel(vIt.h, list, true)
                                         hList2.forEach { hIt2 ->
-                                            if (hIt2.number != vIt.number) {
+                                            if (hIt2.number != vIt.number && !CORNERS.contains(hIt2.number)) {
                                                 val vList2 = getSel(hIt2.v, list, true)
                                                 vList2.forEach { vIt2 ->
-                                                    if (hIt2.number != vIt2.number) {
+                                                    if (hIt2.number != vIt2.number && !CORNERS.contains(vIt2.number)) {
                                                         if (it.number == vIt2.number) {
                                                             var c = 0
                                                             if (hIt.d.size > 0 && !CORNERS.contains(hIt.number)) c = c + 1
