@@ -272,7 +272,7 @@ class MainActivity11 : AppCompatActivity() {
             adapter.notify_()
 
         } else if (adapter.calType == 133) {
-            val result13_3 = NewLogic2.calResult133(AppData.dataList)
+            val result13_3 = NewLogic2.calResult133_New(AppData.dataList)
             adapter.setGreensx(result13_3)
         } else if (adapter.calType == 13) {
             val result_ = NewLogic2.calResult13(AppData.dataList)
