@@ -22,7 +22,7 @@ import `in`.whoguri.bingo.helpers.NewLogic2
 
 class MainActivity11 : AppCompatActivity() {
     val adapter by lazy {
-        GridAdapter(this, 133, AppData.dataList) { it, b ->
+        GridAdapter(this, DEFAULT_CAL, AppData.dataList) { it, b ->
             val data = AppData.dataList[it]
             data.isClicked = !b
             AppData.dataList[it] = data
@@ -44,17 +44,18 @@ class MainActivity11 : AppCompatActivity() {
     val tAdapter by lazy {
         ResultAdapter(this, arrayListOf("1", "2", "3", "4", "5", "6", "7", "8", "9", "10"), true)
     }
-
+    val DEFAULT_CAL = 14
     fun changeTab(no: Int) {
         adapter.setType(no)
         val title = findViewById<TextView>(R.id.title_)
         when (no) {
             11 -> title.text = "Bingo! 11 P"
-            10 -> title.text = "Bingo! G"
-            1 -> title.text = "Bingo! 1"
+//            10 -> title.text = "Bingo! G"
+//            1 -> title.text = "Bingo! 1"
 //            13 -> title.text = "Bingo! GT"
             133 -> title.text = "Bingo! GT"
-            132 -> title.text = "Bingo! 13"
+//            132 -> title.text = "Bingo! 13"
+            14 -> title.text = "Bingo! 14"
             else -> title.text = "Bingo!"
         }
         recal()
@@ -77,7 +78,7 @@ class MainActivity11 : AppCompatActivity() {
         findViewById<GridView>(R.id.t_Grid).adapter = tAdapter
 
         planA()
-        changeTab(133)
+        changeTab(DEFAULT_CAL)
         findViewById<LinearLayout>(R.id.resetD).setOnClickListener {
             if (Logic.getSel(arrayListOf(1, 7, 19, 25, 5, 9, 17, 21), AppData.dataList).filter { it.isClicked }.size == 8)
                 Logic.clickDs(false)
@@ -112,7 +113,7 @@ class MainActivity11 : AppCompatActivity() {
             startActivity(Intent(this, CallActivity::class.java))
         }
         findViewById<TextView>(R.id.cal_4).setOnClickListener {
-            changeTab(132)
+            changeTab(14)
         }
         findViewById<TextView>(R.id.cal_5).setOnClickListener {
             changeTab(133)
@@ -271,7 +272,7 @@ class MainActivity11 : AppCompatActivity() {
             adapter.notify_()
 
         } else if (adapter.calType == 133) {
-            val result13_3 = NewLogic2.calResult133(AppData.dataList)
+            val result13_3 = NewLogic2.calResult133_New(AppData.dataList)
             adapter.setGreensx(result13_3)
         } else if (adapter.calType == 13) {
             val result_ = NewLogic2.calResult13(AppData.dataList)
@@ -303,6 +304,8 @@ class MainActivity11 : AppCompatActivity() {
                 AppData.dataList = Logic.calResult5(AppData.dataList)
             else if (adapter.calType == 12)
                 AppData.dataList = NewLogic.calResult12(AppData.dataList)
+            else if (adapter.calType == 14)
+                AppData.dataList = NewLogic.calResult14(AppData.dataList)
 
             val temp = ArrayList<Data>()
             AppData.dataList.forEach {

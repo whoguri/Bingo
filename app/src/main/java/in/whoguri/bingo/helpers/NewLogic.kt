@@ -7,6 +7,55 @@ import `in`.whoguri.bingo.helpers.Logic.getHV
 import `in`.whoguri.bingo.helpers.Logic.getSel
 
 object NewLogic {
+    fun calResult14(list: ArrayList<Data>): ArrayList<Data> {
+        if (list.size != 25)
+            return Logic.getData()
+        val mList = list
+        for (i in 1..25) {
+            val data = list[i - 1]
+            var all = getSel(data.h, list).filter { item -> !item.isClicked }.size.toDouble()
+            all = all + getSel(data.v, list).filter { item -> !item.isClicked }.size - 1
+
+//            if (CORNERS.contains(i)) {
+//                data.avrage = (data.avrage * 2).roundOffDecimal4()
+//            } else
+            if (data.d.size > 0) {
+                getSel(data.d, list).filter { item -> !item.isClicked }.forEach {
+                    if (it.number != data.number)
+                        all++
+                }
+            }
+            data.finalValue2 = (data.bingos / all).roundOffDecimal4()
+            mList[i - 1] = data
+        }
+//        for (i in 1..25) {
+//            val data = mList[i - 1]
+//            var count = 0
+//            var total = 0.0
+//            getHV(data, mList).forEach { itt ->
+//                if (!itt.isClicked && itt.number != data.number) {
+//                    getHV(itt, mList).forEach {
+//                        if (!it.isClicked && it.number != data.number) {
+//                            if(i==12) Log.e(">>>",it.avrage.toString() + data.avrage )
+//                            if (itt.number == it.number) {
+//                                total = total + ((it.avrage + data.avrage) / 2).roundOffDecimal4()
+//                            } else {
+//                                total = total + ((data.avrage + ((it.avrage + itt.avrage) / 2).roundOffDecimal4()) / 2).roundOffDecimal4()
+//                            }
+//                            count++
+//                        }
+//                    }
+//                }
+//            }
+//            if (i == 12) Log.e("::>>> B", data.code + " : " + total + " : " + count)
+//            if (count > 0)
+//                data.finalValue2 = (total / count).roundOffDecimal4()
+//            mList[i - 1] = data
+//        }
+
+        return mList
+    }
+
     fun calResult12(list: ArrayList<Data>): ArrayList<Data> {
         if (list.size != 25)
             return Logic.getData()
@@ -34,7 +83,7 @@ object NewLogic {
                 if (!itt.isClicked && itt.number != data.number) {
                     getHV(itt, mList).forEach {
                         if (!it.isClicked && it.number != data.number) {
-                            if(i==12) Log.e(">>>",it.avrage.toString() + data.avrage )
+                            if (i == 12) Log.e(">>>", it.avrage.toString() + data.avrage)
                             if (itt.number == it.number) {
                                 total = total + ((it.avrage + data.avrage) / 2).roundOffDecimal4()
                             } else {
@@ -77,11 +126,11 @@ object NewLogic {
         var isD = true
         for (i in 1..25) {
             val data = mList[i - 1]
-            val selected = Logic.getSel(getMarked(data.number), list).filter { !it.isClicked }
-            if (Logic.CORNERS.contains(data.number) && data.d.size > 0) {
+            val selected = getSel(getMarked(data.number), list).filter { !it.isClicked }
+            if (CORNERS.contains(data.number) && data.d.size > 0) {
                 if (selected.size <= 1)
                     isD = false
-            } else if (Logic.CORNERS.contains(data.number) || data.d.size > 0) {
+            } else if (CORNERS.contains(data.number) || data.d.size > 0) {
                 if (selected.size <= 3)
                     isD = false
             }
@@ -98,14 +147,14 @@ object NewLogic {
             return isInv
 //    for (i in 1..25) {
 //        val data = mList[i - 1]
-        val selected = Logic.getSel(getMarked(data.number), mList).filter { !it.isClicked }
+        val selected = getSel(getMarked(data.number), mList).filter { !it.isClicked }
         if (data.number == 5)
             Log.e(">>>>>>>>>>>>", selected.size.toString())
 
-        if (Logic.CORNERS.contains(data.number) && data.d.size > 0) {
+        if (CORNERS.contains(data.number) && data.d.size > 0) {
             if (selected.size <= 3)
                 isInv = true
-        } else if (Logic.CORNERS.contains(data.number) || data.d.size > 0) {
+        } else if (CORNERS.contains(data.number) || data.d.size > 0) {
             if (selected.size <= 1)
                 isInv = true
         }
@@ -124,7 +173,7 @@ object NewLogic {
     ): Data {
         var v = 0.0
         var vs: List<Data> =
-            Logic.getSel(data.v, list).filter { !it.isClicked && !isInvisible(list, it, clicked) }
+            getSel(data.v, list).filter { !it.isClicked && !isInvisible(list, it, clicked) }
 //        if (isD) {
 //            vs = Logic.getSel(data.v, list).filter { !it.isClicked }
 //        } else {
@@ -148,7 +197,7 @@ object NewLogic {
                 count++
                 v = v + data.subHiddenD
             }
-            if (Logic.CORNERS.contains(data.number)) {
+            if (CORNERS.contains(data.number)) {
                 count++
                 v = v + data.subHiddenC
             }
@@ -156,12 +205,12 @@ object NewLogic {
 
             vs.forEach {
                 if (it.number != data.number) {
-                    val hsInner = Logic.getSel(it.h, list)
+                    val hsInner = getSel(it.h, list)
                         .filter { !it.isClicked && !isInvisible(list, it, clicked) }
                     if (hsInner.size > 1) {
                         hasOther = true
                     }
-                    if (Logic.CORNERS.contains(it.number) || it.d.size > 0) {
+                    if (CORNERS.contains(it.number) || it.d.size > 0) {
                         v = v + it.hidden
                     } else {
                         v = v + it.subHiddenH
@@ -184,14 +233,14 @@ object NewLogic {
                     if (it.number == data.number) {
                         v += avrg
                     } else {
-                        val hsInner = Logic.getSel(it.h, list)
+                        val hsInner = getSel(it.h, list)
                             .filter { !it.isClicked && !isInvisible(list, it, clicked) }
                         var subAvrg = (avrg / hsInner.size).roundOffDecimal3()
                         hsInner.forEach { innerIt ->
                             if (it.number == innerIt.number) {
                                 v += subAvrg
                             } else {
-                                if (Logic.CORNERS.contains(innerIt.number) || innerIt.d.size > 0) {
+                                if (CORNERS.contains(innerIt.number) || innerIt.d.size > 0) {
                                     v = v + (subAvrg * innerIt.hidden).roundOffDecimal3()
                                 } else {
                                     v = v + (subAvrg * innerIt.subHiddenV).roundOffDecimal3()
@@ -207,7 +256,7 @@ object NewLogic {
         var h = 0.0
         var hs: List<Data>
 //        if (isD) {
-        hs = Logic.getSel(data.h, list).filter { !it.isClicked && !isInvisible(list, it, clicked) }
+        hs = getSel(data.h, list).filter { !it.isClicked && !isInvisible(list, it, clicked) }
 //        } else {
 //            hs = Logic.getSel(data.h, list).filter { !it.isClicked && (!Logic.DIAGONALS.contains(it.number) || it.number == clicked) }
 //        }
@@ -223,7 +272,7 @@ object NewLogic {
                 count++
                 h = h + data.subHiddenD
             }
-            if (Logic.CORNERS.contains(data.number)) {
+            if (CORNERS.contains(data.number)) {
                 count++
                 h = h + data.subHiddenC
             }
@@ -234,7 +283,7 @@ object NewLogic {
             hs.forEach {
                 if (it.number != data.number) {
 
-                    val vsInner = Logic.getSel(it.v, list)
+                    val vsInner = getSel(it.v, list)
                         .filter { !it.isClicked && !isInvisible(list, it, clicked) }
                     if (vsInner.size > 1) {
                         hasOther = true
@@ -244,7 +293,7 @@ object NewLogic {
 //                        }
                     }
 //                    else {
-                    if (Logic.CORNERS.contains(it.number) || it.d.size > 0) {
+                    if (CORNERS.contains(it.number) || it.d.size > 0) {
                         h = h + it.hidden
                     } else {
                         h = h + it.subHiddenV
@@ -269,7 +318,7 @@ object NewLogic {
                     if (it.number == data.number) {
                         h += avrg
                     } else {
-                        val vsInner = Logic.getSel(it.v, list)
+                        val vsInner = getSel(it.v, list)
                             .filter { !it.isClicked && !isInvisible(list, it, clicked) }
                         var subAvrg = (avrg / vsInner.size).roundOffDecimal3()
                         vsInner.forEach { innerIt ->
@@ -289,7 +338,7 @@ object NewLogic {
 
             var ds: List<Data>
 //            if (isD) {
-            ds = Logic.getSel(data.d, list)
+            ds = getSel(data.d, list)
                 .filter { !it.isClicked && !isInvisible(list, it, clicked) }
 //            } else {
 //                hs = Logic.getSel(data.h, list).filter { !it.isClicked && (!Logic.DIAGONALS.contains(it.number) || it.number == clicked) }
@@ -306,7 +355,7 @@ object NewLogic {
                     count++
                     d = d + data.subHiddenD
                 }
-                if (Logic.CORNERS.contains(data.number)) {
+                if (CORNERS.contains(data.number)) {
                     count++
                     d = d + data.subHiddenC
                 }
@@ -316,7 +365,7 @@ object NewLogic {
                 var hasOther = false
                 ds.forEach {
                     if (it.number != data.number) {
-                        val vsInner = Logic.getSel(it.d, list)
+                        val vsInner = getSel(it.d, list)
                             .filter { !it.isClicked && !isInvisible(list, it, clicked) }
                         if (vsInner.size > 1) {
                             hasOther = true
@@ -326,7 +375,7 @@ object NewLogic {
 //                        }
                         }
 //                    else {
-                        if (Logic.CORNERS.contains(it.number) || it.d.size > 0) {
+                        if (CORNERS.contains(it.number) || it.d.size > 0) {
                             d = d + it.hidden
                         } else {
                             d = d + it.subHiddenV
@@ -354,7 +403,7 @@ object NewLogic {
                                 Log.e("d: avg 2", d.toString())
 
                         } else {
-                            val dsInner = Logic.getSel(it.d, list)
+                            val dsInner = getSel(it.d, list)
                                 .filter { !it.isClicked && !isInvisible(list, it, clicked) }
                             var subAvrg = (avrg / dsInner.size).roundOffDecimal3()
                             dsInner.forEach { innerIt ->
@@ -381,10 +430,10 @@ object NewLogic {
         }
 
         var c = 0.0
-        if (Logic.CORNERS.contains(data.number)) {
+        if (CORNERS.contains(data.number)) {
             var cs: List<Data>
 //            if (isD) {
-            cs = Logic.getSel(Logic.CORNERS, list)
+            cs = getSel(CORNERS, list)
                 .filter { !it.isClicked && !isInvisible(list, it, clicked) }
 //            } else {
 //                hs = Logic.getSel(data.h, list).filter { !it.isClicked && (!Logic.DIAGONALS.contains(it.number) || it.number == clicked) }
@@ -401,7 +450,7 @@ object NewLogic {
                     count++
                     c = c + data.subHiddenD
                 }
-                if (Logic.CORNERS.contains(data.number)) {
+                if (CORNERS.contains(data.number)) {
                     count++
                     c = c + data.subHiddenC
                 }
@@ -411,7 +460,7 @@ object NewLogic {
                 var hasOther = false
                 cs.forEach {
                     if (it.number != data.number) {
-                        val vsInner = Logic.getSel(Logic.DIAGONALS, list)
+                        val vsInner = getSel(Logic.DIAGONALS, list)
                             .filter { !it.isClicked && !isInvisible(list, it, clicked) }
                         if (vsInner.size > 1) {
                             hasOther = true
@@ -421,7 +470,7 @@ object NewLogic {
 //                        }
                         }
 //                    else {
-                        if (Logic.CORNERS.contains(it.number) || it.d.size > 0) {
+                        if (CORNERS.contains(it.number) || it.d.size > 0) {
                             c = c + it.hidden
                         } else {
                             c = c + it.subHiddenV
@@ -446,7 +495,7 @@ object NewLogic {
                         if (it.number == data.number) {
                             c += avrg
                         } else {
-                            val csInner = Logic.getSel(Logic.CORNERS, list)
+                            val csInner = getSel(CORNERS, list)
                                 .filter { !it.isClicked && !isInvisible(list, it, clicked) }
                             var subAvrg = (avrg / csInner.size).roundOffDecimal3()
                             csInner.forEach { innerIt ->
@@ -472,7 +521,7 @@ object NewLogic {
     fun calculate11P(list: ArrayList<Data>, data: Data, clicked: Int, logN: Int? = null): Data {
         var v = 0.0
         var vs: List<Data>
-        vs = Logic.getSel(data.v, list).filter { !it.isClicked }
+        vs = getSel(data.v, list).filter { !it.isClicked }
 
         if (vs.size == 1) {
             v = 1.0
@@ -483,7 +532,7 @@ object NewLogic {
 
             vs.forEach {
                 if (it.number != data.number) {
-                    val hsInner = Logic.getSel(it.h, list).filter { !it.isClicked }
+                    val hsInner = getSel(it.h, list).filter { !it.isClicked }
                     if (hsInner.size > 1) {
                         var innerTotal: Double = it.subHiddenV + it.subHiddenH
                         var innerCount = 2
@@ -509,7 +558,7 @@ object NewLogic {
 
         var h = 0.0
         var hs: List<Data>
-        hs = Logic.getSel(data.h, list).filter { !it.isClicked }
+        hs = getSel(data.h, list).filter { !it.isClicked }
 
         if (hs.size == 1) {
             h = 1.0
@@ -521,7 +570,7 @@ object NewLogic {
             hs.forEach {
                 if (it.number != data.number) {
 
-                    val vsInner = Logic.getSel(it.v, list).filter { !it.isClicked }
+                    val vsInner = getSel(it.v, list).filter { !it.isClicked }
                     if (vsInner.size > 1) {
                         var innerTotal: Double = it.subHiddenV + it.subHiddenH
                         var innerCount = 2
@@ -593,7 +642,7 @@ object NewLogic {
             )
         }
         var c = 0.0
-        if (Logic.CORNERS.contains(clicked)) {
+        if (CORNERS.contains(clicked)) {
             c = subValue_11(
                 getSel(CORNERS, list)
                     .filter { item -> !item.isClicked && !isInvisible(list, item, clicked) }.size
@@ -707,7 +756,7 @@ object NewLogic {
             var group_15_count = 0.0
 
             if (index == 1 || index == 2 || index == 3)
-                if (Logic.getSel(it, list)
+                if (getSel(it, list)
                         .filter { !it.isClicked && it.group.contains("B-O") }.size > 0
                 ) {
                     it.forEach { no ->
@@ -718,7 +767,7 @@ object NewLogic {
                     }
                 }
             if (index == 0 || index == 2 || index == 4)
-                if (Logic.getSel(it, list)
+                if (getSel(it, list)
                         .filter { !it.isClicked && it.group.contains("1-5") }.size > 0
                 ) {
                     it.forEach { no ->
@@ -741,7 +790,7 @@ object NewLogic {
             var group_15_count = 0.0
 
             if (index == 0 || index == 2 || index == 4)
-                if (Logic.getSel(it, list)
+                if (getSel(it, list)
                         .filter { !it.isClicked && it.group.contains("B-O") }.size > 0
                 ) {
                     it.forEach { no ->
@@ -752,7 +801,7 @@ object NewLogic {
                     }
                 }
             if (index == 1 || index == 2 || index == 3)
-                if (Logic.getSel(it, list)
+                if (getSel(it, list)
                         .filter { !it.isClicked && it.group.contains("1-5") }.size > 0
                 ) {
                     it.forEach { no ->
@@ -821,15 +870,15 @@ object NewLogic {
     }
 
     fun calculateHidden9(list: ArrayList<Data>, data: Data, clicked: Int): Data {
-        val h: Double = (1.0 / Logic.getSel(data.h, list)
+        val h: Double = (1.0 / getSel(data.h, list)
             .filter { item -> !item.isClicked }.size).roundOffDecimal3()
-        val v: Double = (1.0 / Logic.getSel(data.v, list)
+        val v: Double = (1.0 / getSel(data.v, list)
             .filter { item -> !item.isClicked }.size).roundOffDecimal3()
-        val d: Double = (1.0 / Logic.getSel(data.d, list)
+        val d: Double = (1.0 / getSel(data.d, list)
             .filter { item -> !item.isClicked }.size).roundOffDecimal3()
         var c = 0.0
-        if (Logic.CORNERS.contains(clicked)) {
-            c = (1.0 / Logic.getSel(Logic.CORNERS, list)
+        if (CORNERS.contains(clicked)) {
+            c = (1.0 / getSel(CORNERS, list)
                 .filter { item -> !item.isClicked }.size).roundOffDecimal3()
         }
 
@@ -962,8 +1011,8 @@ object NewLogic {
             Log.e(">>>", total.toString())
         }
 
-        if (Logic.CORNERS.contains(clicked)) {
-            Logic.CORNERS.forEach {
+        if (CORNERS.contains(clicked)) {
+            CORNERS.forEach {
                 val d = list.filter { item -> item.number == it }.first()
                 if (!d.isClicked) {
                     if (d.number != clicked) {
@@ -1015,15 +1064,15 @@ object NewLogic {
     }
 
     fun calculateHidden9_dep(list: ArrayList<Data>, data: Data, clicked: Int): Data {
-        val h: Double = (1.0 / Logic.getSel(data.h, list)
+        val h: Double = (1.0 / getSel(data.h, list)
             .filter { item -> !item.isClicked }.size).roundOffDecimal3()
-        val v: Double = (1.0 / Logic.getSel(data.v, list)
+        val v: Double = (1.0 / getSel(data.v, list)
             .filter { item -> !item.isClicked }.size).roundOffDecimal3()
-        val d: Double = (1.0 / Logic.getSel(data.d, list)
+        val d: Double = (1.0 / getSel(data.d, list)
             .filter { item -> !item.isClicked }.size).roundOffDecimal3()
         var c = 0.0
-        if (Logic.CORNERS.contains(clicked)) {
-            c = (1.0 / Logic.getSel(Logic.CORNERS, list)
+        if (CORNERS.contains(clicked)) {
+            c = (1.0 / getSel(CORNERS, list)
                 .filter { item -> !item.isClicked }.size).roundOffDecimal3()
         }
 

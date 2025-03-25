@@ -93,9 +93,9 @@ object NewLogic2 {
                                                         if (it.number == vIt2.number) {
                                                             var c = 0
                                                             if (hIt.d.size > 0 && !CORNERS.contains(hIt.number)) c = c + 1
-                                                            if (vIt.d.size > 0&& !CORNERS.contains(vIt.number)) c = c + 1
-                                                            if (hIt2.d.size > 0&& !CORNERS.contains(hIt2.number)) c = c + 1
-                                                            if (vIt2.d.size > 0&& !CORNERS.contains(vIt2.number)) c = c + 1
+                                                            if (vIt.d.size > 0 && !CORNERS.contains(vIt.number)) c = c + 1
+                                                            if (hIt2.d.size > 0 && !CORNERS.contains(hIt2.number)) c = c + 1
+                                                            if (vIt2.d.size > 0 && !CORNERS.contains(vIt2.number)) c = c + 1
                                                             if (c <= 1)
                                                                 notInSym = false
                                                         }
@@ -111,6 +111,61 @@ object NewLogic2 {
                 } else {
                     notInSym = true
                 }
+                if (notInSym)
+                    result.add(it.number)
+            }
+        }
+        return result
+    }
+
+    fun calResult133_New(list: ArrayList<Data>): ArrayList<Int> {
+        var result = arrayListOf<Int>()
+        if (list.size != 25)
+            return result
+
+        list.forEach {
+            if (!it.isClicked && !CORNERS.contains(it.number)) {
+                val hList = getSel(it.h, list, true)
+                var notInSym = true
+                Log.e(">> "+ it.number, hList.size.toString() +" : "+ getSel(it.v, list, true).size )
+                if(getSel(it.h, list, true).filter { it.bingos==2 }.size > 2 || getSel(it.v, list, true).filter { it.bingos==2 }.size > 2) {
+                    notInSym= false
+                }else if (hList.size > 1 && getSel(it.v, list, true).size > 1) {
+//                    notInSym = false
+                    hList.forEach { hIt ->
+                        if (notInSym) {
+                            if (hIt.number != it.number && !CORNERS.contains(hIt.number)) {
+                                val vList = getSel(hIt.v, list, true)
+                                vList.forEach { vIt ->
+                                    if (hIt.number != vIt.number && !CORNERS.contains(vIt.number)) {
+                                        val hList2 = getSel(vIt.h, list, true)
+                                        hList2.forEach { hIt2 ->
+                                            if (hIt2.number != vIt.number && !CORNERS.contains(hIt2.number)) {
+                                                val vList2 = getSel(hIt2.v, list, true)
+                                                vList2.forEach { vIt2 ->
+                                                    if (hIt2.number != vIt2.number && !CORNERS.contains(vIt2.number)) {
+                                                        if (it.number == vIt2.number) {
+                                                            var c = 0
+                                                            if (hIt.d.size > 0 && !CORNERS.contains(hIt.number)) c = c + 1
+                                                            if (vIt.d.size > 0 && !CORNERS.contains(vIt.number)) c = c + 1
+                                                            if (hIt2.d.size > 0 && !CORNERS.contains(hIt2.number)) c = c + 1
+                                                            if (vIt2.d.size > 0 && !CORNERS.contains(vIt2.number)) c = c + 1
+                                                            if (c <= 1)
+                                                                notInSym = false
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                } else {
+                    notInSym = true
+                }
+                Log.e(">> "+ it.number, notInSym.toString()  )
                 if (notInSym)
                     result.add(it.number)
             }

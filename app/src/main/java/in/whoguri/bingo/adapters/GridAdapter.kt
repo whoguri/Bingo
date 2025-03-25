@@ -102,7 +102,7 @@ class GridAdapter(
                 if (data.finalValue2 != -1.0) {
                     courseTV.text = data.finalValue2.roundOffDecimal4().toString()
                 }
-            } else if (calType == 2 || calType == 11 || calType == 1 || calType == 9) {
+            } else if (calType == 14 ||calType == 11 || calType == 9||calType == 2 ||  calType == 1 ) {
                 if (data.finalValue2 != -1.0) {
                     courseTV.text = data.finalValue2.roundOffDecimal3().toString()
                 }
